@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
+//import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
+import { Facebook } from 'ionic-native';
 
-import {Http} from '@angular/http';
-import 'rxjs/add/operator/map';
 
 /*
   Generated class for the LoginPage page.
@@ -15,25 +14,47 @@ import 'rxjs/add/operator/map';
   templateUrl: 'build/pages/login/login.html',
 })
 export class LoginPage {
-  cordovaOauth: any;
+  test: any = 'test';
 
-  constructor(private navCtrl: NavController, public platform: Platform, public http: Http) {
-    this.cordovaOauth = new CordovaOauth(new Facebook({ clientId: "337592559713793", appScope: ["email,public_profile"] }));
+  constructor(private navCtrl: NavController, public platform: Platform) {
+    //this.cordovaOauth = new CordovaOauth(new Facebook({ clientId: "337592559713793", appScope: ["email,public_profile"] }));
   }
 
-  login() {
-    this.platform.ready().then(() => {
-      this.cordovaOauth.login().then((success) => {
-        //alert("RESULT: " + JSON.stringify(success));
-        let url = 'https://graph.facebook.com/me/fql?q=select%20name,email%20from%20user%20where%20uid=me()&access_token='+success.access_token;
-        alert('url='+url);
-        //, {params: {access_token: access_token, fields: "name,gender,location,picture", format: "json" }}).then(function(result) {
-        var response = this.http.get(url).map(res => res.json());
-        alert("RESULT: " + JSON.stringify(response));
-      }, (error) => {
-        alert(error);
-      });
-    });
-  }
+  fblogin(){
+      this.platform.ready().then(() => {
+        /*Facebook.login(["public_profile","email"]).then((result) => {
+          //result.accessToken;
+          this.test = JSON.stringify(result);
+          alert(JSON.stringify(result));
+        })*/
+        Facebook.login(["public_profile","email"]).then((result) => {
+            //alert('Logged in');
+            var userID = result.authResponse.userID;
+            Facebook.api(result.authResponse.userID+"/?fields=id,email,birthday,picture,name,gender", ["public_profile","email","user_birthday"]).then((result) => {
+              this.test = JSON.stringify(result);
+                alert(JSON.stringify(result));
+            }, function(error){
+                alert('error '+error);
+            })
+            //alert(JSON.stringify(result));
+            /*Facebook.getLoginStatus().then((result) => {
+              this.test = JSON.stringify(result);
+                alert(JSON.stringify(result));
+            }, function(error){
+                alert(error);
+            })*/
+        }, function(error){
+            alert(error);
+        })
+
+        /*Facebook.getLoginStatus().then((result) => {
+          this.test = JSON.stringify(result);
+            alert(JSON.stringify(result));
+        }, function(error){
+            alert(error);
+        })*/
+
+      })
+    }
 
 }

@@ -1,0 +1,44 @@
+ionic plugin add cordova-plugin-facebook4 --save --variable APP_ID=1234 --variable APP_NAME="RemaxThailand"
+
+
+ 224
+down vote
+	
+
+http://stackoverflow.com/questions/5306009/facebook-android-generate-key-hash
+
+1) Download Openssl from: here.
+
+2) Make a openssl folder in C drive
+
+3) Extract Zip files into this openssl folder created in C Drive.
+
+4) Copy the File debug.keystore from .android folder in my case (C:\Users\SYSTEM.android) and paste into JDK bin Folder in my case (C:\Program Files\Java\jdk1.6.0_05\bin)
+
+5) Open command prompt and give the path of JDK Bin folder in my case (C:\Program Files\Java\jdk1.6.0_05\bin).
+
+6) Copy the following code and hit enter
+
+    keytool -exportcert -alias androiddebugkey -keystore debug.keystore > c:\openssl\bin\debug.txt
+
+7) Now you need to enter password, Password = android.
+
+8) If you see in openssl Bin folder, you will get a file with the name of debug.txt
+
+9) Now either you can restart command prompt or work with existing command prompt
+
+10) get back to C drive and give the path of openssl Bin folder
+
+11) copy the following code and paste
+
+    openssl sha1 -binary debug.txt > debug_sha.txt
+
+12) you will get debug_sha.txt in openssl bin folder
+
+13) Again copy following code and paste
+
+    openssl base64 -in debug_sha.txt > debug_base64.txt
+
+14) you will get debug_base64.txt in openssl bin folder
+
+15) open debug_base64.txt file Here is your Key hash.
