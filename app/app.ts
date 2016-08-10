@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ionicBootstrap, Platform, Nav, Storage, SqlStorage } from 'ionic-angular';
+import { ionicBootstrap, Platform, Nav, Storage, SqlStorage, MenuController } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 
 import { ProductPage } from './pages/product/product';
@@ -18,9 +18,9 @@ class RemaxApp {
 
   rootPage: any = LoginPage;
   pages: Array<{ title: string, component: any, icon: string }>;
-  isLogin: any = false;
+  isLogin: boolean = false;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, public menu: MenuController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -54,9 +54,13 @@ class RemaxApp {
         this.isLogin = isLogin;
         if(this.isLogin){
           this.rootPage = ProductPage;
+          this.menu.swipeEnable(true);
+          this.menu.enable(true);
         }
         else {
           this.rootPage = LoginPage;
+          this.menu.swipeEnable(false);
+          this.menu.enable(false);
         }
       });
 

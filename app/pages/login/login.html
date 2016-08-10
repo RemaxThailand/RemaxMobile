@@ -1,13 +1,37 @@
-<ion-header>
-  <ion-navbar dark>
-    <button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>เข้าสู่ระบบ</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content padding class="darkBg">
 
+  <ion-grid>
+    <ion-row>
+      <ion-col width-5></ion-col>
+      <ion-col width-90>
+        <ion-list>
 
-<ion-content padding>
+          <ion-item>
+            <ion-label>
+              <ion-icon name="md-person"></ion-icon>
+            </ion-label>
+            <ion-input type="text" placeholder="ชื่อผู้ใช้"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>
+              <ion-icon name="md-lock"></ion-icon>
+            </ion-label>
+            <ion-input type="password" placeholder="รหัสผ่าน"></ion-input>
+          </ion-item>
+
+        </ion-list>
+      </ion-col>
+      <ion-col width-5></ion-col>
+    </ion-row>
+  <ion-row>
+      <ion-col width-5></ion-col>
+      <ion-col width-90>
+        <button block large (click)="login()">Sign In</button>
+      </ion-col>
+      <ion-col width-5></ion-col>
+    </ion-row>
+  </ion-grid>
+
 
 </ion-content>
