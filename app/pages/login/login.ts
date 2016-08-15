@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 //import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
-import { Facebook } from 'ionic-native';
-
+import { Facebook, BarcodeScanner } from 'ionic-native';
 
 /*
   Generated class for the LoginPage page.
@@ -20,41 +19,47 @@ export class LoginPage {
     //this.cordovaOauth = new CordovaOauth(new Facebook({ clientId: "337592559713793", appScope: ["email,public_profile"] }));
   }
 
-  fblogin(){
-      this.platform.ready().then(() => {
-        /*Facebook.login(["public_profile","email"]).then((result) => {
-          //result.accessToken;
-          this.test = JSON.stringify(result);
-          alert(JSON.stringify(result));
-        })*/
-        Facebook.login(["public_profile","email"]).then((result) => {
-            //alert('Logged in');
-            var userID = result.authResponse.userID;
-            Facebook.api(result.authResponse.userID+"/?fields=id,email,birthday,picture,name,gender", ["public_profile","email","user_birthday"]).then((result) => {
-              this.test = JSON.stringify(result);
-                alert(JSON.stringify(result));
-            }, function(error){
-                alert('error '+error);
-            })
-            //alert(JSON.stringify(result));
-            /*Facebook.getLoginStatus().then((result) => {
-              this.test = JSON.stringify(result);
-                alert(JSON.stringify(result));
-            }, function(error){
-                alert(error);
-            })*/
-        }, function(error){
-            alert(error);
-        })
-
-        /*Facebook.getLoginStatus().then((result) => {
-          this.test = JSON.stringify(result);
-            alert(JSON.stringify(result));
-        }, function(error){
-            alert(error);
-        })*/
-
+  googleLogin() {
+    this.platform.ready().then(() => {
+      BarcodeScanner.scan().then((barcodeData) => {
+        this.test = JSON.stringify(barcodeData);
+      }, function(error) {
+        this.test = 'error : ' + error;
       })
-    }
+    })
+  }
+
+  fblogin() {
+    this.platform.ready().then(() => {
+      // ตรวจสอบว่า Login แล้วหรือยัง
+      Facebook.getLoginStatus().then((result) => {
+        this.test = JSON.stringify(result);
+        if (result.status == 'unknown') {
+          this.test = 'status : ' + result.status;
+          Facebook.login(["public_profile", "email"]).then((result) => {
+            this.test = 'result : ' + JSON.stringify(result);
+            this.getFacebokInfo(result.authResponse.userID);
+          }, function(error) {
+            this.test = 'error : ' + error;
+          })
+        }
+        else if (result.status == 'connected') {
+          this.test = 'status : ' + result.status;
+          this.getFacebokInfo(result.authResponse.userID);
+        }
+        //alert(JSON.stringify(result));
+      }, function(error) {
+        this.test = 'error : ' + error;
+      })
+    })
+  }
+
+  getFacebokInfo(userID) {
+    Facebook.api(userID + "/?fields=id,email,birthday,picture,name,gender", ["public_profile", "email"]).then((result) => {
+      this.test = 'result : ' + JSON.stringify(result);
+    }, function(error) {
+      this.test = 'error : ' + error;
+    })
+  }
 
 }

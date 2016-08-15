@@ -38,4 +38,7 @@
         <variable name="APP_ID" value="834367080026778" />
         <variable name="APP_NAME" value="RemaxThailand" />
     </plugin>
+    <plugin name="cordova-plugin-googleplus" spec="~4.0.8">
+        <variable name="REVERSED_CLIENT_ID" value="401839933391-pqtm1v5m5pa3shd3f26l6aoslhjploi7.apps.googleusercontent.com" />
+    </plugin>
 </widget>
