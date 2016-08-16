@@ -29,7 +29,7 @@ export class LoginPage {
     })
   }
 
-  fblogin() {
+  facebooklogin() {
     this.platform.ready().then(() => {
       // ตรวจสอบว่า Login แล้วหรือยัง
       Facebook.getLoginStatus().then((result) => {

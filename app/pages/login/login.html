@@ -1,11 +1,19 @@
 <ion-content padding class="darkBg">
-
   <ion-grid>
     <ion-row>
       <ion-col width-5></ion-col>
       <ion-col width-90>
-        <ion-list>
+        <div text-center>
+          <img src="build/img/logo-login.png" />
+        </div>
+      </ion-col>
+      <ion-col width-5></ion-col>
+    </ion-row>
 
+    <ion-row class="margin-top-5">
+      <ion-col width-5></ion-col>
+      <ion-col width-90>
+        <ion-list class="margin-0">
           <ion-item>
             <ion-label>
               <ion-icon name="md-person"></ion-icon>
@@ -24,15 +32,63 @@
       </ion-col>
       <ion-col width-5></ion-col>
     </ion-row>
-  <ion-row>
+    <ion-row>
       <ion-col width-5></ion-col>
       <ion-col width-90>
-        <button block large (click)="googleLogin()">Sign In</button>
+        <button block large (click)="googleLogin()" class="capitalize">
+          <i class="fa fa-lg fa-sign-in margin-right-10"></i> <b>เข้าสู่ระบบ</b>
+        </button>
       </ion-col>
       <ion-col width-5></ion-col>
     </ion-row>
+
+    <ion-row>
+      <ion-col width-5></ion-col>
+      <ion-col width-90>
+        <div class="margin-top-5 line"></div>
+      </ion-col>
+      <ion-col width-5></ion-col>
+    </ion-row>
+
+    <div text-center class="margin-top-5">
+      หรือเข้าสู่ระบบโดยใช้
+      <ion-row>
+        <ion-col width-5></ion-col>
+        <ion-col width-90>
+          <button (click)="facebooklogin()" class="capitalize">
+            <i class="fa fa-lg fa-facebook-square margin-right-5"></i> Facebook
+          </button>
+        </ion-col>
+        <ion-col width-5></ion-col>
+      </ion-row>
+    </div>
+
+    <ion-row>
+      <ion-col width-5></ion-col>
+      <ion-col width-90>
+        <div class="margin-top-5 line"></div>
+      </ion-col>
+      <ion-col width-5></ion-col>
+    </ion-row>
+    <div text-center class="margin-top-5">
+      <ion-row>
+        <ion-col width-5></ion-col>
+        <ion-col width-45>
+          <button block secondary (click)="skip()" class="capitalize">
+            <i class="fa fa-chevron-right margin-right-5"></i> สมัครสมาชิก
+          </button>
+        </ion-col>
+        <ion-col width-45>
+          <button block light (click)="skip()" class="capitalize">
+            ข้ามขั้นตอนนี้ <i class="fa fa-chevron-right margin-left-5"></i>
+          </button>
+        </ion-col>
+        <ion-col width-5></ion-col>
+      </ion-row>
+    </div>
+
   </ion-grid>
 
-<p>{{test}}</p>
+  <p>{{test}}</p>
 
 </ion-content>
