@@ -4,11 +4,6 @@ import { StatusBar } from 'ionic-native';
 
 import { Global } from './providers/global/global';
 import { ProductPage } from './pages/product/product';
-import { ProfilePage } from './pages/profile/profile';
-import { CartPage } from './pages/cart/cart';
-import { HistoryPage } from './pages/history/history';
-import { SettingPage } from './pages/setting/setting';
-import { SearchPage } from './pages/search/search';
 import { LoginPage } from './pages/login/login';
 
 @Component({
@@ -19,21 +14,14 @@ class RemaxApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = LoginPage;
-  pages: Array<{ title: string, component: any, icon: string }>;
   //showMenu: boolean = false;
   isLogin: boolean = false;
 
-  constructor(public platform: Platform, public menu: MenuController, public global: Global) {
+  constructor(public platform: Platform, menu: MenuController, public global: Global) {
+    global.menu = menu
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'สินค้า', component: ProductPage, icon: 'ios-keypad' },
-      { title: 'รถเข็นสินค้า', component: CartPage, icon: 'md-cart' },
-      { title: 'ประวัติคำสั่งซื้อ', component: HistoryPage, icon: 'md-time' },
-      { title: 'ข้อมูลส่วนตัว', component: ProfilePage, icon: 'ios-contact' },
-      { title: 'การตั้งค่า', component: SettingPage, icon: 'md-settings' }
-    ];
 
   }
 
@@ -57,13 +45,13 @@ class RemaxApp {
         this.isLogin = isLogin;
         if(this.isLogin){
           this.rootPage = ProductPage;
-          this.menu.swipeEnable(true);
-          this.menu.enable(true);
+          this.global.menu.swipeEnable(true);
+          this.global.menu.enable(true);
         }
         else {
           this.rootPage = LoginPage;
-          this.menu.swipeEnable(false);
-          this.menu.enable(false);
+          this.global.menu.swipeEnable(false);
+          this.global.menu.enable(false);
         }
       });
 
