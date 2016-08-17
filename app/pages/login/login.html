@@ -35,7 +35,7 @@
     <ion-row>
       <ion-col width-5></ion-col>
       <ion-col width-90>
-        <button block large (click)="googleLogin()" class="capitalize">
+        <button block large (click)="login()" class="capitalize">
           <i class="fa fa-lg fa-sign-in margin-right-10"></i> <b>เข้าสู่ระบบ</b>
         </button>
       </ion-col>
@@ -45,7 +45,7 @@
     <ion-row>
       <ion-col width-5></ion-col>
       <ion-col width-90>
-        <div class="margin-top-5 line"></div>
+        <div class="line"></div>
       </ion-col>
       <ion-col width-5></ion-col>
     </ion-row>
@@ -74,12 +74,12 @@
       <ion-row>
         <ion-col width-5></ion-col>
         <ion-col width-45>
-          <button block danger (click)="skip()" class="capitalize">
+          <button block danger (click)="forgotPassword()" class="capitalize">
             <i class="fa fa-exclamation-circle margin-right-5"></i> ลืมรหัสผ่าน ?
           </button>
         </ion-col>
         <ion-col width-45>
-          <button block secondary (click)="skip()" class="capitalize">
+          <button block secondary (click)="register()" class="capitalize">
             สมัครสมาชิก <i class="fa fa-plus-circle margin-left-5"></i>
           </button>
         </ion-col>
@@ -88,7 +88,7 @@
       <ion-row>
         <ion-col width-5></ion-col>
         <ion-col width-90>
-          <button block light (click)="skip()" class="capitalize">
+          <button block light (click)="skipLogin()" class="capitalize">
             ข้ามขั้นตอนนี้ <i class="fa fa-chevron-right margin-left-5"></i>
           </button>
         </ion-col>

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ionicBootstrap, Platform, Nav, Storage, SqlStorage, MenuController } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 
+import { Global } from './providers/global/global';
 import { ProductPage } from './pages/product/product';
 import { ProfilePage } from './pages/profile/profile';
 import { CartPage } from './pages/cart/cart';
@@ -11,16 +12,18 @@ import { SearchPage } from './pages/search/search';
 import { LoginPage } from './pages/login/login';
 
 @Component({
-  templateUrl: 'build/app.html'
+  templateUrl: 'build/app.html',
+  providers: [Global]
 })
 class RemaxApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = LoginPage;
   pages: Array<{ title: string, component: any, icon: string }>;
+  //showMenu: boolean = false;
   isLogin: boolean = false;
 
-  constructor(public platform: Platform, public menu: MenuController) {
+  constructor(public platform: Platform, public menu: MenuController, public global: Global) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation

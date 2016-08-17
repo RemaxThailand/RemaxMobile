@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 //import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
 import { Facebook, BarcodeScanner } from 'ionic-native';
+import { Global } from '../../providers/global/global';
 
 /*
   Generated class for the LoginPage page.
@@ -10,12 +11,12 @@ import { Facebook, BarcodeScanner } from 'ionic-native';
   Ionic pages and navigation.
 */
 @Component({
-  templateUrl: 'build/pages/login/login.html',
+  templateUrl: 'build/pages/login/login.html'
 })
 export class LoginPage {
   test: any = 'test';
 
-  constructor(private navCtrl: NavController, public platform: Platform) {
+  constructor(private navCtrl: NavController, public platform: Platform, public global: Global) {
     //this.cordovaOauth = new CordovaOauth(new Facebook({ clientId: "337592559713793", appScope: ["email,public_profile"] }));
   }
 
@@ -60,6 +61,11 @@ export class LoginPage {
     }, function(error) {
       this.test = 'error : ' + error;
     })
+  }
+
+  skipLogin(){
+    this.global.isShowMenu = true;
+    alert('aabb');
   }
 
 }
