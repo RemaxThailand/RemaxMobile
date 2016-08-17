@@ -3,7 +3,6 @@ import { ionicBootstrap, Platform, Nav, Storage, SqlStorage, MenuController } fr
 import { StatusBar } from 'ionic-native';
 
 import { Global } from './providers/global/global';
-import { ProductPage } from './pages/product/product';
 import { LoginPage } from './pages/login/login';
 
 @Component({
@@ -44,12 +43,12 @@ class RemaxApp {
       storage.get('isLogin').then((isLogin) => {
         this.isLogin = isLogin;
         if(this.isLogin){
-          this.rootPage = ProductPage;
+          this.rootPage = this.global.productPage;
           this.global.menu.swipeEnable(true);
           this.global.menu.enable(true);
         }
         else {
-          this.rootPage = LoginPage;
+          this.rootPage = this.global.loginPage;
           this.global.menu.swipeEnable(false);
           this.global.menu.enable(false);
         }
