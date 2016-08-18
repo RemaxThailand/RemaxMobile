@@ -4,6 +4,7 @@ import { StatusBar } from 'ionic-native';
 
 import { Global } from './providers/global/global';
 import { LoginPage } from './pages/login/login';
+import { ProductPage } from './pages/product/product';
 
 @Component({
   templateUrl: 'build/app.html',
@@ -42,15 +43,15 @@ class RemaxApp {
       //storage.set('isLogin', true);
       storage.get('isLogin').then((isLogin) => {
         this.isLogin = isLogin;
-        if(this.isLogin){
-          this.rootPage = this.global.productPage;
-          this.global.menu.swipeEnable(true);
-          this.global.menu.enable(true);
+        if (this.isLogin) {
+          this.rootPage = ProductPage;
+          //this.global.menu.swipeEnable(true);
+          //this.global.menu.enable(true);
         }
         else {
-          this.rootPage = this.global.loginPage;
-          this.global.menu.swipeEnable(false);
-          this.global.menu.enable(false);
+          this.rootPage = LoginPage;
+          //this.global.menu.swipeEnable(false);
+          //this.global.menu.enable(false);
         }
       });
 
@@ -58,9 +59,18 @@ class RemaxApp {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    if (page.id == 'login') {
+      this.global.isShowMenu = false;
+      //this.global.menu.swipeEnable(false);
+      //this.global.menu.enable(false);
+      //this.nav.setRoot(LoginPage);
+      this.nav.setRoot(LoginPage).then(() => {
+        this.nav.popToRoot();
+      });
+    }
+    else {
+      this.nav.setRoot(page.component);
+    }
   }
 }
 

@@ -23,17 +23,11 @@ export class Global {
   public pages: Array<{ id: string, title: string, component: any, icon: string, isShow: boolean }>;
 
   public menu: any;
-  public productPage: ProductPage;
-  public profilePage: ProfilePage;
-  public cartPage: CartPage;
-  public historyPage: HistoryPage;
-  public settingPage: SettingPage;
-  public searchPage: SearchPage;
-  public loginPage: LoginPage;
 
   public constructor() {
+
     this.pages = [
-      { id:'product', title: 'สินค้า', component: this.productPage, icon: 'ios-keypad', isShow: true },
+      { id:'product', title: 'สินค้า', component: ProductPage, icon: 'ios-keypad', isShow: true },
       { id:'cart', title: 'รถเข็นสินค้า', component: CartPage, icon: 'md-cart', isShow: true },
       { id:'history', title: 'ประวัติคำสั่งซื้อ', component: HistoryPage, icon: 'md-time', isShow: false },
       { id:'profile', title: 'ข้อมูลส่วนตัว', component: ProfilePage, icon: 'ios-contact', isShow: false },

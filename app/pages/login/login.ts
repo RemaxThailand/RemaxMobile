@@ -3,6 +3,7 @@ import { NavController, Platform } from 'ionic-angular';
 //import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
 import { Facebook, BarcodeScanner } from 'ionic-native';
 import { Global } from '../../providers/global/global';
+import { ProductPage } from '../product/product';
 
 /*
   Generated class for the LoginPage page.
@@ -65,12 +66,13 @@ export class LoginPage {
 
   skipLogin(){
     this.global.isShowMenu = true;
-    this.global.menu.swipeEnable(true);
-    this.global.menu.enable(true);
-    this.navCtrl.setRoot(this.global.productPage);
-    let hide = '|login|';
+    //this.global.menu.swipeEnable(true);
+    //this.global.menu.enable(true);
+    this.navCtrl.setRoot(ProductPage);
+    let hide = '|history|profile|';
+    let show = '|login|';
     for(let i=0; i<this.global.pages.length; i++){
-      if(this.global.pages[i].isShow && hide.indexOf('|'+this.global.pages[i].id+'|') != -1){
+      if(hide.indexOf('|'+this.global.pages[i].id+'|') != -1){
         this.global.pages[i].isShow = false;
       }
     }

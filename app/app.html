@@ -17,10 +17,14 @@
     </ion-list>
 
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of global.pages" (click)="openPage(p)">
-        <ion-icon name="{{p.icon}}" class="relative margin-right-6 top-2"></ion-icon> {{p.title}} {{pageIconSelected}}
-        <ion-badge item-right>260k</ion-badge>
-      </button>
+
+        <template ngFor let-p [ngForOf]="global.pages">
+          <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
+            <ion-icon name="{{p.icon}}" class="relative margin-right-6 top-2"></ion-icon> {{p.title}} {{pageIconSelected}}
+            <ion-badge item-right>260k</ion-badge>
+          </button>
+        </template>
+
       <a menuClose ion-item href="tel:0876733414">
         <ion-icon name="ios-call" class="relative margin-right-6 top-2"></ion-icon> ติดต่อร้านค้า
       </a>
