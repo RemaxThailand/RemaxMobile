@@ -13,12 +13,10 @@ import { ProductPage } from './pages/product/product';
 class RemaxApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
-  //showMenu: boolean = false;
-  isLogin: boolean = false;
+  //rootPage: any = LoginPage;
 
   constructor(public platform: Platform, menu: MenuController, public global: Global) {
-    global.menu = menu
+    global.menu = menu;
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -42,14 +40,20 @@ class RemaxApp {
       let storage = new Storage(SqlStorage);
       //storage.set('isLogin', true);
       storage.get('isLogin').then((isLogin) => {
-        this.isLogin = isLogin;
-        if (this.isLogin) {
-          this.rootPage = ProductPage;
+        this.global.isLogin = isLogin == undefined ? false : isLogin === 'true';
+        alert(this.global.isLogin);
+        if (this.global.isLogin == true) {
+          alert('ProductPage');
+          this.global.isShowMenu = true;
+          this.global.setShowHideMenu('|history|profile|logout|', '|login|');
+          this.nav.setRoot(ProductPage);
           //this.global.menu.swipeEnable(true);
           //this.global.menu.enable(true);
         }
         else {
-          this.rootPage = LoginPage;
+          alert('LoginPage');
+          this.global.isShowMenu = false;
+          this.nav.setRoot(LoginPage);
           //this.global.menu.swipeEnable(false);
           //this.global.menu.enable(false);
         }
@@ -59,14 +63,18 @@ class RemaxApp {
   }
 
   openPage(page) {
-    if (page.id == 'login') {
-      this.global.isShowMenu = false;
+    if (page.id == 'login' || page.id == 'logout') {
+      this.global.menu.close().then(() => {
+        let storage = new Storage(SqlStorage);
+        storage.set('isLogin', false).then(() => {
+          this.global.isLogin = false;
+          this.global.isShowMenu = false;
+          this.nav.setRoot(LoginPage);
+        });
+      });
       //this.global.menu.swipeEnable(false);
       //this.global.menu.enable(false);
       //this.nav.setRoot(LoginPage);
-      this.nav.setRoot(LoginPage).then(() => {
-        this.nav.popToRoot();
-      });
     }
     else {
       this.nav.setRoot(page.component);

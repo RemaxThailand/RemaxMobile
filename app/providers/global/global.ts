@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MenuController } from 'ionic-angular';
+import { MenuController, SqlStorage } from 'ionic-angular';
 
 import { ProductPage } from '../../pages/product/product';
 import { ProfilePage } from '../../pages/profile/profile';
@@ -27,13 +27,25 @@ export class Global {
   public constructor() {
 
     this.pages = [
-      { id:'product', title: 'สินค้า', component: ProductPage, icon: 'ios-keypad', isShow: true },
-      { id:'cart', title: 'รถเข็นสินค้า', component: CartPage, icon: 'md-cart', isShow: true },
-      { id:'history', title: 'ประวัติคำสั่งซื้อ', component: HistoryPage, icon: 'md-time', isShow: false },
-      { id:'profile', title: 'ข้อมูลส่วนตัว', component: ProfilePage, icon: 'ios-contact', isShow: false },
-      { id:'login', title: 'เข้าสู่ระบบ', component: null, icon: 'ios-contact', isShow: true },
-      { id:'setting', title: 'การตั้งค่า', component: SettingPage, icon: 'md-settings', isShow: true }
+      { id: 'product', title: 'สินค้า', component: ProductPage, icon: 'ios-keypad', isShow: true },
+      { id: 'cart', title: 'รถเข็นสินค้า', component: CartPage, icon: 'md-cart', isShow: true },
+      { id: 'history', title: 'ประวัติคำสั่งซื้อ', component: HistoryPage, icon: 'md-time', isShow: false },
+      { id: 'profile', title: 'ข้อมูลส่วนตัว', component: ProfilePage, icon: 'ios-contact', isShow: false },
+      { id: 'login', title: 'เข้าสู่ระบบ', component: null, icon: 'ios-contact', isShow: true },
+      { id: 'logout', title: 'ออกจากระบบ', component: null, icon: 'ios-contact', isShow: false },
+      { id: 'setting', title: 'การตั้งค่า', component: SettingPage, icon: 'md-settings', isShow: true }
     ];
+  }
+
+  public setShowHideMenu(show, hide) {
+    for (let i = 0; i < this.pages.length; i++) {
+      if (hide.indexOf('|' + this.pages[i].id + '|') != -1) {
+        this.pages[i].isShow = false;
+      }
+      if (show.indexOf('|' + this.pages[i].id + '|') != -1) {
+        this.pages[i].isShow = true;
+      }
+    }
   }
 
 }

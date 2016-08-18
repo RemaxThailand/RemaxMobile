@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, Platform, Storage, SqlStorage } from 'ionic-angular';
 //import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
 import { Facebook, BarcodeScanner } from 'ionic-native';
 import { Global } from '../../providers/global/global';
@@ -19,6 +19,21 @@ export class LoginPage {
 
   constructor(private navCtrl: NavController, public platform: Platform, public global: Global) {
     //this.cordovaOauth = new CordovaOauth(new Facebook({ clientId: "337592559713793", appScope: ["email,public_profile"] }));
+  }
+
+  login(){
+    let storage = new Storage(SqlStorage);
+    storage.set('isLogin', true).then(() => {
+      this.global.isShowMenu = true;
+      this.navCtrl.setRoot(ProductPage);
+      this.global.setShowHideMenu('|history|profile|logout|', '|login|');
+    });
+  }
+
+  skipLogin(){
+    this.global.isShowMenu = true;
+    this.navCtrl.setRoot(ProductPage);
+    this.global.setShowHideMenu('|login|','|history|profile|logout|');
   }
 
   googleLogin() {
@@ -62,20 +77,6 @@ export class LoginPage {
     }, function(error) {
       this.test = 'error : ' + error;
     })
-  }
-
-  skipLogin(){
-    this.global.isShowMenu = true;
-    //this.global.menu.swipeEnable(true);
-    //this.global.menu.enable(true);
-    this.navCtrl.setRoot(ProductPage);
-    let hide = '|history|profile|';
-    let show = '|login|';
-    for(let i=0; i<this.global.pages.length; i++){
-      if(hide.indexOf('|'+this.global.pages[i].id+'|') != -1){
-        this.global.pages[i].isShow = false;
-      }
-    }
   }
 
 }
