@@ -14,19 +14,22 @@
       <ion-col width-5></ion-col>
       <ion-col width-90>
         <ion-list class="margin-0">
-          <ion-item>
-            <ion-label>
-              <ion-icon name="md-person"></ion-icon>
-            </ion-label>
-            <ion-input type="text" placeholder="ชื่อผู้ใช้"></ion-input>
-          </ion-item>
 
-          <ion-item>
-            <ion-label>
-              <ion-icon name="md-lock"></ion-icon>
-            </ion-label>
-            <ion-input type="password" placeholder="รหัสผ่าน"></ion-input>
-          </ion-item>
+          <form [formGroup]="form">
+            <ion-item>
+              <ion-label>
+                <ion-icon name="md-person"></ion-icon>
+              </ion-label>
+              <ion-input type="text" placeholder="ชื่อผู้ใช้" [formControl]="form.controls['username']"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <ion-icon name="md-lock"></ion-icon>
+              </ion-label>
+              <ion-input type="password" placeholder="รหัสผ่าน" [formControl]="form.controls['password']"></ion-input>
+            </ion-item>
+          </form>
 
         </ion-list>
       </ion-col>
@@ -35,8 +38,8 @@
     <ion-row>
       <ion-col width-5></ion-col>
       <ion-col width-90>
-        <button block large (click)="login()" class="capitalize">
-          <i class="fa fa-lg fa-sign-in margin-right-10"></i> <b>เข้าสู่ระบบ</b>
+        <button block large (click)="login()" class="capitalize" [disabled]="global.isOnline">
+          <i class="fa fa-lg fa-sign-in margin-right-10"></i> <b>เข้าสู่ระบบ[{{global.isOnline}}]</b>
         </button>
       </ion-col>
       <ion-col width-5></ion-col>
@@ -97,7 +100,5 @@
     </div>
 
   </ion-grid>
-
-  <p>{{test}}</p>
 
 </ion-content>

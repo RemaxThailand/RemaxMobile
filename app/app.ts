@@ -17,6 +17,7 @@ class RemaxApp {
 
   constructor(public platform: Platform, menu: MenuController, public global: Global) {
     global.menu = menu;
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -38,24 +39,33 @@ class RemaxApp {
 
 
       let storage = new Storage(SqlStorage);
-      //storage.set('isLogin', true);
       storage.get('isLogin').then((isLogin) => {
-        this.global.isLogin = isLogin == undefined ? false : isLogin === 'true';
-        alert(this.global.isLogin);
-        if (this.global.isLogin == true) {
-          alert('ProductPage');
-          this.global.isShowMenu = true;
-          this.global.setShowHideMenu('|history|profile|logout|', '|login|');
-          this.nav.setRoot(ProductPage);
-          //this.global.menu.swipeEnable(true);
-          //this.global.menu.enable(true);
+        this.global.isLogin = isLogin == undefined ? false : isLogin === '1';
+        storage.get('isMember').then((isMember) => {
+          this.global.isMember = isMember == undefined ? false : isMember === '1';
+          if (this.global.isLogin) {
+            this.global.isShowMenu = true;
+            this.nav.setRoot(ProductPage)
+            if (this.global.isMember)
+              this.global.setShowHideMenu('|history|profile|logout|', '|login|');
+            else
+              this.global.setShowHideMenu('|login|', '|history|profile|logout|');
+          }
+          else {
+            this.global.isShowMenu = false;
+            this.nav.setRoot(LoginPage);
+          }
+        });
+      });
+
+      this.global.socket.emit('access', { apiKey: '41C38027-7953-4DA8-8BBE-399CAD6592D4' });
+
+      this.global.socket.on('access', function(data) {
+        if(data.success){
+          storage.set('token', data.token)
         }
         else {
-          alert('LoginPage');
-          this.global.isShowMenu = false;
-          this.nav.setRoot(LoginPage);
-          //this.global.menu.swipeEnable(false);
-          //this.global.menu.enable(false);
+          alert(data.error);
         }
       });
 
@@ -65,16 +75,19 @@ class RemaxApp {
   openPage(page) {
     if (page.id == 'login' || page.id == 'logout') {
       this.global.menu.close().then(() => {
-        let storage = new Storage(SqlStorage);
-        storage.set('isLogin', false).then(() => {
-          this.global.isLogin = false;
-          this.global.isShowMenu = false;
-          this.nav.setRoot(LoginPage);
-        });
+        try {
+          this.global.storage.set('isLogin', '0').then(() => {
+            this.global.storage.set('isMember', '0').then(() => {
+              this.global.isLogin = false;
+              this.global.isMember = false;
+              this.global.isShowMenu = false;
+              this.nav.setRoot(LoginPage);
+            });
+          });
+        } catch (e) {
+          alert(e.message);
+        }
       });
-      //this.global.menu.swipeEnable(false);
-      //this.global.menu.enable(false);
-      //this.nav.setRoot(LoginPage);
     }
     else {
       this.nav.setRoot(page.component);
