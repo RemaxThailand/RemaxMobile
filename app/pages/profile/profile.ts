@@ -9,27 +9,26 @@ export class ProfilePage {
 
   global:any;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, private actionSheetController : ActionSheetController) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private actionSheetController: ActionSheetController) {
     this.global = this.navParams.get('global');
   }
 
   presentActionSheet() {
     let actionSheet = this.actionSheetController.create({
-      title: 'Modify your album',
+      title: 'เลือกตำแหน่ง',
       buttons: [
         {
-          text: 'Destructive',
-          role: 'destructive',
+          text: 'ผู้ดูแลระบบ',
           handler: () => {
             console.log('Destructive clicked');
           }
         },{
-          text: 'Archive',
+          text: 'สมาชิก',
           handler: () => {
             console.log('Archive clicked');
           }
         },{
-          text: 'Cancel',
+          text: this.global.language[this.global.langCode].cancel,
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
