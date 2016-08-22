@@ -6,7 +6,7 @@
 
   <ion-content>
 
-    <ion-list>
+    <ion-list class="margin-bottom-0">
       <ion-item>
         <ion-avatar item-left>
           <img src="{{global.member.picture}}">
@@ -16,19 +16,69 @@
       </ion-item>
     </ion-list>
 
-    <ion-list>
+    <ion-item-group>
+      <ion-item-divider light>ข้อมูลสมาชิก</ion-item-divider>
+      <template ngFor let-p [ngForOf]="global.menuGroup.member">
+        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
+          <i class="fa {{p.icon}} margin-right-5"></i> {{p.title}}
+        </button>
+      </template>
+    </ion-item-group>
 
-        <template ngFor let-p [ngForOf]="global.pages">
-          <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-            <ion-icon name="{{p.icon}}" class="relative margin-right-6 top-2"></ion-icon> {{p.title}} {{pageIconSelected}}
-            <ion-badge item-right>260k</ion-badge>
-          </button>
-        </template>
+    <ion-item-group>
+      <ion-item-divider light>การสั่งซื้อ</ion-item-divider>
+      <template ngFor let-p [ngForOf]="global.menuGroup.product">
+        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
+          <i class="fa {{p.icon}} margin-right-5"></i> {{p.title}}
+        </button>
+      </template>
+    </ion-item-group>
 
-      <a menuClose ion-item href="tel:0876733414">
-        <ion-icon name="ios-call" class="relative margin-right-6 top-2"></ion-icon> ติดต่อร้านค้า
-      </a>
-    </ion-list>
+    <ion-item-group>
+      <ion-item-divider light>ข้อมูลการขาย</ion-item-divider>
+      <template ngFor let-p [ngForOf]="global.menuGroup.sales">
+        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
+          <i class="fa {{p.icon}} margin-right-5"></i> {{p.title}}
+        </button>
+      </template>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider light>การเงิน</ion-item-divider>
+      <template ngFor let-p [ngForOf]="global.menuGroup.account">
+        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
+          <i class="fa {{p.icon}} margin-right-5"></i> {{p.title}}
+        </button>
+      </template>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider light>คลังสินค้า</ion-item-divider>
+      <template ngFor let-p [ngForOf]="global.menuGroup.warehouse">
+        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
+          <i class="fa {{p.icon}} margin-right-5"></i> {{p.title}}
+        </button>
+      </template>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider light>ผู้ดูแลระบบ</ion-item-divider>
+      <template ngFor let-p [ngForOf]="global.menuGroup.admin">
+        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
+          <i class="fa {{p.icon}} margin-right-5"></i> {{p.title}}
+        </button>
+      </template>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider light>{{global.language[global.langCode].help}}</ion-item-divider>
+      <template ngFor let-p [ngForOf]="global.menuGroup.system">
+        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
+          <i class="fa {{p.icon}} margin-right-5"></i> {{global.language[global.langCode][p.title]}}
+        </button>
+      </template>
+    </ion-item-group>
+
   </ion-content>
 
 </ion-menu>

@@ -37,7 +37,7 @@ export class LoginPage {
   }
 
   login() {
-    this.global.storage.get('token').then((token) => {
+    /*this.global.storage.get('token').then((token) => {
       this.global.socket.emit('api', {
         token: token,
         module:'member',
@@ -46,8 +46,8 @@ export class LoginPage {
         username: this.form.controls['username'].value,
         password: this.form.controls['password'].value
       });
-    });
-    //this.loginSuccess();
+    });*/
+    this.loginSuccess();
   }
 
   loginSuccess() {

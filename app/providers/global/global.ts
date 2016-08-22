@@ -26,8 +26,11 @@ export class Global {
     name: 'Remax Thailand', shopName: ''
   };
   public token: string = '';
+  public langCode: string = 'th';
+  public language: any;
 
   public pages: Array<{ id: string, title: string, component: any, icon: string, isShow: boolean }>;
+  public menuGroup: any;
 
   public menu: any;
 
@@ -35,16 +38,84 @@ export class Global {
   public socket: any;
 
   public constructor() {
-    this.storage = new Storage(SqlStorage);
+    //this.storage = new Storage(SqlStorage);
     this.socket = io('https://realtime-test.remaxthailand.co.th');
 
+    this.language = {
+      en:
+        {
+          language: 'Language',
+          ok: 'OK',
+          cancel: 'Cancel',
+          help: 'Help',
+          settings: 'Settings',
+          updateChecking: 'Check for Update',
+          aboutSystem: 'About'
+        }
+      ,
+      th:
+        {
+          language: 'ภาษา',
+          ok: 'ตกลง',
+          cancel: 'ยกเลิก',
+          help: 'ช่วยเหลือ',
+          settings: 'การตั้งค่า',
+          updateChecking: 'ตรวจสอบการอัพเดท',
+          aboutSystem: 'ข้อมูลระบบ'
+        }
+      ,
+      jp:
+        {
+          language: '言語',
+          ok: 'はい',
+          cancel: 'いいえ',
+          help: '助けて',
+          settings: '設定',
+          updateChecking: '更新を確認',
+          aboutSystem: 'システムについて'
+        }
+    }
+
+    this.menuGroup = {
+      member: [
+        { id: 'profile', title: 'ข้อมูลส่วนตัว', component: ProfilePage, icon: 'fa-user', isShow: true },
+        { id: 'profile', title: 'กระเป๋าเงิน', component: ProfilePage, icon: 'fa-credit-card', isShow: true },
+        { id: 'profile', title: 'แต้มสะสม', component: ProfilePage, icon: 'fa-star', isShow: true },
+        { id: 'login', title: 'เข้าสู่ระบบ', component: null, icon: 'fa-sign-in', isShow: false },
+        { id: 'logout', title: 'ออกจากระบบ', component: null, icon: 'fa-sign-out', isShow: true },
+      ],
+      product: [
+        { id: 'product', title: 'เลือกซื้อสินค้า', component: ProductPage, icon: 'fa-cubes', isShow: true },
+        { id: 'product', title: 'แลกคะแนนสะสม', component: ProductPage, icon: 'fa-gift', isShow: true },
+        { id: 'cart', title: 'ตะกร้าสินค้า', component: CartPage, icon: 'fa-shopping-basket', isShow: true },
+        { id: 'history', title: 'ประวัติคำสั่งซื้อ', component: HistoryPage, icon: 'fa-clock-o', isShow: true }
+      ],
+      sales: [
+        { id: 'order', title: 'คำสั่งซื้อสินค้า', component: ProfilePage, icon: 'fa-paper-plane-o', isShow: true },
+        { id: 'order-booking', title: 'การจองสินค้า', component: ProfilePage, icon: 'fa-lock', isShow: true },
+        { id: 'order', title: 'ข้อมูลลูกค้า', component: ProfilePage, icon: 'fa-github-alt', isShow: true }
+      ],
+      account: [
+        { id: 'order', title: 'รายการชำระเงิน', component: ProfilePage, icon: 'fa-btc', isShow: true }
+      ],
+      warehouse: [
+        { id: 'packing', title: 'ลำดับการจัดสินค้า', component: ProfilePage, icon: 'fa-hourglass-half', isShow: true },
+        { id: 'logistic', title: 'การขนส่ง', component: ProfilePage, icon: 'fa-truck', isShow: true }
+      ],
+      admin: [
+        { id: 'packing', title: 'ข้อมูลสมาชิก', component: ProfilePage, icon: 'fa-slideshare', isShow: true },
+        { id: 'logistic', title: 'จัดการหน้าจอระบบ', component: ProfilePage, icon: 'fa-windows', isShow: true },
+        { id: 'logistic', title: 'การตั้งค่าระบบ', component: ProfilePage, icon: 'fa-wrench', isShow: true },
+        { id: 'logistic', title: 'สถานะต่างๆ ของระบบ', component: ProfilePage, icon: 'fa-plug', isShow: true }
+      ],
+      system: [
+        { id: 'setting', title: 'settings', component: SettingPage, icon: 'fa-cog', isShow: true },
+        { id: 'update', title: 'updateChecking', component: ProfilePage, icon: 'fa-refresh', isShow: true },
+        { id: 'about', title: 'aboutSystem', component: ProfilePage, icon: 'fa-shield', isShow: true }
+      ]
+    };
+
     this.pages = [
-      { id: 'product', title: 'สินค้า', component: ProductPage, icon: 'ios-keypad', isShow: true },
-      { id: 'cart', title: 'รถเข็นสินค้า', component: CartPage, icon: 'md-cart', isShow: true },
-      { id: 'history', title: 'ประวัติคำสั่งซื้อ', component: HistoryPage, icon: 'md-time', isShow: false },
-      { id: 'profile', title: 'ข้อมูลส่วนตัว', component: ProfilePage, icon: 'ios-contact', isShow: false },
-      { id: 'login', title: 'เข้าสู่ระบบ', component: null, icon: 'ios-contact', isShow: true },
-      { id: 'logout', title: 'ออกจากระบบ', component: null, icon: 'ios-contact', isShow: false },
       { id: 'setting', title: 'การตั้งค่า', component: SettingPage, icon: 'md-settings', isShow: true }
     ];
 
@@ -60,5 +131,10 @@ export class Global {
       }
     }
   }
+
+
+  /*public message(message){
+    return this.language[this.langCode][message] == undefined ? message : this.language[this.langCode][message];
+  }*/
 
 }

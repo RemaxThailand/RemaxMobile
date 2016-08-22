@@ -37,7 +37,10 @@ class RemaxApp {
       */
       StatusBar.styleBlackTranslucent();
 
+      this.global.isShowMenu = true;
+      this.nav.setRoot(ProductPage);
 
+      /*
       let storage = new Storage(SqlStorage);
       storage.get('isLogin').then((isLogin) => {
         this.global.isLogin = isLogin == undefined ? false : isLogin === '1';
@@ -68,13 +71,14 @@ class RemaxApp {
           alert(data.error);
         }
       });
+      */
 
     });
   }
 
   openPage(page) {
     if (page.id == 'login' || page.id == 'logout') {
-      this.global.menu.close().then(() => {
+      /*this.global.menu.close().then(() => {
         try {
           this.global.storage.set('isLogin', '0').then(() => {
             this.global.storage.set('isMember', '0').then(() => {
@@ -87,10 +91,12 @@ class RemaxApp {
         } catch (e) {
           alert(e.message);
         }
-      });
+      });*/
     }
     else {
-      this.nav.setRoot(page.component);
+      this.nav.setRoot(page.component, {
+        global:this.global
+      });
     }
   }
 }
