@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
-import { MenuController, Storage, SqlStorage } from 'ionic-angular';
-import * as io from "socket.io-client";
+import { MenuController, Storage, LocalStorage } from 'ionic-angular';
+//import * as io from "socket.io-client";
 
-import { ProductPage } from '../../pages/product/product';
+import { ShoppingPage } from '../../pages/shopping/shopping';
 import { ProfilePage } from '../../pages/profile/profile';
 import { CartPage } from '../../pages/cart/cart';
 import { HistoryPage } from '../../pages/history/history';
 import { SettingPage } from '../../pages/setting/setting';
 import { SearchPage } from '../../pages/search/search';
 import { LoginPage } from '../../pages/login/login';
+import { WalletPage } from '../../pages/wallet/wallet';
+import { RewardPointsPage } from '../../pages/reward-points/reward-points';
+import { RedemptionPage } from '../../pages/redemption/redemption';
+import { OrderPage } from '../../pages/order/order';
+import { ProductBookingPage } from '../../pages/product-booking/product-booking';
+import { CustomerPage } from '../../pages/customer/customer';
 
-/*
-  Generated class for the Global provider.
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class Global {
   public isShowMenu: boolean = false;
@@ -28,6 +29,30 @@ export class Global {
   public token: string = '';
   public langCode: string = 'th';
   public language: any;
+  public memberType: string = 'guest';
+  public memberMenu: any = {
+    admin: '|profile|signOut|memberManagement|screenManagement|systemConfiguration|systemInformation|settings|updateChecking|aboutSystem|',
+    developer: '|profile|signOut|memberManagement|screenManagement|systemConfiguration|systemInformation|settings|updateChecking|aboutSystem|',
+    guest: '|signIn|shopping|cart|settings|updateChecking|aboutSystem|',
+    dealer: '|profile|wallet|rewardPoints|signOut|shopping|redemption|cart|orderHistory|settings|updateChecking|aboutSystem|',
+    member: '|profile|wallet|rewardPoints|signOut|shopping|redemption|cart|orderHistory|settings|updateChecking|aboutSystem|',
+    owner: '|profile|signOut|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|',
+    headSale: '|profile|wallet|rewardPoints|signOut|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|',
+    sale: '|profile|wallet|rewardPoints|signOut|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|',
+    manager: '|profile|wallet|rewardPoints|signOut|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|',
+    officer: '|profile|wallet|rewardPoints|signOut|shopping|redemption|cart|orderHistory|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|'
+  };
+
+  public menuDividerShow: any =
+  {
+    member: true,
+    product: true,
+    sales: true,
+    account: true,
+    warehouse: true,
+    admin: true,
+    system: true
+  };
 
   public pages: Array<{ id: string, title: string, component: any, icon: string, isShow: boolean }>;
   public menuGroup: any;
@@ -39,79 +64,187 @@ export class Global {
 
   public constructor() {
     //this.storage = new Storage(SqlStorage);
-    this.socket = io('https://realtime-test.remaxthailand.co.th');
+    //this.socket = io('https://realtime-test.remaxthailand.co.th');
 
     this.language = {
       en:
-        {
-          language: 'Language',
-          ok: 'OK',
-          cancel: 'Cancel',
-          help: 'Help',
-          settings: 'Settings',
-          updateChecking: 'Check for Update',
-          aboutSystem: 'About'
-        }
+      {
+        language: 'Language',
+        ok: 'OK',
+        cancel: 'Cancel',
+        help: 'Help',
+        settings: 'Settings',
+        updateChecking: 'Check for Update',
+        aboutSystem: 'About',
+        memberInformation: 'Member Information',
+        profile: 'Profile',
+        wallet: 'Wallet',
+        rewardPoints: 'Reward Points',
+        signIn: 'Sign in',
+        signOut: 'Sign out',
+        salesInformation: 'Sales Information',
+        purchaseOrder: 'Purchase Order',
+        productBookings: 'Product Bookings',
+        customerInformation: 'Customer',
+        ordering: 'Ordering',
+        shopping: 'Shopping',
+        redemption: 'Redemption',
+        cart: 'Shopping Cart',
+        orderHistory: 'Order History',
+        administrator: 'Administrator',
+        memberManagement: 'Member Management',
+        screenManagement: 'Screen Management',
+        systemConfiguration: 'System Configuration',
+        systemInformation: 'System Information',
+        warehouse: 'Warehouse',
+        packingStatus: 'Packing Status',
+        transportation: 'Transportation',
+        accounting: 'Accounting',
+        payments: 'Payments',
+        memberPosition: 'Member Position',
+        roleAdministrator: 'Administrator',
+        roleDealer: 'Dealer',
+        roleDeveloper: 'Developer',
+        roleOwner: 'Owner',
+        roleGuest: 'Guest',
+        roleHeadSale: 'Head Sale',
+        roleManager: 'Manager',
+        roleMember: 'Member',
+        roleOfficer: 'Officer',
+        roleSale: 'Sale'
+      }
       ,
       th:
-        {
-          language: 'ภาษา',
-          ok: 'ตกลง',
-          cancel: 'ยกเลิก',
-          help: 'ช่วยเหลือ',
-          settings: 'การตั้งค่า',
-          updateChecking: 'ตรวจสอบการอัพเดท',
-          aboutSystem: 'ข้อมูลระบบ'
-        }
+      {
+        language: 'ภาษา',
+        ok: 'ตกลง',
+        cancel: 'ยกเลิก',
+        help: 'ช่วยเหลือ',
+        settings: 'การตั้งค่า',
+        updateChecking: 'ตรวจสอบการอัพเดท',
+        aboutSystem: 'ข้อมูลระบบ',
+        memberInformation: 'ข้อมูลสมาชิก',
+        profile: 'ข้อมูลส่วนตัว',
+        wallet: 'กระเป๋าเงิน',
+        rewardPoints: 'แต้มสะสม',
+        signIn: 'เข้าสู่ระบบ',
+        signOut: 'ออกจากระบบ',
+        salesInformation: 'ข้อมูลการขาย',
+        purchaseOrder: 'คำสั่งซื้อสินค้า',
+        productBookings: 'การจองสินค้า',
+        customerInformation: 'ข้อมูลลูกค้า',
+        ordering: 'การสั่งซื้อ',
+        shopping: 'เลือกซื้อสินค้า',
+        redemption: 'แลกคะแนนสะสม',
+        cart: 'ตะกร้าสินค้า',
+        orderHistory: 'ประวัติคำสั่งซื้อ',
+        administrator: 'ผู้ดูแลระบบ',
+        memberManagement: 'ข้อมูลสมาชิก',
+        screenManagement: 'หน้าจอระบบ',
+        systemConfiguration: 'การตั้งค่าระบบ',
+        systemInformation: 'สถานะต่างๆ ของระบบ',
+        warehouse: 'คลังสินค้า',
+        packingStatus: 'สถานะการจัดสินค้า',
+        transportation: 'การขนส่ง',
+        accounting: 'การบัญชี',
+        payments: 'รายการชำระเงิน',
+        memberPosition: 'ประเภทสมาชิก',
+        roleAdministrator: 'ผู้ดูแลระบบ',
+        roleDealer: 'ดีลเลอร์',
+        roleDeveloper: 'ผู้พัฒนาระบบ',
+        roleOwner: 'ผู้บริหาร',
+        roleGuest: 'ผู้เยี่ยมชมทั่วไป',
+        roleHeadSale: 'หัวหน้าเซลล์',
+        roleManager: 'หัวหน้าทีม',
+        roleMember: 'สมาชิก',
+        roleOfficer: 'พนักงานบริษัท',
+        roleSale: 'ฝ่ายขาย'
+      }
       ,
       jp:
-        {
-          language: '言語',
-          ok: 'はい',
-          cancel: 'いいえ',
-          help: '助けて',
-          settings: '設定',
-          updateChecking: '更新を確認',
-          aboutSystem: 'システムについて'
-        }
+      {
+        language: '言語',
+        ok: 'はい',
+        cancel: 'いいえ',
+        help: '助けて',
+        settings: '設定',
+        updateChecking: '更新を確認',
+        aboutSystem: 'システムについて',
+        memberInformation: '会員情報',
+        profile: 'プロフィール',
+        wallet: '財布',
+        rewardPoints: '報酬ポイント',
+        signIn: 'ログイン',
+        signOut: 'ログアウト',
+        salesInformation: '販売情報',
+        purchaseOrder: '注文書',
+        productBookings: '製品の予約',
+        customerInformation: '顧客情報',
+        ordering: '発注',
+        shopping: 'ショッピング',
+        redemption: '償還',
+        cart: 'ショッピングカート',
+        orderHistory: '注文履歴',
+        administrator: '管理者',
+        memberManagement: '会員管理',
+        screenManagement: '画面管理',
+        systemConfiguration: 'システム構成',
+        systemInformation: 'システムインフォメーション',
+        warehouse: '倉庫',
+        packingStatus: 'パッキングステータス',
+        transportation: '交通',
+        accounting: '会計',
+        payments: '支払い',
+        memberPosition: '部材位置',
+        roleAdministrator: '管理者',
+        roleDealer: 'ディーラー',
+        roleDeveloper: 'ディベロッパー',
+        roleOwner: 'オーナー',
+        roleGuest: 'ゲスト',
+        roleHeadSale: 'ヘッドセール',
+        roleManager: 'マネージャー',
+        roleMember: 'メンバー',
+        roleOfficer: '役員',
+        roleSale: '販売'
+      }
     }
 
     this.menuGroup = {
       member: [
-        { id: 'profile', title: 'ข้อมูลส่วนตัว', component: ProfilePage, icon: 'fa-user', isShow: true },
-        { id: 'profile', title: 'กระเป๋าเงิน', component: ProfilePage, icon: 'fa-credit-card', isShow: true },
-        { id: 'profile', title: 'แต้มสะสม', component: ProfilePage, icon: 'fa-star', isShow: true },
-        { id: 'login', title: 'เข้าสู่ระบบ', component: null, icon: 'fa-sign-in', isShow: false },
-        { id: 'logout', title: 'ออกจากระบบ', component: null, icon: 'fa-sign-out', isShow: true },
+        { title: 'profile', component: ProfilePage, icon: 'fa-user', isShow: true },
+        { title: 'wallet', component: WalletPage, icon: 'fa-credit-card', isShow: true },
+        { title: 'rewardPoints', component: RewardPointsPage, icon: 'fa-star', isShow: true },
+        { title: 'signIn', component: null, icon: 'fa-sign-in', isShow: false },
+        { title: 'signOut', component: null, icon: 'fa-sign-out', isShow: true },
       ],
       product: [
-        { id: 'product', title: 'เลือกซื้อสินค้า', component: ProductPage, icon: 'fa-cubes', isShow: true },
-        { id: 'product', title: 'แลกคะแนนสะสม', component: ProductPage, icon: 'fa-gift', isShow: true },
-        { id: 'cart', title: 'ตะกร้าสินค้า', component: CartPage, icon: 'fa-shopping-basket', isShow: true },
-        { id: 'history', title: 'ประวัติคำสั่งซื้อ', component: HistoryPage, icon: 'fa-clock-o', isShow: true }
+        { title: 'shopping', component: ShoppingPage, icon: 'fa-cubes', isShow: true },
+        { title: 'redemption', component: RedemptionPage, icon: 'fa-gift', isShow: true },
+        { title: 'cart', component: CartPage, icon: 'fa-shopping-basket', isShow: true },
+        { title: 'orderHistory', component: HistoryPage, icon: 'fa-clock-o', isShow: true }
       ],
       sales: [
-        { id: 'order', title: 'คำสั่งซื้อสินค้า', component: ProfilePage, icon: 'fa-paper-plane-o', isShow: true },
-        { id: 'order-booking', title: 'การจองสินค้า', component: ProfilePage, icon: 'fa-lock', isShow: true },
-        { id: 'order', title: 'ข้อมูลลูกค้า', component: ProfilePage, icon: 'fa-github-alt', isShow: true }
+        { title: 'purchaseOrder', component: OrderPage, icon: 'fa-paper-plane-o', isShow: true },
+        { title: 'productBookings', component: ProductBookingPage, icon: 'fa-lock', isShow: true },
+        { title: 'customerInformation', component: CustomerPage, icon: 'fa-github-alt', isShow: true }
       ],
       account: [
-        { id: 'order', title: 'รายการชำระเงิน', component: ProfilePage, icon: 'fa-btc', isShow: true }
+        { title: 'payments', component: ProfilePage, icon: 'fa-btc', isShow: true }
       ],
       warehouse: [
-        { id: 'packing', title: 'ลำดับการจัดสินค้า', component: ProfilePage, icon: 'fa-hourglass-half', isShow: true },
-        { id: 'logistic', title: 'การขนส่ง', component: ProfilePage, icon: 'fa-truck', isShow: true }
+        { title: 'packingStatus', component: ProfilePage, icon: 'fa-hourglass-half', isShow: true },
+        { title: 'transportation', component: ProfilePage, icon: 'fa-truck', isShow: true }
       ],
       admin: [
-        { id: 'packing', title: 'ข้อมูลสมาชิก', component: ProfilePage, icon: 'fa-slideshare', isShow: true },
-        { id: 'logistic', title: 'จัดการหน้าจอระบบ', component: ProfilePage, icon: 'fa-windows', isShow: true },
-        { id: 'logistic', title: 'การตั้งค่าระบบ', component: ProfilePage, icon: 'fa-wrench', isShow: true },
-        { id: 'logistic', title: 'สถานะต่างๆ ของระบบ', component: ProfilePage, icon: 'fa-plug', isShow: true }
+        { title: 'memberManagement', component: ProfilePage, icon: 'fa-slideshare', isShow: true },
+        { title: 'screenManagement', component: ProfilePage, icon: 'fa-windows', isShow: true },
+        { title: 'systemConfiguration', component: ProfilePage, icon: 'fa-wrench', isShow: true },
+        { title: 'systemInformation', component: ProfilePage, icon: 'fa-plug', isShow: true }
       ],
       system: [
-        { id: 'setting', title: 'settings', component: SettingPage, icon: 'fa-cog', isShow: true },
-        { id: 'update', title: 'updateChecking', component: ProfilePage, icon: 'fa-refresh', isShow: true },
-        { id: 'about', title: 'aboutSystem', component: ProfilePage, icon: 'fa-shield', isShow: true }
+        { title: 'settings', component: SettingPage, icon: 'fa-cog', isShow: true },
+        { title: 'updateChecking', component: ProfilePage, icon: 'fa-refresh', isShow: true },
+        { title: 'aboutSystem', component: ProfilePage, icon: 'fa-shield', isShow: true }
       ]
     };
 
@@ -119,9 +252,11 @@ export class Global {
       { id: 'setting', title: 'การตั้งค่า', component: SettingPage, icon: 'md-settings', isShow: true }
     ];
 
+    this.updateRoleMenu();
+
   }
 
-  public setShowHideMenu(show, hide) {
+  /*public setShowHideMenu(show, hide) {
     for (let i = 0; i < this.pages.length; i++) {
       if (hide.indexOf('|' + this.pages[i].id + '|') != -1) {
         this.pages[i].isShow = false;
@@ -130,11 +265,40 @@ export class Global {
         this.pages[i].isShow = true;
       }
     }
+  }*/
+
+
+  public updateRoleMenu() {
+    let local = new Storage(LocalStorage);
+    local.get('memberType').then((memberType) => {
+      if(memberType == undefined){
+        local.set('memberType', 'guest');
+      }
+      else {
+        this.memberType = memberType;
+
+        for (var menu in this.menuGroup) {
+          let json = this.menuGroup[menu];
+          let hasChild = false;
+          for (var idx in json) {
+            if (this.memberMenu[this.memberType].indexOf('|' + json[idx].title + '|') != -1) {
+              json[idx].isShow = true;
+              hasChild = true;
+            }
+            else {
+              json[idx].isShow = false;
+            }
+          }
+          this.menuDividerShow[menu] = hasChild;
+        }
+
+      }
+    });
   }
 
 
-  /*public message(message){
-    return this.language[this.langCode][message] == undefined ? message : this.language[this.langCode][message];
-  }*/
+  public test(){
+    alert('ddd');
+  }
 
 }

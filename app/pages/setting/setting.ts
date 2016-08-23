@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Storage, LocalStorage } from 'ionic-angular';
 
 @Component({
   templateUrl: 'build/pages/setting/setting.html',
@@ -16,6 +16,8 @@ export class SettingPage {
   }
 
   changeLangCode($event, langCode){
+    let local = new Storage(LocalStorage);
+    local.set('langCode', langCode);
     this.global.langCode = langCode;
   }
 

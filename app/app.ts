@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { ionicBootstrap, Platform, Nav, Storage, SqlStorage, MenuController } from 'ionic-angular';
+import { ionicBootstrap, Platform, Nav, Storage, LocalStorage, MenuController } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
+import * as io from "socket.io-client";
 
 import { Global } from './providers/global/global';
 import { LoginPage } from './pages/login/login';
-import { ProductPage } from './pages/product/product';
+import { ShoppingPage } from './pages/shopping/shopping';
 
 @Component({
   templateUrl: 'build/app.html',
@@ -12,10 +13,11 @@ import { ProductPage } from './pages/product/product';
 })
 class RemaxApp {
   @ViewChild(Nav) nav: Nav;
+  public socket: any;
 
   //rootPage: any = LoginPage;
 
-  constructor(public platform: Platform, menu: MenuController, public global: Global) {
+  constructor(private platform: Platform, private menu: MenuController, private global: Global) {
     global.menu = menu;
 
     this.initializeApp();
@@ -27,6 +29,7 @@ class RemaxApp {
   initializeApp() {
 
     this.platform.ready().then(() => {
+      this.global.socket = io('https://realtime-test.remaxthailand.co.th');
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       /*
@@ -37,8 +40,23 @@ class RemaxApp {
       */
       StatusBar.styleBlackTranslucent();
 
+      let local = new Storage(LocalStorage);
+      local.get('langCode').then((langCode) => {
+        if(langCode == undefined)
+          local.set('langCode', 'th');
+        else
+          this.global.langCode = langCode;
+      });
+
       this.global.isShowMenu = true;
-      this.nav.setRoot(ProductPage);
+      this.nav.setRoot(ShoppingPage, {
+        global:this.global
+      });
+
+      this.global.socket.on('online', function (data) {
+          //this.isOnline = true;
+          alert(data.count);
+      });
 
       /*
       let storage = new Storage(SqlStorage);
@@ -77,21 +95,24 @@ class RemaxApp {
   }
 
   openPage(page) {
-    if (page.id == 'login' || page.id == 'logout') {
-      /*this.global.menu.close().then(() => {
+    if (page.title == 'signIn' || page.title == 'signOut') {
+      this.menu.close().then(() => {
+        let local = new Storage(LocalStorage);
         try {
-          this.global.storage.set('isLogin', '0').then(() => {
-            this.global.storage.set('isMember', '0').then(() => {
+          local.set('isLogin', '0').then(() => {
+            local.set('isMember', '0').then(() => {
               this.global.isLogin = false;
               this.global.isMember = false;
               this.global.isShowMenu = false;
-              this.nav.setRoot(LoginPage);
+              this.nav.setRoot(LoginPage, {
+                global:this.global
+              });
             });
           });
         } catch (e) {
           alert(e.message);
         }
-      });*/
+      });
     }
     else {
       this.nav.setRoot(page.component, {

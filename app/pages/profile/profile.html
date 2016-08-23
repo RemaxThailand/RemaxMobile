@@ -3,9 +3,9 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>ข้อมูลส่วนตัว</ion-title>
+    <ion-title>{{global.language[global.langCode].profile}}</ion-title>
     <ion-buttons end>
-      <button (click)="presentActionSheet()">
+      <button (click)="chengeMemberRole()">
         <ion-icon name="md-contacts"></ion-icon>
       </button>
     </ion-buttons>
@@ -14,14 +14,4 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label>{{global.language[global.langCode].language}}</ion-label>
-      <ion-select [(ngModel)]="langCode" (ionChange)="changeLangCode($event, langCode)" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
-        <ion-option value="th">ภาษาไทย</ion-option>
-        <ion-option value="en">English</ion-option>
-        <ion-option value="jp">日本語</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
 </ion-content>

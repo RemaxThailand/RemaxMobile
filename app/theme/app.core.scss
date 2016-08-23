@@ -34,4 +34,6 @@
 .relative { position:relative }
 .top-2 { top:2px !important }
 
+.color-danger { color: color($colors, danger) !important }
+
 .capitalize { text-transform: capitalize }

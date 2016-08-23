@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
-  templateUrl: 'build/pages/search/search.html',
+  templateUrl: 'build/pages/redemption/redemption.html',
 })
-export class SearchPage {
+export class RedemptionPage {
 
   global: any;
 

@@ -1,26 +1,34 @@
 import { Component } from '@angular/core';
 import { ControlGroup, AbstractControl, FormBuilder } from '@angular/common';
-import { NavController, Platform, Storage, SqlStorage } from 'ionic-angular';
+import { NavController, NavParams, Platform, Storage, LocalStorage } from 'ionic-angular';
 //import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
 import { Facebook, BarcodeScanner } from 'ionic-native';
-import { Global } from '../../providers/global/global';
-import { ProductPage } from '../product/product';
+//import { Global } from '../../providers/global/global';
+import { ShoppingPage } from '../shopping/shopping';
 
 @Component({
   templateUrl: 'build/pages/login/login.html'
 })
+
 export class LoginPage {
-  test: any = 'test';
+
+  global: any;
+  //test: any = 'test';
   form: ControlGroup;
   username: AbstractControl;
   passwrd: AbstractControl;
 
-  constructor(private navCtrl: NavController, public platform: Platform, public global: Global, private formBuilder: FormBuilder) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private platform: Platform, private formBuilder: FormBuilder) {
+    this.global = this.navParams.get('global');
     this.form = formBuilder.group({username: [''], password: ['']});
 
-    /*this.global.storage.get('token').then((token) => {
+    let local = new Storage(LocalStorage);
+
+    local.get('token').then((token) => {
       this.global.token = token;
-    });*/
+    });
+
+    //this.global.test();
 
 
     //this.cordovaOauth = new CordovaOauth(new Facebook({ clientId: "337592559713793", appScope: ["email,public_profile"] }));
@@ -51,35 +59,64 @@ export class LoginPage {
   }
 
   loginSuccess() {
-    this.global.storage.set('isLogin', '1').then(() => {
-      this.global.storage.set('isMember', '1').then(() => {
-        this.global.isLogin = true;
-        this.global.isMember = true;
-        this.global.isShowMenu = true;
-        this.navCtrl.setRoot(ProductPage);
-        this.global.setShowHideMenu('|history|profile|logout|', '|login|');
+    let local = new Storage(LocalStorage);
+    local.set('isLogin', '1').then(() => {
+      local.set('isMember', '1').then(() => {
+        local.set('memberType', 'member').then(() => {
+          this.global.isLogin = true;
+          this.global.isMember = true;
+          this.global.isShowMenu = true;
+          this.global.memberType = 'member';
+          this.navCtrl.setRoot(ShoppingPage, {
+            global:this.global
+          });
+          this.global.updateRoleMenu();
+        });
       });
     });
   }
 
   skipLogin() {
-    this.global.storage.set('isLogin', '1').then(() => {
-      this.global.storage.set('isMember', '0').then(() => {
-        this.global.isLogin = true;
-        this.global.isMember = false;
-        this.global.isShowMenu = true;
-        this.navCtrl.setRoot(ProductPage);
-        this.global.setShowHideMenu('|login|', '|history|profile|logout|');
+    let local = new Storage(LocalStorage);
+    local.set('isLogin', '1').then(() => {
+      local.set('isMember', '0').then(() => {
+        local.set('memberType', 'guest').then(() => {
+          this.global.isLogin = true;
+          this.global.isMember = false;
+          this.global.isShowMenu = true;
+          this.global.memberType = 'guest';
+          this.navCtrl.setRoot(ShoppingPage, {
+            global:this.global
+          });
+          this.global.updateRoleMenu();
+        });
       });
     });
   }
 
+  /*updateRoleMenu() {
+    for (var menu in this.global.menuGroup) {
+      let json = this.global.menuGroup[menu];
+      let hasChild = false;
+      for (var idx in json) {
+        if(this.global.memberMenu[this.global.memberType].indexOf('|'+json[idx].title+'|') != -1){
+          json[idx].isShow = true;
+          hasChild = true;
+        }
+        else {
+          json[idx].isShow = false;
+        }
+      }
+      this.global.menuDividerShow[menu] = hasChild;
+    }
+  }*/
+
   googleLogin() {
     this.platform.ready().then(() => {
       BarcodeScanner.scan().then((barcodeData) => {
-        this.test = JSON.stringify(barcodeData);
+        //this.test = JSON.stringify(barcodeData);
       }, function(error) {
-        this.test = 'error : ' + error;
+        //this.test = 'error : ' + error;
       })
     })
   }
@@ -88,11 +125,11 @@ export class LoginPage {
     this.platform.ready().then(() => {
       // ตรวจสอบว่า Login แล้วหรือยัง
       Facebook.getLoginStatus().then((result) => {
-        this.test = JSON.stringify(result);
+        //this.test = JSON.stringify(result);
         if (result.status == 'unknown') {
-          this.test = 'status : ' + result.status;
+          //this.test = 'status : ' + result.status;
           Facebook.login(["public_profile", "email"]).then((result) => {
-            this.test = 'result : ' + JSON.stringify(result);
+            //this.test = 'result : ' + JSON.stringify(result);
             this.getFacebokInfo(result.authResponse.userID);
           }, function(error) {
             this.test = 'error : ' + error;
