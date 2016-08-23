@@ -15,7 +15,14 @@ import { RedemptionPage } from '../../pages/redemption/redemption';
 import { OrderPage } from '../../pages/order/order';
 import { ProductBookingPage } from '../../pages/product-booking/product-booking';
 import { CustomerPage } from '../../pages/customer/customer';
-
+import { PaymentsPage } from '../../pages/payments/payments';
+import { PackingStatusPage } from '../../pages/packing-status/packing-status';
+import { TransportationPage } from '../../pages/transportation/transportation';
+import { MemberPage } from '../../pages/member/member';
+import { ScreenPage } from '../../pages/screen/screen';
+import { SystemConfigPage } from '../../pages/system-config/system-config';
+import { SystemInfoPage } from '../../pages/system-info/system-info';
+import { AboutPage } from '../../pages/about/about';
 
 @Injectable()
 export class Global {
@@ -229,22 +236,22 @@ export class Global {
         { title: 'customerInformation', component: CustomerPage, icon: 'fa-github-alt', isShow: true }
       ],
       account: [
-        { title: 'payments', component: ProfilePage, icon: 'fa-btc', isShow: true }
+        { title: 'payments', component: PaymentsPage, icon: 'fa-btc', isShow: true }
       ],
       warehouse: [
-        { title: 'packingStatus', component: ProfilePage, icon: 'fa-hourglass-half', isShow: true },
-        { title: 'transportation', component: ProfilePage, icon: 'fa-truck', isShow: true }
+        { title: 'packingStatus', component: PackingStatusPage, icon: 'fa-hourglass-half', isShow: true },
+        { title: 'transportation', component: TransportationPage, icon: 'fa-truck', isShow: true }
       ],
       admin: [
-        { title: 'memberManagement', component: ProfilePage, icon: 'fa-slideshare', isShow: true },
-        { title: 'screenManagement', component: ProfilePage, icon: 'fa-windows', isShow: true },
-        { title: 'systemConfiguration', component: ProfilePage, icon: 'fa-wrench', isShow: true },
-        { title: 'systemInformation', component: ProfilePage, icon: 'fa-plug', isShow: true }
+        { title: 'memberManagement', component: MemberPage, icon: 'fa-slideshare', isShow: true },
+        { title: 'screenManagement', component: ScreenPage, icon: 'fa-windows', isShow: true },
+        { title: 'systemConfiguration', component: SystemConfigPage, icon: 'fa-wrench', isShow: true },
+        { title: 'systemInformation', component: SystemInfoPage, icon: 'fa-plug', isShow: true }
       ],
       system: [
         { title: 'settings', component: SettingPage, icon: 'fa-cog', isShow: true },
-        { title: 'updateChecking', component: ProfilePage, icon: 'fa-refresh', isShow: true },
-        { title: 'aboutSystem', component: ProfilePage, icon: 'fa-shield', isShow: true }
+        { title: 'updateChecking', component: null, icon: 'fa-refresh', isShow: true },
+        { title: 'aboutSystem', component: AboutPage, icon: 'fa-shield', isShow: true }
       ]
     };
 
