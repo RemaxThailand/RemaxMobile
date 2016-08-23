@@ -6,8 +6,10 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class PaymentsPage {
 
-  constructor(private navCtrl: NavController) {
+  global: any;
 
+  constructor(private navCtrl: NavController, private navParams: NavParams) {
+    this.global = this.navParams.get('global');
   }
 
 }

@@ -43,11 +43,11 @@ export class Global {
     guest: '|signIn|shopping|cart|settings|updateChecking|aboutSystem|',
     dealer: '|profile|wallet|rewardPoints|signOut|shopping|redemption|cart|orderHistory|settings|updateChecking|aboutSystem|',
     member: '|profile|wallet|rewardPoints|signOut|shopping|redemption|cart|orderHistory|settings|updateChecking|aboutSystem|',
-    owner: '|profile|signOut|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|',
+    owner: '|profile|signOut|purchaseOrder|productBookings|customerInformation|payments|packingStatus|transportation|settings|updateChecking|aboutSystem|',
     headSale: '|profile|wallet|rewardPoints|signOut|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|',
     sale: '|profile|wallet|rewardPoints|signOut|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|',
     manager: '|profile|wallet|rewardPoints|signOut|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|',
-    officer: '|profile|wallet|rewardPoints|signOut|shopping|redemption|cart|orderHistory|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|'
+    officer: '|profile|wallet|rewardPoints|signOut|shopping|redemption|cart|orderHistory|purchaseOrder|productBookings|customerInformation|payments|packingStatus|transportation|settings|updateChecking|aboutSystem|'
   };
 
   public menuDividerShow: any =
