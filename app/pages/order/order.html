@@ -15,12 +15,12 @@
 
 <ion-content class="list-avatar-page">
 
-  <ion-list class="margin-0">
-    <ion-item>
-      <ion-label>ประเภท{{global.language[global.langCode].info}}</ion-label>
-      <ion-select [(ngModel)]="gaming" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+  <ion-list class="margin-0 no-border-top">
+    <ion-item class="bg-blue no-border-bottom no-border-top">
+      <ion-label class="color-white">ประเภท{{global.language[global.langCode].info}}</ion-label>
+      <ion-select class="color-white" [(ngModel)]="dataType" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
         <ion-option value="waiting">รอตรวจสอบ</ion-option>
-        <ion-option value="confirm">{{global.language[global.langCode].confirm}}คำสั่งซื้อ</ion-option>
+        <ion-option value="confirm">ยืนยันคำสั่งซื้อ</ion-option>
         <ion-option value="packing">กำลังจัดสินค้า</ion-option>
         <ion-option value="packed">จัดสินค้าแล้ว</ion-option>
         <ion-option value="delivery">กำลังจัดส่ง</ion-option>
@@ -36,7 +36,7 @@
       <ion-item>
         <table width="100%">
           <tr>
-            <td><b><h2>1608B01084</h2></b></td>
+            <td><h2><b>1608B01084</b></h2></td>
             <td class="note">24/08/2559 10:32</td>
           </tr>
         </table>
@@ -46,7 +46,7 @@
             <td>
               <p><b>2</b> รายการ : <b>3</b> ชิ้น</p>
             </td>
-            <td class="note-price">436 บาท</td>
+            <td class="note-price"><b>436</b> บาท</td>
           </tr>
         </table>
       </ion-item>
@@ -76,7 +76,7 @@
       <ion-item>
         <table width="100%">
           <tr>
-            <td><b><h2>1608B01083</h2></b></td>
+            <td><h2><b>1608B01083</b></h2></td>
             <td class="note">24/08/2559 10:32</td>
           </tr>
         </table>
@@ -84,9 +84,9 @@
         <table width="100%">
           <tr>
             <td>
-              <p>5 รายการ : 458 ชิ้น</p>
+              <p><b>5</b> รายการ : <b>458</b> ชิ้น</p>
             </td>
-            <td class="note-price">156,879 บาท</td>
+            <td class="note-price"><b>156,879</b> บาท</td>
           </tr>
         </table>
       </ion-item>
@@ -116,7 +116,7 @@
       <ion-item>
         <table width="100%">
           <tr>
-            <td><b><h2>1608B01082</h2></b></td>
+            <td><h2><b>1608B01082</b></h2></td>
             <td class="note">24/08/2559 10:32</td>
           </tr>
         </table>
@@ -124,9 +124,9 @@
         <table width="100%">
           <tr>
             <td>
-              <p>87 รายการ : 5,987 ชิ้น</p>
+              <p><b>87</b> รายการ : <b>5,987</b> ชิ้น</p>
             </td>
-            <td class="note-price">356,498 บาท</td>
+            <td class="note-price"><b>356,498</b> บาท</td>
           </tr>
         </table>
       </ion-item>
@@ -154,3 +154,9 @@
   </ion-list>
 
 </ion-content>
+
+<ion-footer>
+  <ion-footer dark text-center class="bg-dark no-border-top">
+    <ion-title class="footer">จำนวน 5 รายการ</ion-title>
+  </ion-footer>
+</ion-footer>

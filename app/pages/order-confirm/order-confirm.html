@@ -17,7 +17,7 @@
 
   <ion-list [(ngModel)]="payStatus" radio-group class="margin-0">
     <ion-item-group>
-      <ion-item-divider light>การชำระเงิน</ion-item-divider>
+      <ion-item-divider light><i class="fa fa-lg fa-bank margin-right-5"></i><b>การชำระเงิน</b></ion-item-divider>
       <ion-item>
         <ion-label>เก็บเงินสดปลายทาง</ion-label>
         <ion-radio value="cash"></ion-radio>
@@ -47,7 +47,7 @@
       </ion-item>
       <ion-item *ngIf="payType == 'transfer' || payType == 'cheque'">
         <ion-label>ธนาคาร</ion-label>
-        <ion-select cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+        <ion-select [(ngModel)]="bankName" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
           <ion-option value="kbank">กสิกรไทย</ion-option>
           <ion-option value="bbl">กรุงเทพ</ion-option>
           <ion-option value="ktb">กรุงไทย</ion-option>
@@ -127,28 +127,30 @@
     </ion-item>
   </ion-list>
 
-    <ion-list class="margin-top-10">
-      <ion-item-group>
-        <ion-item-divider light>การจัดสินค้า</ion-item-divider>
-      </ion-item-group>
-      <ion-item *ngIf="payType == 'transfer'">
-        <ion-label>ลำดับความสำคัญ</ion-label>
-        <ion-select cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
-          <ion-option value="sms">ด่วนที่สุด</ion-option>
-          <ion-option value="line">ด่วนมาก</ion-option>
-          <ion-option value="email">ด่วน</ion-option>
-          <ion-option value="email">ปกติ</ion-option>
-          <ion-option value="email">ช้า</ion-option>
-          <ion-option value="email">ช้ามาก</ion-option>
-          <ion-option value="email">ช้าที่สุด</ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-list>
+  <ion-list class="margin-top-10">
+    <ion-item-group>
+      <ion-item-divider light><i class="fa fa-lg fa-tasks margin-right-5"></i><b>การจัดสินค้า</b></ion-item-divider>
+    </ion-item-group>
+    <ion-item *ngIf="payType == 'transfer'">
+      <ion-label>ลำดับความสำคัญ</ion-label>
+      <ion-select [(ngModel)]="priority" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+        <ion-option value="2">ด่วนมาก</ion-option>
+        <ion-option value="1">ด่วน</ion-option>
+        <ion-option value="0">ปกติ</ion-option>
+        <ion-option value="-1">ช้า</ion-option>
+        <ion-option value="-2">ช้ามาก</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>หมายเหตุ</ion-label>
+      <ion-input type="text" value=""></ion-input>
+    </ion-item>
+  </ion-list>
 
-<div padding>
-      <button block class="capitalize">
-        <i class="fa fa-lg fa-check-circle margin-right-5"></i> ยืนยันคำสั่งซื้อ
-      </button>
-    </div>
+  <div padding>
+    <button block class="capitalize">
+      <i class="fa fa-lg fa-check-circle margin-right-5"></i> ยืนยันคำสั่งซื้อ
+    </button>
+  </div>
 
 </ion-content>

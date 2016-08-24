@@ -8,9 +8,11 @@ import { OrderConfirmPage } from '../order-confirm/order-confirm';
 export class OrderPage {
 
   global: any;
+  dataType: string;
 
   constructor(private navCtrl: NavController, private navParams: NavParams, private alertController: AlertController) {
     this.global = this.navParams.get('global');
+    this.dataType = 'waiting';
   }
 
   cancelOrder() {
