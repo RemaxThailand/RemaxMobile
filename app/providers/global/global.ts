@@ -67,7 +67,7 @@ export class Global {
   public menu: any;
 
   public storage: Storage;
-  public socket: any;
+  //public socket: any;
 
   public constructor() {
     //this.storage = new Storage(SqlStorage);
@@ -118,7 +118,10 @@ export class Global {
         roleManager: 'Manager',
         roleMember: 'Member',
         roleOfficer: 'Officer',
-        roleSale: 'Sale'
+        roleSale: 'Sale',
+        call: 'Call',
+        confirm: 'Confirm',
+        info: 'Info'
       }
       ,
       th:
@@ -165,7 +168,10 @@ export class Global {
         roleManager: 'หัวหน้าทีม',
         roleMember: 'สมาชิก',
         roleOfficer: 'พนักงานบริษัท',
-        roleSale: 'ฝ่ายขาย'
+        roleSale: 'ฝ่ายขาย',
+        call: 'โทร',
+        confirm: 'ยืนยัน',
+        info: 'ข้อมูล'
       }
       ,
       jp:
@@ -212,7 +218,10 @@ export class Global {
         roleManager: 'マネージャー',
         roleMember: 'メンバー',
         roleOfficer: '役員',
-        roleSale: '販売'
+        roleSale: '販売',
+        call: 'コール',
+        confirm: '確認します',
+        info: '情報'
       }
     }
 

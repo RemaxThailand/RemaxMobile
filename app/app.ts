@@ -11,6 +11,7 @@ import { ShoppingPage } from './pages/shopping/shopping';
   templateUrl: 'build/app.html',
   providers: [Global]
 })
+
 class RemaxApp {
   @ViewChild(Nav) nav: Nav;
   public socket: any;
@@ -29,7 +30,7 @@ class RemaxApp {
   initializeApp() {
 
     this.platform.ready().then(() => {
-      this.global.socket = io('https://realtime-test.remaxthailand.co.th');
+      //this.socket = io('https://realtime-test.remaxthailand.co.th');
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       /*
@@ -49,14 +50,29 @@ class RemaxApp {
       });
 
       this.global.isShowMenu = true;
-      this.nav.setRoot(ShoppingPage, {
-        global:this.global
+
+      local.get('page').then((page) => {
+        if(page == undefined) page = 'shopping';
+        let success = false;
+        for (var menu in this.global.menuGroup) {
+          let json = this.global.menuGroup[menu];
+          for (var idx in json) {
+            if(json[idx].title == page){
+              success = true;
+              this.nav.setRoot(json[idx].component, {
+                global:this.global
+              });
+              break;
+            }
+          }
+          if(success) break;
+        }
       });
 
-      this.global.socket.on('online', function (data) {
+      /*this.socket.on('online', function (data) {
           //this.isOnline = true;
           alert(data.count);
-      });
+      });*/
 
       /*
       let storage = new Storage(SqlStorage);
@@ -115,8 +131,11 @@ class RemaxApp {
       });
     }
     else {
-      this.nav.setRoot(page.component, {
-        global:this.global
+      let local = new Storage(LocalStorage);
+      local.set('page', page.title).then(() => {
+        this.nav.setRoot(page.component, {
+          global:this.global
+        });
       });
     }
   }

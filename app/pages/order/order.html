@@ -4,9 +4,153 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{global.language[global.langCode].purchaseOrder}}</ion-title>
+    <ion-buttons end>
+      <button (click)="search()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="list-avatar-page">
+
+  <ion-list class="margin-0">
+    <ion-item>
+      <ion-label>ประเภท{{global.language[global.langCode].info}}</ion-label>
+      <ion-select [(ngModel)]="gaming" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+        <ion-option value="waiting">รอตรวจสอบ</ion-option>
+        <ion-option value="confirm">{{global.language[global.langCode].confirm}}คำสั่งซื้อ</ion-option>
+        <ion-option value="packing">กำลังจัดสินค้า</ion-option>
+        <ion-option value="packed">จัดสินค้าแล้ว</ion-option>
+        <ion-option value="delivery">กำลังจัดส่ง</ion-option>
+        <ion-option value="shipped">จัดส่งแล้ว</ion-option>
+        <ion-option value="search">ค้นหา</ion-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list>
+    <ion-item-sliding>
+      <ion-item>
+        <table width="100%">
+          <tr>
+            <td><b><h2>1608B01084</h2></b></td>
+            <td class="note">24/08/2559 10:32</td>
+          </tr>
+        </table>
+        <h3><i class="fa fa-lg fa-user"></i> นายสมาชิก ทั่วไป</h3>
+        <table width="100%">
+          <tr>
+            <td>
+              <p><b>2</b> รายการ : <b>3</b> ชิ้น</p>
+            </td>
+            <td class="note-price">436 บาท</td>
+          </tr>
+        </table>
+      </ion-item>
+      <ion-item-options side="left">
+        <a button primary href="tel:0876733414">
+          <ion-icon name="call"></ion-icon>
+          {{global.language[global.langCode].call}}
+        </a>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button danger (click)="cancelOrder()">
+          <ion-icon name="trash"></ion-icon>
+          {{global.language[global.langCode].cancel}}
+        </button>
+        <button secondary (click)="confirmOrder()">
+          <ion-icon name="md-checkbox"></ion-icon>
+          {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark>
+          <ion-icon name="md-list-box"></ion-icon>
+          {{global.language[global.langCode].info}}
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding>
+      <ion-item>
+        <table width="100%">
+          <tr>
+            <td><b><h2>1608B01083</h2></b></td>
+            <td class="note">24/08/2559 10:32</td>
+          </tr>
+        </table>
+        <h3><i class="fa fa-lg fa-github-alt"></i> บริษัท เค.จี.เทรดดิ้ง (ประเทศไทย) จำกัด สำนักงานใหญ่</h3>
+        <table width="100%">
+          <tr>
+            <td>
+              <p>5 รายการ : 458 ชิ้น</p>
+            </td>
+            <td class="note-price">156,879 บาท</td>
+          </tr>
+        </table>
+      </ion-item>
+      <ion-item-options side="left">
+        <a button primary href="tel:0876733414">
+          <ion-icon name="call"></ion-icon>
+          {{global.language[global.langCode].call}}
+        </a>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button danger (click)="cancelOrder()">
+          <ion-icon name="trash"></ion-icon>
+          {{global.language[global.langCode].cancel}}
+        </button>
+        <button secondary (click)="confirmOrder()">
+          <ion-icon name="md-checkbox"></ion-icon>
+          {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark>
+          <ion-icon name="md-list-box"></ion-icon>
+          {{global.language[global.langCode].info}}
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding>
+      <ion-item>
+        <table width="100%">
+          <tr>
+            <td><b><h2>1608B01082</h2></b></td>
+            <td class="note">24/08/2559 10:32</td>
+          </tr>
+        </table>
+        <h3><i class="fa fa-lg fa-home"></i> Shop ซีคอนบางแค</h3>
+        <table width="100%">
+          <tr>
+            <td>
+              <p>87 รายการ : 5,987 ชิ้น</p>
+            </td>
+            <td class="note-price">356,498 บาท</td>
+          </tr>
+        </table>
+      </ion-item>
+      <ion-item-options side="left">
+        <a button primary href="tel:0876733414">
+          <ion-icon name="call"></ion-icon>
+          {{global.language[global.langCode].call}}
+        </a>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button danger (click)="cancelOrder()">
+          <ion-icon name="trash"></ion-icon>
+          {{global.language[global.langCode].cancel}}
+        </button>
+        <button secondary (click)="confirmOrder()">
+          <ion-icon name="md-checkbox"></ion-icon>
+          {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark>
+          <ion-icon name="md-list-box"></ion-icon>
+          {{global.language[global.langCode].info}}
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
 </ion-content>
