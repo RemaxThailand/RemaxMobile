@@ -33,6 +33,11 @@
 .padding-left-10 { padding-left: 10px }
 .padding-right-5 { padding-right: 5px }
 
+.font-12 { font-size: 12px !important }
+.font-14 { font-size: 14px !important }
+.position-up-1 { position: relative; top: -1px }
+.position-up-2 { position: relative; top: -2px }
+
 .no-border-top { border-top: 0px solid transparent !important }
 .no-border-bottom { border-bottom: 0px solid transparent !important }
 
@@ -42,9 +47,13 @@
 .color-white { color: white !important }
 .color-danger { color: color($colors, danger) !important }
 .color-primary { color: color($colors, primary) !important }
+.color-light-gray { color: #aeacb4 !important }
 .bg-dark { background-color: color($colors, dark) !important }
+.bg-primary { background-color: color($colors, primary) !important }
 .bg-favorite { background-color: color($colors, favorite) !important }
 .bg-blue { background-color: #2e6da4 !important }
+
+.border-gray { border:1px solid #aeacb4 }
 
 .capitalize { text-transform: capitalize }
 
@@ -55,17 +64,16 @@
 .footer .toolbar-title { font-size: 14px; color: white; padding:5px 0 }
 
 
-.queue ion-label { margin: 0 }
+.queue ion-label { margin: 5px 8px 5px 0 }
 .badge-queue { width:45px; font-weight: bold }
-.blink-red-orange {
-    background-color: red;
-    -webkit-animation-name: redOrange;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-iteration-count: infinite;
-    animation-name: redOrange;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
+.blink-red-orange-fast { background-color: color($colors, danger);
+    -webkit-animation-name: redOrange; -webkit-animation-duration: 0.5s; -webkit-animation-iteration-count: infinite;
+    animation-name: redOrange; animation-duration: 0.5s; animation-iteration-count: infinite;
+}
+.blink-red-orange { background-color: color($colors, danger);
+    -webkit-animation-name: redOrange; -webkit-animation-duration: 1s; -webkit-animation-iteration-count: infinite;
+    animation-name: redOrange; animation-duration: 1s; animation-iteration-count: infinite;
 }
 
-@-webkit-keyframes redOrange { 0%   {background-color:red} 33%  {background-color:orange} 100%  {background-color:red} }
-@keyframes redOrange { 0%   {background-color:red} 33% {background-color:orange} 100% {background-color:red} }
+@-webkit-keyframes redOrange { 0%   {background-color:color($colors, danger)} 33%  {background-color:orange} 100%  {background-color:color($colors, danger)} }
+@keyframes redOrange { 0%   {background-color:color($colors, danger)} 33% {background-color:orange} 100% {background-color:color($colors, danger)} }

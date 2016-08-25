@@ -13,10 +13,12 @@
   <ion-list class="margin-0 no-border-top">
     <ion-item class="bg-blue no-border-bottom no-border-top">
       <ion-label class="color-white">ประเภทข้อมูล</ion-label>
-      <ion-select class="color-white" [(ngModel)]="dataType" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+      <ion-select class="color-white" [(ngModel)]="dataType" (ionChange)="changeDataType($event, dataType)"
+        cancelText="{{global.language[global.langCode].cancel}}"
+        okText="{{global.language[global.langCode].ok}}">
         <ion-option value="queue">คิวการจัดสินค้า</ion-option>
         <ion-option value="prepare">เตรียมสินค้าแล้ว</ion-option>
-        <ion-option value="packing">กำลังจัดสินค้าลงกล่อง</ion-option>
+        <ion-option value="packing">จัดสินค้าลงกล่อง</ion-option>
         <ion-option value="packed">สินค้าพร้อมจัดส่ง</ion-option>
         <ion-option value="delivery">กำลังจัดส่ง</ion-option>
         <ion-option value="shipped">จัดส่งแล้ว</ion-option>
@@ -24,83 +26,218 @@
     </ion-item>
 
   </ion-list>
-  <ion-list>
-    <ion-item-group class="queue">
-      <ion-item-divider light>ด่วนมาก</ion-item-divider>
+
+  <ion-list class="margin-0" *ngIf="dataType == 'queue'">
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <ion-badge item-left class="blink-red-orange-fast badge-queue" text-center><h1><b>1</b></h1></ion-badge>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> ดา</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+      <ion-item-options side="right">
+        <button secondary (click)="queueAssign()" class="capitalize">
+          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="print"></ion-icon> พิมพ์
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
 
 
-      <ion-item-sliding>
-        <ion-item class="padding-left-10">
-          <ion-badge item-left class="blink-red-orange badge-queue" text-center><h1>1</h1></ion-badge>
-          <table width="100%">
-            <tr>
-              <td>
-                <h2><b>1608B01084</b></h2>
-              </td>
-              <td class="note">24/08/2559 10:32</td>
-            </tr>
-          </table>
-          <table width="100%">
-            <tr>
-              <td>
-                <p><b>2</b> รายการ : <b>3</b> ชิ้น</p>
-              </td>
-              <td class="note-price"><b>436</b> บาท</td>
-            </tr>
-          </table>
-        </ion-item>
-        <ion-item-options side="right">
-          <button secondary (click)="confirmOrder()" class="capitalize">
-            <ion-icon name="md-checkbox"></ion-icon>
-            {{global.language[global.langCode].confirm}}
-          </button>
-          <button dark (click)="confirmOrder()" class="capitalize">
-            <ion-icon name="print"></ion-icon>
-            พิมพ์
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <ion-badge item-left class="blink-red-orange-fast badge-queue" text-center><h1><b>2</b></h1></ion-badge>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> มิ้น</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+        <p class="color-danger"><i><i class="fa fa-quote-left"></i> จัดเสร็จ ยังไม่ต้องส่ง รอลูกค้ายืนยันก่อนค่ะ <i class="fa fa-quote-right"></i></i></p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button secondary (click)="queueAssign()" class="capitalize">
+          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="print"></ion-icon> พิมพ์
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
 
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <ion-badge item-left class="blink-red-orange badge-queue" text-center><h1><b>3</b></h1></ion-badge>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> มิ้น</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+      <ion-item-options side="right">
+        <button secondary (click)="queueAssign()" class="capitalize">
+          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="print"></ion-icon> พิมพ์
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <ion-badge item-left class="blink-red-orange badge-queue" text-center><h1><b>4</b></h1></ion-badge>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> วาว</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+        <i class="color-danger"><i class="fa fa-quote-left"></i> ห้ามส่งใบส่งของลงไปในกล่องเด็ดขาดค่ะ เดี๋ยวลูกค้ามารับเอง <i class="fa fa-quote-right"></i></i>
+      </ion-item>
+      <ion-item-options side="right">
+        <button secondary (click)="queueAssign()" class="capitalize">
+          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="print"></ion-icon> พิมพ์
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
 
-      <ion-item-sliding>
-        <ion-item class="padding-left-10">
-          <ion-badge item-left class="blink-red-orange badge-queue" text-center><h1>88</h1></ion-badge>
-          <table width="100%">
-            <tr>
-              <td>
-                <h2><b>1608B01084</b></h2></td>
-              <td class="note">24/08/2559 10:32</td>
-            </tr>
-          </table>
-          <table width="100%">
-            <tr>
-              <td>
-                <p><b>2</b> รายการ : <b>3</b> ชิ้น</p>
-              </td>
-              <td class="note-price"><b>436</b> บาท</td>
-            </tr>
-          </table>
-        </ion-item>
-        <ion-item-options side="right">
-          <button secondary (click)="confirmOrder()" class="capitalize">
-            <ion-icon name="md-checkbox"></ion-icon>
-            {{global.language[global.langCode].confirm}}
-          </button>
-          <button dark (click)="confirmOrder()" class="capitalize">
-            <ion-icon name="print"></ion-icon>
-            พิมพ์
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <ion-badge item-left class="badge-queue" primary text-center><h1><b>5</b></h1></ion-badge>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> ดา</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+      <ion-item-options side="right">
+        <button secondary (click)="queueAssign()" class="capitalize">
+          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="print"></ion-icon> พิมพ์
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <ion-badge item-left class="badge-queue" primary text-center><h1><b>6</b></h1></ion-badge>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> ดา</span></h2></td><td class="note color-danger">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+      <ion-item-options side="right">
+        <button secondary (click)="queueAssign()" class="capitalize">
+          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="print"></ion-icon> พิมพ์
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <ion-badge item-left class="badge-queue" primary text-center><h1><b>7</b></h1></ion-badge>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นาง</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+      <ion-item-options side="right">
+        <button secondary (click)="queueAssign()" class="capitalize">
+          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="print"></ion-icon> พิมพ์
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
 
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <ion-badge item-left class="badge-queue" dark text-center><h1><b>8</b></h1></ion-badge>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นัน</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+      <ion-item-options side="right">
+        <button secondary (click)="queueAssign()" class="capitalize">
+          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="print"></ion-icon> พิมพ์
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
 
-    </ion-item-group>
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <ion-badge item-left class="badge-queue border-gray" light text-center><h1><b>9</b></h1></ion-badge>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> ดา</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+      <ion-item-options side="right">
+        <button secondary (click)="queueAssign()" class="capitalize">
+          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+        </button>
+        <button dark (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="print"></ion-icon> พิมพ์
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
   </ion-list>
 
-  <ion-item-group>
-    <ion-item-divider light>ปกติ</ion-item-divider>
-    <ion-item>Angola</ion-item>
-    <ion-item>Argentina</ion-item>
-  </ion-item-group>
+
+    <ion-list class="margin-0" *ngIf="dataType == 'prepare'">
+      <ion-item-sliding>
+        <ion-item class="padding-left-10 queue" text-wrap>
+          <i class="fa fa-3x fa-cog fa-spin" light item-left></i>
+          <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-shopping-bag"></i> เหมย</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+          <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+        </ion-item>
+        <ion-item-options side="right">
+          <button dark (click)="confirmOrder()" class="capitalize">
+            <ion-icon name="print"></ion-icon> พิมพ์
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item-sliding>
+        <ion-item class="padding-left-10 queue" text-wrap>
+          <i class="fa fa-3x fa-check-circle" secondary item-left></i>
+          <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นัน</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+          <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+        </ion-item>
+      </ion-item-sliding>
+      <ion-item-sliding>
+        <ion-item class="padding-left-10 queue" text-wrap>
+          <i class="fa fa-3x fa-check-circle" secondary item-left></i>
+          <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นาง</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+          <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+        </ion-item>
+      </ion-item-sliding>
+      <ion-item-sliding>
+        <ion-item class="padding-left-10 queue" text-wrap>
+          <i class="fa fa-3x fa-times-circle" danger item-left></i>
+          <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นัน</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+          <table width="100%"><tr><td><p><b>29</b> รายการ : <b>356</b> ชิ้น</p><span danger> ขาด <b>3</b> รายการ : <b>36</b> ชิ้น</span></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+        </ion-item>
+        <ion-item-options side="right">
+          <button danger (click)="confirmOrder()" class="capitalize">
+            <ion-icon name="quote"></ion-icon> หมายเหตุ
+          </button>
+          <button dark class="capitalize">
+            <ion-icon name="md-list-box"></ion-icon>
+            {{global.language[global.langCode].info}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item-sliding>
+        <ion-item class="padding-left-10 queue" text-wrap>
+          <i class="fa fa-3x fa-times-circle" danger item-left></i>
+          <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นัน</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+          <table width="100%"><tr><td><p><b>29</b> รายการ : <b>356</b> ชิ้น</p>
+            <span danger> ขาด <b>3</b> รายการ : <b>36</b> ชิ้น<br />
+              <i class="color-danger"><i class="fa fa-quote-left"></i> ของหายค่ะ <i class="fa fa-quote-right"></i></i>
+            </span></td>
+            <td class="note-price"><b>436</b> บาท</td></tr></table>
+        </ion-item>
+        <ion-item-options side="right">
+          <button danger (click)="confirmOrder()" class="capitalize">
+            <ion-icon name="quote"></ion-icon> หมายเหตุ
+          </button>
+          <button dark class="capitalize">
+            <ion-icon name="md-list-box"></ion-icon>
+            {{global.language[global.langCode].info}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
 
 </ion-content>
