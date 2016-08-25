@@ -53,3 +53,19 @@
 .note-price { font-size: 14px; text-align: right }
 
 .footer .toolbar-title { font-size: 14px; color: white; padding:5px 0 }
+
+
+.queue ion-label { margin: 0 }
+.badge-queue { width:45px; font-weight: bold }
+.blink-red-orange {
+    background-color: red;
+    -webkit-animation-name: redOrange;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    animation-name: redOrange;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes redOrange { 0%   {background-color:red} 33%  {background-color:orange} 100%  {background-color:red} }
+@keyframes redOrange { 0%   {background-color:red} 33% {background-color:orange} 100% {background-color:red} }

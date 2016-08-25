@@ -15,7 +15,7 @@
     </ion-item-group>
   </ion-list>
 
-  <ion-list [(ngModel)]="payStatus" radio-group class="margin-0">
+  <ion-list [(ngModel)]="payStatus" radio-group class="margin-0" (ionChange)="changePayStatus($event, payStatus)">
     <ion-item-group>
       <ion-item-divider light><i class="fa fa-lg fa-bank margin-right-5"></i><b>การชำระเงิน</b></ion-item-divider>
       <ion-item>
@@ -152,13 +152,13 @@
     <ion-item>
       <ion-label>การขนส่ง</ion-label>
       <ion-select [(ngModel)]="shipMethod" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
-        <ion-option value="kerry">เคอรี่ เอ็กซ์เพรส</ion-option>
+        <ion-option value="kerry" *ngIf="payStatus != 'cash'">เคอรี่ เอ็กซ์เพรส</ion-option>
         <ion-option value="self">ขนส่งเอง</ion-option>
-        <ion-option value="ems">ไปรษณีย์ด่วนพิเศษ</ion-option>
-        <ion-option value="register">ไปรษณีย์ลงทะเบียน</ion-option>
-        <ion-option value="siamfirst">สยามเฟิร์ส</ion-option>
-        <ion-option value="nim">นิ่มเอ็กซ์เพรส</ion-option>
-        <ion-option value="other">ขนส่งเอกชนอื่นๆ</ion-option>
+        <ion-option value="ems" *ngIf="payStatus != 'cash'">ไปรษณีย์ด่วนพิเศษ</ion-option>
+        <ion-option value="register" *ngIf="payStatus != 'cash'">ไปรษณีย์ลงทะเบียน</ion-option>
+        <ion-option value="siamfirst" *ngIf="payStatus != 'cash'">สยามเฟิร์ส</ion-option>
+        <ion-option value="nim" *ngIf="payStatus != 'cash'">นิ่มเอ็กซ์เพรส</ion-option>
+        <ion-option value="other" *ngIf="payStatus != 'cash'">ขนส่งเอกชนอื่นๆ</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -168,7 +168,7 @@
   </ion-list>
 
   <div padding>
-    <button block class="capitalize">
+    <button block class="capitalize" (click)="saveData()">
       <i class="fa fa-lg fa-check-circle margin-right-5"></i> ยืนยันคำสั่งซื้อ
     </button>
   </div>

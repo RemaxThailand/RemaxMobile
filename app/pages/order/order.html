@@ -13,18 +13,16 @@
 </ion-header>
 
 
-<ion-content class="list-avatar-page">
+<ion-content>
 
   <ion-list class="margin-0 no-border-top">
     <ion-item class="bg-blue no-border-bottom no-border-top">
       <ion-label class="color-white">ประเภทข้อมูล</ion-label>
       <ion-select class="color-white" [(ngModel)]="dataType" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
         <ion-option value="waiting">รอตรวจสอบ</ion-option>
+        <ion-option value="queue">คิวการจัดสินค้า</ion-option>
+        <ion-option value="lost">สินค้าไม่ครบ</ion-option>
         <ion-option value="confirm">ยืนยันคำสั่งซื้อ</ion-option>
-        <ion-option value="packing">กำลังจัดสินค้า</ion-option>
-        <ion-option value="packed">จัดสินค้าแล้ว</ion-option>
-        <ion-option value="delivery">กำลังจัดส่ง</ion-option>
-        <ion-option value="shipped">จัดส่งแล้ว</ion-option>
         <ion-option value="search">ค้นหา</ion-option>
       </ion-select>
     </ion-item>

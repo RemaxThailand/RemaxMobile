@@ -32,7 +32,14 @@ export class OrderConfirmPage {
     now.setHours(15);
     now.setMinutes(0);
     this.shipDate = (new Date(now.getTime() - now.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
+  }
 
+  changePayStatus($event, payStatus) {
+    this.shipMethod = (payStatus == 'cash') ? 'self' : 'kerry';
+  }
+
+  saveData(){
+    this.navCtrl.pop();
   }
 
 }
