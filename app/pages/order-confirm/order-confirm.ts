@@ -12,8 +12,10 @@ export class OrderConfirmPage {
   payStatus: string;
   payType: string;
   transferDate: any;
+  shipDate: any;
   bankName: string;
   priority: number;
+  shipMethod: string;
 
   constructor(private navCtrl: NavController, private navParams: NavParams) {
     this.global = this.navParams.get('global');
@@ -22,8 +24,14 @@ export class OrderConfirmPage {
     this.payType = 'transfer';
     this.bankName = 'kbank';
     this.priority = 0;
+    this.shipMethod = 'kerry';
 
-    this.transferDate = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0,-1);
+    let now = new Date();
+    this.transferDate = (new Date(now.getTime() - now.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
+    now.setDate(now.getDate() + 1);
+    now.setHours(15);
+    now.setMinutes(0);
+    this.shipDate = (new Date(now.getTime() - now.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
 
   }
 

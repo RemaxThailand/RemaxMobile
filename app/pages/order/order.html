@@ -17,7 +17,7 @@
 
   <ion-list class="margin-0 no-border-top">
     <ion-item class="bg-blue no-border-bottom no-border-top">
-      <ion-label class="color-white">ประเภท{{global.language[global.langCode].info}}</ion-label>
+      <ion-label class="color-white">ประเภทข้อมูล</ion-label>
       <ion-select class="color-white" [(ngModel)]="dataType" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
         <ion-option value="waiting">รอตรวจสอบ</ion-option>
         <ion-option value="confirm">ยืนยันคำสั่งซื้อ</ion-option>
@@ -51,21 +51,21 @@
         </table>
       </ion-item>
       <ion-item-options side="left">
-        <a button href="tel:0876733414" class="bg-favorite">
+        <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
           <ion-icon name="call"></ion-icon>
           {{global.language[global.langCode].call}}
         </a>
       </ion-item-options>
       <ion-item-options side="right">
-        <button danger (click)="cancelOrder()">
+        <button danger (click)="cancelOrder()" class="capitalize">
           <ion-icon name="trash"></ion-icon>
           {{global.language[global.langCode].cancel}}
         </button>
-        <button secondary (click)="confirmOrder()">
+        <button secondary (click)="confirmOrder()" class="capitalize">
           <ion-icon name="md-checkbox"></ion-icon>
           {{global.language[global.langCode].confirm}}
         </button>
-        <button dark>
+        <button dark class="capitalize">
           <ion-icon name="md-list-box"></ion-icon>
           {{global.language[global.langCode].info}}
         </button>
@@ -91,21 +91,21 @@
         </table>
       </ion-item>
       <ion-item-options side="left">
-        <a button href="tel:0876733414" class="bg-favorite">
+        <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
           <ion-icon name="call"></ion-icon>
           {{global.language[global.langCode].call}}
         </a>
       </ion-item-options>
       <ion-item-options side="right">
-        <button danger (click)="cancelOrder()">
+        <button danger (click)="cancelOrder()" class="capitalize">
           <ion-icon name="trash"></ion-icon>
           {{global.language[global.langCode].cancel}}
         </button>
-        <button secondary (click)="confirmOrder()">
+        <button secondary (click)="confirmOrder()" class="capitalize">
           <ion-icon name="md-checkbox"></ion-icon>
           {{global.language[global.langCode].confirm}}
         </button>
-        <button dark>
+        <button dark class="capitalize">
           <ion-icon name="md-list-box"></ion-icon>
           {{global.language[global.langCode].info}}
         </button>
@@ -131,21 +131,21 @@
         </table>
       </ion-item>
       <ion-item-options side="left">
-        <a button href="tel:0876733414" class="bg-favorite">
+        <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
           <ion-icon name="call"></ion-icon>
           {{global.language[global.langCode].call}}
         </a>
       </ion-item-options>
       <ion-item-options side="right">
-        <button danger (click)="cancelOrder()">
+        <button danger (click)="cancelOrder()" class="capitalize">
           <ion-icon name="trash"></ion-icon>
           {{global.language[global.langCode].cancel}}
         </button>
-        <button secondary (click)="confirmOrder()">
+        <button secondary (click)="confirmOrder()" class="capitalize">
           <ion-icon name="md-checkbox"></ion-icon>
           {{global.language[global.langCode].confirm}}
         </button>
-        <button dark>
+        <button dark class="capitalize">
           <ion-icon name="md-list-box"></ion-icon>
           {{global.language[global.langCode].info}}
         </button>
