@@ -175,69 +175,75 @@
   </ion-list>
 
 
-    <ion-list class="margin-0" *ngIf="dataType == 'prepare'">
-      <ion-item-sliding>
-        <ion-item class="padding-left-10 queue" text-wrap>
-          <i class="fa fa-3x fa-cog fa-spin" light item-left></i>
-          <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-shopping-bag"></i> เหมย</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
-          <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
-        </ion-item>
-        <ion-item-options side="right">
-          <button dark (click)="confirmOrder()" class="capitalize">
-            <ion-icon name="print"></ion-icon> พิมพ์
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
-      <ion-item-sliding>
-        <ion-item class="padding-left-10 queue" text-wrap>
-          <i class="fa fa-3x fa-check-circle" secondary item-left></i>
-          <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นัน</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
-          <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
-        </ion-item>
-      </ion-item-sliding>
-      <ion-item-sliding>
-        <ion-item class="padding-left-10 queue" text-wrap>
-          <i class="fa fa-3x fa-check-circle" secondary item-left></i>
-          <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นาง</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
-          <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
-        </ion-item>
-      </ion-item-sliding>
-      <ion-item-sliding>
-        <ion-item class="padding-left-10 queue" text-wrap>
-          <i class="fa fa-3x fa-times-circle" danger item-left></i>
-          <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นัน</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
-          <table width="100%"><tr><td><p><b>29</b> รายการ : <b>356</b> ชิ้น</p><span danger> ขาด <b>3</b> รายการ : <b>36</b> ชิ้น</span></td><td class="note-price"><b>436</b> บาท</td></tr></table>
-        </ion-item>
-        <ion-item-options side="right">
-          <button danger (click)="confirmOrder()" class="capitalize">
-            <ion-icon name="quote"></ion-icon> หมายเหตุ
-          </button>
-          <button dark class="capitalize">
-            <ion-icon name="md-list-box"></ion-icon>
-            {{global.language[global.langCode].info}}
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
-      <ion-item-sliding>
-        <ion-item class="padding-left-10 queue" text-wrap>
-          <i class="fa fa-3x fa-times-circle" danger item-left></i>
-          <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นัน</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
-          <table width="100%"><tr><td><p><b>29</b> รายการ : <b>356</b> ชิ้น</p>
-            <span danger> ขาด <b>3</b> รายการ : <b>36</b> ชิ้น<br />
-              <i class="color-danger"><i class="fa fa-quote-left"></i> ของหายค่ะ <i class="fa fa-quote-right"></i></i>
-            </span></td>
-            <td class="note-price"><b>436</b> บาท</td></tr></table>
-        </ion-item>
-        <ion-item-options side="right">
-          <button danger (click)="confirmOrder()" class="capitalize">
-            <ion-icon name="quote"></ion-icon> หมายเหตุ
-          </button>
-          <button dark class="capitalize">
-            <ion-icon name="md-list-box"></ion-icon>
-            {{global.language[global.langCode].info}}
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
+
+
+
+  <ion-list class="margin-0" *ngIf="dataType == 'prepare'">
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <i class="fa fa-3x fa-cog fa-spin" light item-left></i>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-shopping-bag"></i> เหมย</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+      <ion-item-options side="right">
+        <button secondary (click)="viewDetail()" class="capitalize">
+          <ion-icon name="md-list-box"></ion-icon> {{global.language[global.langCode].info}}
+        </button>
+        <button dark (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="print"></ion-icon> พิมพ์
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <i class="fa fa-3x fa-check-circle" secondary item-left></i>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นัน</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <i class="fa fa-3x fa-check-circle" secondary item-left></i>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นาง</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>2</b> รายการ : <b>3</b> ชิ้น</p></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <i class="fa fa-3x fa-times-circle" danger item-left></i>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นัน</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>29</b> รายการ : <b>356</b> ชิ้น</p><span danger> ขาด <b>3</b> รายการ : <b>36</b> ชิ้น</span></td><td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+      <ion-item-options side="right">
+        <button danger (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="quote"></ion-icon> หมายเหตุ
+        </button>
+        <button dark class="capitalize">
+          <ion-icon name="md-list-box"></ion-icon>
+          {{global.language[global.langCode].info}}
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item class="padding-left-10 queue" text-wrap>
+        <i class="fa fa-3x fa-times-circle" danger item-left></i>
+        <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> พี่นัน</span></h2></td><td class="note">24/08/2559 10:32</td></tr></table>
+        <table width="100%"><tr><td><p><b>29</b> รายการ : <b>356</b> ชิ้น</p>
+          <span danger> ขาด <b>3</b> รายการ : <b>36</b> ชิ้น<br />
+            <i class="color-danger"><i class="fa fa-quote-left"></i> ของหายค่ะ <i class="fa fa-quote-right"></i></i>
+          </span></td>
+          <td class="note-price"><b>436</b> บาท</td></tr></table>
+      </ion-item>
+      <ion-item-options side="right">
+        <button danger (click)="confirmOrder()" class="capitalize">
+          <ion-icon name="quote"></ion-icon> หมายเหตุ
+        </button>
+        <button dark class="capitalize">
+          <ion-icon name="md-list-box"></ion-icon>
+          {{global.language[global.langCode].info}}
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
 </ion-content>

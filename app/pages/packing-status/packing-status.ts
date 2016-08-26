@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Storage, LocalStorage, ActionSheetController } from 'ionic-angular';
+import { NavController, NavParams, Storage, LocalStorage, ActionSheetController, ModalController } from 'ionic-angular';
+import { OrderDetailPage } from '../order-detail/order-detail';
 
 @Component({
   templateUrl: 'build/pages/packing-status/packing-status.html',
@@ -9,7 +10,7 @@ export class PackingStatusPage {
   global: any;
   dataType: string;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, private actionSheetController: ActionSheetController) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private actionSheetController: ActionSheetController, private modalCtrl: ModalController) {
     this.global = this.navParams.get('global');
 
     let local = new Storage(LocalStorage);
@@ -25,6 +26,11 @@ export class PackingStatusPage {
   changeDataType($event, dataType){
     let local = new Storage(LocalStorage);
     local.set('PackingStatusPage-dataType', dataType);
+  }
+
+  viewDetail(){
+    let modal = this.modalCtrl.create(OrderDetailPage);
+    modal.present();
   }
 
   queueAssign() {
