@@ -2,8 +2,11 @@
   <ion-navbar dark>
     <ion-title>1608B01084</ion-title>
     <ion-buttons end>
-      <button (click)="search()">
-        <ion-icon name="search"></ion-icon>
+      <button (click)="changeView('list')" *ngIf="viewType == 'images'">
+        <ion-icon name="md-reorder"></ion-icon>
+      </button>
+      <button (click)="changeView('images')" *ngIf="viewType == 'list'">
+        <ion-icon name="md-images"></ion-icon>
       </button>
       <button (click)="dismiss()">
         <span primary showWhen="ios">Cancel</span>
@@ -16,62 +19,105 @@
 
 <ion-content >
 
-	<ion-card>
-		<img src="build/img/p1.jpg"/>
-		<ion-card-content class="padding-5 bg-light">
-			<table width="100%"><tr>
-				<td>Cable Micro (2M,Gold) - สายชาร์จ REMAX</td>
-				<td width="10" class="nowrap padding-left-5">
-					<ion-badge primary text-center><h1 class="color-white"><b>8</b></h1></ion-badge>
-					<ion-badge dark text-center (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-cog fa-spin"></i></h1></ion-badge>
-				</td>
-			</tr></table>
-		</ion-card-content>
-	</ion-card>
+  <div class="padding-5">
+    <div class="progress-bar">
+          <span style="width: 80%;">&nbsp;</span>
+    </div>
+  </div>
 
+  <div *ngIf="viewType == 'images'">
 
+    <ion-item-group>
+      <ion-item-divider light><b>รอจัดสินค้า</b></ion-item-divider>
 
-	<ion-card>
-		<img src="build/img/p2.jpg"/>
-		<ion-card-content class="padding-5 bg-light">
-			<table width="100%"><tr>
-				<td>MICRO SD Card 64GB/CL10 ( REMAX )</td>
-				<td width="10" class="nowrap padding-left-5">
-					<ion-badge primary text-center><h1 class="color-white"><b>96</b></h1></ion-badge>
-					<ion-badge dark text-center (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-cog fa-spin"></i></h1></ion-badge>
-				</td>
-			</tr></table>
-		</ion-card-content>
-	</ion-card>
+    	<ion-card>
+    		<img src="build/img/p1.jpg"/>
+    		<ion-card-content class="padding-5 bg-light">
+    			<table width="100%"><tr>
+    				<td>Cable Micro (2M,Gold) - สายชาร์จ REMAX</td>
+    				<td width="10" class="nowrap padding-left-5">
+    					<ion-badge primary text-center><h1 class="color-white"><b>8</b></h1></ion-badge>
+    					<ion-badge dark text-center (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-cog fa-spin"></i></h1></ion-badge>
+    				</td>
+    			</tr></table>
+    		</ion-card-content>
+    	</ion-card>
 
+    	<ion-card>
+    		<img src="build/img/p2.jpg"/>
+    		<ion-card-content class="padding-5 bg-light">
+    			<table width="100%"><tr>
+    				<td>MICRO SD Card 64GB/CL10 ( REMAX )</td>
+    				<td width="10" class="nowrap padding-left-5">
+    					<ion-badge primary text-center><h1 class="color-white"><b>96</b></h1></ion-badge>
+    					<ion-badge dark text-center (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-cog fa-spin"></i></h1></ion-badge>
+    				</td>
+    			</tr></table>
+    		</ion-card-content>
+    	</ion-card>
 
+    </ion-item-group>
 
-	<ion-card>
-		<img src="build/img/p3.jpg"/>
-		<ion-card-content class="padding-5 bg-light">
-			<table width="100%"><tr>
-				<td>Cable Micro (2M,Gold) - สายชาร์จ REMAX</td>
-				<td width="10" class="nowrap padding-left-5">
-					<ion-badge secondary text-center><h1 class="color-white"><b>50</b></h1></ion-badge>
-					<ion-badge secondary text-center (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-check-circle"></i></h1></ion-badge>
-				</td>
-			</tr></table>
-		</ion-card-content>
-	</ion-card>
+    <ion-item-group>
+      <ion-item-divider light><b>จัดสินค้าแล้ว</b></ion-item-divider>
 
+    	<ion-card>
+    		<img src="build/img/p3.jpg"/>
+    		<ion-card-content class="padding-5 bg-light">
+    			<table width="100%"><tr>
+    				<td>Cable Micro (2M,Gold) - สายชาร์จ REMAX</td>
+    				<td width="10" class="nowrap padding-left-5">
+    					<ion-badge secondary text-center><h1 class="color-white"><b>50</b></h1></ion-badge>
+    					<ion-badge secondary text-center (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-check-circle"></i></h1></ion-badge>
+    				</td>
+    			</tr></table>
+    		</ion-card-content>
+    	</ion-card>
 
+    	<ion-card>
+    		<img src="build/img/p4.jpg"/>
+    		<ion-card-content class="padding-5 bg-light">
+    			<table width="100%"><tr>
+    				<td>Cable Micro (2M,Gold) - สายชาร์จ REMAX</td>
+    				<td width="10" class="nowrap padding-left-5">
+    					<ion-badge danger text-center><h1 class="color-white"><b>8</b></h1></ion-badge>
+    					<ion-badge danger text-center (click)="checkConfirm()"><h1 class="color-white"><b>-2</b></h1></ion-badge>
+    				</td>
+    			</tr></table>
+    		</ion-card-content>
+    	</ion-card>
 
-	<ion-card>
-		<img src="build/img/p4.jpg"/>
-		<ion-card-content class="padding-5 bg-light">
-			<table width="100%"><tr>
-				<td>Cable Micro (2M,Gold) - สายชาร์จ REMAX</td>
-				<td width="10" class="nowrap padding-left-5">
-					<ion-badge danger text-center><h1 class="color-white"><b>8</b></h1></ion-badge>
-					<ion-badge danger text-center (click)="checkConfirm()"><h1 class="color-white"><b>-2</b></h1></ion-badge>
-				</td>
-			</tr></table>
-		</ion-card-content>
-	</ion-card>
+    </ion-item-group>
+
+  </div>
+
+  <div *ngIf="viewType == 'list'">
+    <ion-item-group>
+      <ion-item-divider light><b>รอจัดสินค้า</b></ion-item-divider>
+      <ion-item>
+        <ion-label>Cable Micro (2M,Gold) - สายชาร์จ REMAX</ion-label>
+				<ion-badge primary text-center item-right><h1 class="color-white"><b>8</b></h1></ion-badge>
+				<ion-badge dark text-center item-right (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-cog fa-spin"></i></h1></ion-badge>
+      </ion-item>
+      <ion-item>
+        <ion-label>MICRO SD Card 64GB/CL10 ( REMAX )</ion-label>
+				<ion-badge primary text-center item-right><h1 class="color-white"><b>96</b></h1></ion-badge>
+				<ion-badge dark text-center item-right (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-cog fa-spin"></i></h1></ion-badge>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider light><b>จัดสินค้าแล้ว</b></ion-item-divider>
+      <ion-item>
+        <ion-label>Cable Micro (2M,Gold) - สายชาร์จ REMAX</ion-label>
+				<ion-badge danger text-center item-right><h1 class="color-white"><b>8</b></h1></ion-badge>
+				<ion-badge danger text-center item-right (click)="checkConfirm()"><h1 class="color-white"><b>-2</b></h1></ion-badge>
+      </ion-item>
+      <ion-item>
+        <ion-label>MICRO SD Card 64GB/CL10 ( REMAX )</ion-label>
+				<ion-badge secondary text-center item-right><h1 class="color-white"><b>50</b></h1></ion-badge>
+				<ion-badge secondary text-center item-right (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-check-circle"></i></h1></ion-badge>
+      </ion-item>
+    </ion-item-group>
+  </div>
 
 </ion-content>

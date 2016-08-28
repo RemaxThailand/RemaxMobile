@@ -6,12 +6,18 @@ import { NavController, ViewController, ActionSheetController, AlertController }
 })
 export class OrderDetailPage {
 
-  constructor(private navCtrl: NavController, private viewCtrl: ViewController, private actionSheetController: ActionSheetController, private alertCtrl: AlertController) {
+  viewType: string;
 
+  constructor(private navCtrl: NavController, private viewCtrl: ViewController, private actionSheetController: ActionSheetController, private alertCtrl: AlertController) {
+    this.viewType = 'images';
   }
 
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  changeView(viewType){
+    this.viewType = viewType;
   }
 
   checkConfirm() {

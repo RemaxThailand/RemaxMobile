@@ -84,3 +84,7 @@
 
 @-webkit-keyframes redOrange { 0%   {background-color:color($colors, danger)} 33%  {background-color:orange} 100%  {background-color:color($colors, danger)} }
 @keyframes redOrange { 0%   {background-color:color($colors, danger)} 33% {background-color:orange} 100% {background-color:color($colors, danger)} }
+
+
+.progress-bar { border:1px solid color($colors, dark); border-radius: 2px }
+.progress-bar > span { background-color: color($colors, primary); border-radius: 1px; display: block; text-indent: -9999px }
