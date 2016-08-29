@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ActionSheetController, Storage, LocalStorage } from 'ionic-angular';
+import { LocalNotifications, Push } from 'ionic-native';
 
 @Component({
   templateUrl: 'build/pages/profile/profile.html',
@@ -23,11 +24,50 @@ export class ProfilePage {
       { title: 'roleDeveloper', type: 'developer' },
       { title: 'roleOfficer', type: 'officer' }
     ];
+
+    var push = Push.init({
+       android: {
+           senderID: '3066538051'
+       },
+       ios: {
+           alert: 'true',
+           badge: true,
+           sound: 'false'
+       },
+       windows: {}
+    });
+
+    push.on('registration', function(data) {
+      alert('registration '+ JSON.stringify(data));
+    });
+
+    push.on('notification', function(data) {
+      alert('notification '+ JSON.stringify(data) );
+        // data.message,
+        // data.title,
+        // data.count,
+        // data.sound,
+        // data.image,
+        // data.additionalData
+    });
+
+    push.on('error', function(e) {
+      alert(e.message);
+        // e.message
+    });
+
   }
 
   chengeMemberRole() {
     let actionSheet = this.actionSheetController.create({
       title: this.global.language[this.global.langCode].memberPosition
+    });
+
+    LocalNotifications.schedule({
+        title: "Test Title",
+        text: "Delayed Notification",
+        at: new Date(new Date().getTime() + 5 * 1000),
+        sound: null
     });
 
     for (var idx in this.role) {

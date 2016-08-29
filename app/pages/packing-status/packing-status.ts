@@ -9,9 +9,12 @@ export class PackingStatusPage {
 
   global: any;
   dataType: string;
+  selectDate: any;
 
   constructor(private navCtrl: NavController, private navParams: NavParams, private actionSheetController: ActionSheetController, private modalCtrl: ModalController) {
     this.global = this.navParams.get('global');
+    let now = new Date();
+    this.selectDate = (new Date(now.getTime() - now.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
 
     let local = new Storage(LocalStorage);
     local.get('PackingStatusPage-dataType').then((dataType) => {
@@ -59,6 +62,47 @@ export class PackingStatusPage {
           }
         },{
           text: 'พี่ฉลอง',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'ยกเลิก',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  shipAssign() {
+    let actionSheet = this.actionSheetController.create({
+      title: 'ผู้รับผิดชอบ',
+      buttons: [
+        {
+          text: 'เอก',
+          handler: () => {
+            console.log('Destructive clicked');
+          }
+        },{
+          text: 'ยุทธ',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'อั๋น',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'พี่จิน',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'เอก (เคลม)',
           handler: () => {
             console.log('Archive clicked');
           }

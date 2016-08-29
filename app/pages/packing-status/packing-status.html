@@ -297,37 +297,203 @@
 
   <ion-list class="margin-0" *ngIf="dataType == 'packed'">
 
-  <ion-item class="padding-left-10 queue" text-wrap>
-    <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> เก๋</span></h2></td>
-      <td class="note"><p><b>5</b> กล่อง : <b>เคอรี่ เอ็กซ์เพรส</b></p></td></tr></table>
-      <h2><b>อิทธิพล แอมประชา (เอิบ)</b></h2>
-      Remax Shop ชัยภูมิ<br />
-      140/20 หมู่ 9 ต.ในเมือง อ.เมือง จ.ชัยภูมิ 36000
-  </ion-item>
+    <ion-item-group>
+      <ion-item-divider light><i class="fa fa-bus margin-right-5"></i><b>เคอรี่ เอ็กซ์เพรส</b> : <b>50</b> ลัง</ion-item-divider>
+      <ion-item-sliding>
+        <ion-item text-wrap>
+          <table width="100%"><tr><td><h2><b>1608B01084</b></h2></td>
+            <td class="note"><p><b>5</b> ลัง</p></td></tr></table>
+            <h2><b>อิทธิพล แอมประชา (เอิบ)</b></h2>
+            <b>Remax Shop ชัยภูมิ</b><br />
+            140/20 หมู่ 9 ต.ในเมือง อ.เมือง จ.ชัยภูมิ 36000
+        </ion-item>
+        <ion-item-options side="right">
+          <button secondary (click)="shipAssign()" class="capitalize">
+            <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item-sliding>
+        <ion-item text-wrap>
+          <table width="100%"><tr><td><h2><b>1608B01084</b></h2></td>
+            <td class="note"><p><b>5</b> ลัง</p></td></tr></table>
+            <h2><b>อิทธิพล แอมประชา (เอิบ)</b></h2>
+            <b>Remax Shop ชัยภูมิ</b><br />
+            140/20 หมู่ 9 ต.ในเมือง อ.เมือง จ.ชัยภูมิ 36000
+        </ion-item>
+        <ion-item-options side="right">
+          <button secondary (click)="shipAssign()" class="capitalize">
+            <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
 
-    <ion-item class="padding-left-10 queue" text-wrap>
-      <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> เก๋</span></h2></td>
-        <td class="note"><p><b>5</b> กล่อง : <b>เคอรี่ เอ็กซ์เพรส</b></p></td></tr></table>
+    <ion-item-group>
+      <ion-item-divider light><i class="fa fa-plane margin-right-5"></i><b>ไปรษณีย์ด่วนพิเศษ</b> : <b>5</b> ลัง</ion-item-divider>
+      <ion-item-sliding>
+        <ion-item text-wrap>
+          <table width="100%"><tr><td><h2><b>1608B01084</b></h2></td>
+            <td class="note"><p><b>5</b> ลัง</p></td></tr></table>
+            <h2><b>อิทธิพล แอมประชา (เอิบ)</b></h2>
+            <b>Remax Shop ชัยภูมิ</b><br />
+            140/20 หมู่ 9 ต.ในเมือง อ.เมือง จ.ชัยภูมิ 36000
+        </ion-item>
+        <ion-item-options side="right">
+          <button secondary (click)="shipAssign()" class="capitalize">
+            <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider light><i class="fa fa-truck margin-right-5"></i><b>ขนส่งเอง</b> : <b>39</b> ลัง</ion-item-divider>
+      <ion-item-sliding>
+        <ion-item text-wrap>
+          <table width="100%"><tr><td><h2><b>1608B01084</b></h2></td>
+            <td class="note"><p><b>5</b> ลัง</p></td></tr></table>
+            <h2><b>อิทธิพล แอมประชา (เอิบ)</b></h2>
+            <b>Remax Shop ชัยภูมิ</b><br />
+            140/20 หมู่ 9 ต.ในเมือง อ.เมือง จ.ชัยภูมิ 36000
+        </ion-item>
+        <ion-item-options side="right">
+          <button secondary (click)="shipAssign()" class="capitalize">
+            <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+
+  </ion-list>
+
+
+  <ion-list class="margin-0" *ngIf="dataType == 'delivery'">
+
+    <ion-item-group>
+      <ion-item-divider light><i class="fa fa-truck margin-right-5"></i><b>ยุทธ</b> : <b>5</b>/50 ลัง</ion-item-divider>
+      <ion-item-sliding>
+        <ion-item text-wrap>
+          <table width="100%"><tr><td><h2><b>1608B01084</b></h2></td>
+            <td class="note"><p><b>3</b> ลัง</p></td></tr></table>
+            <h2><b>อิทธิพล แอมประชา (เอิบ)</b></h2>
+            <b>Remax Shop ชัยภูมิ</b><br />
+            140/20 หมู่ 9 ต.ในเมือง อ.เมือง จ.ชัยภูมิ 36000
+        </ion-item>
+        <ion-item-options side="left">
+          <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
+            <ion-icon name="call"></ion-icon>
+            {{global.language[global.langCode].call}}
+          </a>
+        </ion-item-options>
+        <ion-item-options side="right">
+          <button secondary (click)="confirmOrder()" class="capitalize">
+            <ion-icon name="md-checkbox"></ion-icon>
+            {{global.language[global.langCode].confirm}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item-sliding>
+        <ion-item text-wrap>
+          <table width="100%"><tr><td><h2><b>1608B01084</b></h2></td>
+            <td class="note"><p><b>2</b> ลัง</p></td></tr></table>
+            <h2><b>อิทธิพล แอมประชา (เอิบ)</b></h2>
+            <b>Remax Shop ชัยภูมิ</b><br />
+            140/20 หมู่ 9 ต.ในเมือง อ.เมือง จ.ชัยภูมิ 36000
+        </ion-item>
+        <ion-item-options side="left">
+          <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
+            <ion-icon name="call"></ion-icon>
+            {{global.language[global.langCode].call}}
+          </a>
+        </ion-item-options>
+        <ion-item-options side="right">
+          <button secondary (click)="confirmOrder()" class="capitalize">
+            <ion-icon name="md-checkbox"></ion-icon>
+            {{global.language[global.langCode].confirm}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider light><i class="fa fa-truck margin-right-5"></i><b>เอก</b> : <b>8</b>/10 ลัง</ion-item-divider>
+      <ion-item-sliding>
+        <ion-item text-wrap>
+          <table width="100%"><tr><td><h2><b>1608B01084</b></h2></td>
+            <td class="note"><p><b>8</b> ลัง</p></td></tr></table>
+            <h2><b>ธรรมธร แอมประชา (แท็บเล็ต)</b></h2>
+            <b>Remax Shop Bangbuathong</b><br />
+            198/92 หมู่บ้าน Modi Villa ชัยพฤกษ์ หมู่ 2 ถ.โยธาธิการ นนทบุรี 2003 ต.พิมลราช อ.บางบัวทอง จ.นนทบุรี 11110
+        </ion-item>
+        <ion-item-options side="left">
+          <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
+            <ion-icon name="call"></ion-icon>
+            {{global.language[global.langCode].call}}
+          </a>
+        </ion-item-options>
+        <ion-item-options side="right">
+          <button secondary (click)="confirmOrder()" class="capitalize">
+            <ion-icon name="md-checkbox"></ion-icon>
+            {{global.language[global.langCode].confirm}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider light><i class="fa fa-truck margin-right-5"></i><b>อั๋น</b> : <b>12</b>/20 ลัง</ion-item-divider>
+      <ion-item-sliding>
+        <ion-item text-wrap>
+          <table width="100%"><tr><td><h2><b>1608B01084</b></h2></td>
+            <td class="note"><p><b>12</b> ลัง</p></td></tr></table>
+            <h2><b>อิทธิพล แอมประชา (เอิบ)</b></h2>
+            <b>Remax Shop ชัยภูมิ</b><br />
+            140/20 หมู่ 9 ต.ในเมือง อ.เมือง จ.ชัยภูมิ 36000
+        </ion-item>
+        <ion-item-options side="left">
+          <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
+            <ion-icon name="call"></ion-icon>
+            {{global.language[global.langCode].call}}
+          </a>
+        </ion-item-options>
+        <ion-item-options side="right">
+          <button secondary (click)="confirmOrder()" class="capitalize">
+            <ion-icon name="md-checkbox"></ion-icon>
+            {{global.language[global.langCode].confirm}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+
+  </ion-list>
+
+
+  <ion-list class="margin-0" *ngIf="dataType == 'shipped'">
+    <ion-item class="bg-light">
+      <ion-label>วันที่</ion-label>
+      <ion-datetime displayFormat="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="selectDate"
+          monthNames="มกราคม, กุมภาพันธ์, มีนาคม, เมษายน, พฤษภาคม, มิถุนายน, กรกฎาคม, สิงหาคม, กันยายน, ตุลาคม, พฤศจิกายน, ธันวาคม"
+          cancelText="{{global.language[global.langCode].cancel}}"
+          doneText="{{global.language[global.langCode].ok}}">
+      </ion-datetime>
+    </ion-item>
+    <ion-item text-wrap>
+      <table width="100%"><tr><td><h2><b>1608B01084</b></h2></td>
+        <td class="note"><p><b>12</b> ลัง</p></td></tr></table>
         <h2><b>อิทธิพล แอมประชา (เอิบ)</b></h2>
-        Remax Shop ชัยภูมิ<br />
+        <b>Remax Shop ชัยภูมิ</b><br />
         140/20 หมู่ 9 ต.ในเมือง อ.เมือง จ.ชัยภูมิ 36000
     </ion-item>
 
-    <ion-item class="padding-left-10 queue" text-wrap>
-      <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> เก๋</span></h2></td>
-        <td class="note"><p><b>5</b> กล่อง : <b>ไปรษณีย์ด่วนพิเศษ</b></p></td></tr></table>
-        <h2><b>อิทธิพล แอมประชา (เอิบ)</b></h2>
-        Remax Shop ชัยภูมิ<br />
-        140/20 หมู่ 9 ต.ในเมือง อ.เมือง จ.ชัยภูมิ 36000
+    <ion-item text-wrap>
+      <table width="100%"><tr><td><h2><b>1608B01084</b></h2></td>
+        <td class="note"><p><b>8</b> ลัง</p></td></tr></table>
+        <h2><b>ธรรมธร แอมประชา (แท็บเล็ต)</b></h2>
+        <b>Remax Shop Bangbuathong</b><br />
+        198/92 หมู่บ้าน Modi Villa ชัยพฤกษ์ หมู่ 2 ถ.โยธาธิการ นนทบุรี 2003 ต.พิมลราช อ.บางบัวทอง จ.นนทบุรี 11110
     </ion-item>
-
-    <ion-item class="padding-left-10 queue" text-wrap>
-      <table width="100%"><tr><td><h2><b>1608B01084</b> <span class="font-12 color-light-gray position-up-1"><i class="fa fa-user"></i> เก๋</span></h2></td>
-        <td class="note"><p><b>5</b> กล่อง : <b>ขนส่งเอง</b></p></td></tr></table>
-        <h2><b>อิทธิพล แอมประชา (เอิบ)</b></h2>
-        Remax Shop ชัยภูมิ<br />
-        140/20 หมู่ 9 ต.ในเมือง อ.เมือง จ.ชัยภูมิ 36000
-    </ion-item>
+    
   </ion-list>
 
 
