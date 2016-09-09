@@ -34,6 +34,7 @@ export class Global {
     name: 'Remax Thailand', shopName: ''
   };
   public token: string = '';
+  public deviceToken: string = '';
   public langCode: string = 'th';
   public language: any;
   public memberType: string = 'guest';

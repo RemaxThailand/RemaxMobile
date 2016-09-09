@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ionicBootstrap, Platform, Nav, Storage, LocalStorage, MenuController } from 'ionic-angular';
-import { StatusBar } from 'ionic-native';
+import { StatusBar, Push } from 'ionic-native';
 import * as io from "socket.io-client";
 
 import { Global } from './providers/global/global';
@@ -68,6 +68,32 @@ class RemaxApp {
           if(success) break;
         }
       });
+
+
+      var push = Push.init({
+        android: {
+          senderID: "3066538051"
+        },
+        ios: {
+          alert: "true",
+          badge: true,
+          sound: 'false'
+        },
+        windows: {}
+      });
+      push.on('registration', (data) => {
+        console.log(data.registrationId);
+	this.global.deviceToken = data.registrationId.toString();
+        alert(data.registrationId.toString());
+      });
+      push.on('notification', (data) => {
+        console.log(data);
+        alert("Hi, Am a push notification");
+      });
+      push.on('error', (e) => {
+        console.log(e.message);
+      });
+
 
       /*this.socket.on('online', function (data) {
           //this.isOnline = true;
