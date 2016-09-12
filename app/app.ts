@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ionicBootstrap, Platform, Nav, Storage, LocalStorage, MenuController } from 'ionic-angular';
-import { StatusBar, Push } from 'ionic-native';
+import { StatusBar, Push, LocalNotifications } from 'ionic-native';
 import * as io from "socket.io-client";
 
 import { Global } from './providers/global/global';
@@ -69,8 +69,25 @@ class RemaxApp {
         }
       });
 
+      LocalNotifications.schedule({
+        id: 1,
+        title: "หัวข้อหลัก",
+        text: "Remax Thailand",
+        //sound: isAndroid? 'file://sound.mp3': 'file://beep.caf',
+        data: { meetingId:"123#fg8" },
+        icon: 'file://icon.png'
+      });
 
-      var push = Push.init({
+      LocalNotifications.on("click", function (notification) {
+        let data = notification.data;
+        alert(data.id);
+        alert(data.meetingId);
+        alert(data['meetingId']);
+        alert(data);
+      });
+
+
+      /*var push = Push.init({
         android: {
           senderID: "3066538051"
         },
@@ -83,8 +100,8 @@ class RemaxApp {
       });
       push.on('registration', (data) => {
         console.log(data.registrationId);
-	this.global.deviceToken = data.registrationId.toString();
-        alert(data.registrationId.toString());
+        this.global.deviceToken = data.registrationId.toString();
+        //alert(data.registrationId.toString());
       });
       push.on('notification', (data) => {
         console.log(data);
@@ -92,7 +109,8 @@ class RemaxApp {
       });
       push.on('error', (e) => {
         console.log(e.message);
-      });
+        alert(e.message);
+      });*/
 
 
       /*this.socket.on('online', function (data) {
