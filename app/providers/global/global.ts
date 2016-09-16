@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MenuController, Storage, LocalStorage } from 'ionic-angular';
-//import * as io from "socket.io-client";
+import * as io from "socket.io-client";
 
 import { ShoppingPage } from '../../pages/shopping/shopping';
 import { ProfilePage } from '../../pages/profile/profile';
@@ -26,6 +26,8 @@ import { AboutPage } from '../../pages/about/about';
 
 @Injectable()
 export class Global {
+  public apiKey: string = '41C38027-7953-4DA8-8BBE-399CAD6592D4';
+  public socket: any;
   public isShowMenu: boolean = false;
   public isLogin: boolean = false;
   public isMember: boolean = false;
@@ -33,7 +35,7 @@ export class Global {
     id: '0', type: 'guest', picture: 'build/img/remax.png',
     name: 'Remax Thailand', shopName: ''
   };
-  public token: string = '';
+  //public token: string = '';
   public deviceToken: string = '';
   public langCode: string = 'th';
   public language: any;
@@ -310,6 +312,24 @@ export class Global {
         }
 
       }
+    });
+  }
+
+  public login() {
+    let storage = new Storage(LocalStorage);
+    storage.get('token').then((token) => {
+      storage.get('username').then((username) => {
+        storage.get('password').then((password) => {
+          this.socket.emit('api', {
+            token: token,
+            module:'member',
+            action:'login',
+            memberType: 'local',
+            username: username,
+            password: password
+          });
+        });
+      });
     });
   }
 

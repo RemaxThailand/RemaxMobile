@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ionicBootstrap, Platform, Nav, Storage, LocalStorage, MenuController } from 'ionic-angular';
-import { StatusBar, Push, LocalNotifications } from 'ionic-native';
+import { StatusBar } from 'ionic-native';
 import * as io from "socket.io-client";
 
 import { Global } from './providers/global/global';
@@ -14,44 +14,31 @@ import { ShoppingPage } from './pages/shopping/shopping';
 
 class RemaxApp {
   @ViewChild(Nav) nav: Nav;
-  public socket: any;
-
-  //rootPage: any = LoginPage;
 
   constructor(private platform: Platform, private menu: MenuController, private global: Global) {
+    this.global = global;
     global.menu = menu;
-
     this.initializeApp();
-
-    // used for an example of ngFor and navigation
-
   }
 
   initializeApp() {
 
     this.platform.ready().then(() => {
-      //this.socket = io('https://realtime-test.remaxthailand.co.th');
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      /*
-      StatusBar.styleDefault();
-      StatusBar.styleLightContent();
-      StatusBar.styleBlackTranslucent();
-      StatusBar.styleBlackOpaque();
-      */
       StatusBar.styleBlackTranslucent();
 
-      let local = new Storage(LocalStorage);
-      local.get('langCode').then((langCode) => {
+      this.global.socket = io('https://io-test.remaxthailand.co.th');
+      let storage = new Storage(LocalStorage);
+
+      storage.get('langCode').then((langCode) => {
         if(langCode == undefined)
-          local.set('langCode', 'th');
+          storage.set('langCode', 'th');
         else
           this.global.langCode = langCode;
       });
 
       this.global.isShowMenu = true;
 
-      local.get('page').then((page) => {
+      storage.get('page').then((page) => {
         if(page == undefined) page = 'shopping';
         let success = false;
         for (var menu in this.global.menuGroup) {
@@ -69,7 +56,7 @@ class RemaxApp {
         }
       });
 
-      LocalNotifications.schedule({
+      /*LocalNotifications.schedule({
         id: 1,
         title: "หัวข้อหลัก",
         text: "Remax Thailand",
@@ -84,7 +71,7 @@ class RemaxApp {
         alert(data.meetingId);
         alert(data['meetingId']);
         alert(data);
-      });
+      });*/
 
 
       /*var push = Push.init({
@@ -113,10 +100,30 @@ class RemaxApp {
       });*/
 
 
-      /*this.socket.on('online', function (data) {
+      /*this.global.socket.on('online', function (data) {
           //this.isOnline = true;
           alert(data.count);
       });*/
+      this.global.socket.emit('access', { apiKey: this.global.apiKey });
+
+      this.global.socket.on('access', function(data) {
+        if(data.success){
+          storage.set('token', data.token);
+          alert(data.token);
+        }
+        else {
+          alert(data.error);
+        }
+      });
+
+      this.global.socket.on('api-member-login', function(data) {
+        if(data.success){
+          alert('Success');
+        }
+        else {
+          alert(data.error+"\n"+data.errorMessage);
+        }
+      });
 
       /*
       let storage = new Storage(SqlStorage);

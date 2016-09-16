@@ -3,7 +3,6 @@ import { ControlGroup, AbstractControl, FormBuilder } from '@angular/common';
 import { NavController, NavParams, Platform, Storage, LocalStorage } from 'ionic-angular';
 //import {CordovaOauth, Facebook} from 'ng2-cordova-oauth/core';
 import { Facebook, BarcodeScanner } from 'ionic-native';
-//import { Global } from '../../providers/global/global';
 import { ShoppingPage } from '../shopping/shopping';
 
 @Component({
@@ -13,7 +12,6 @@ import { ShoppingPage } from '../shopping/shopping';
 export class LoginPage {
 
   global: any;
-  //test: any = 'test';
   form: ControlGroup;
   username: AbstractControl;
   passwrd: AbstractControl;
@@ -22,11 +20,6 @@ export class LoginPage {
     this.global = this.navParams.get('global');
     this.form = formBuilder.group({username: [''], password: ['']});
 
-    let local = new Storage(LocalStorage);
-
-    local.get('token').then((token) => {
-      this.global.token = token;
-    });
 
     //this.global.test();
 
@@ -45,6 +38,23 @@ export class LoginPage {
   }
 
   login() {
+    let storage = new Storage(LocalStorage);
+
+    storage.get('token').then((token) => {
+      if(token == undefined || token == '') {
+        this.global.socket.emit('access', { apiKey: this.global.apiKey });
+      }
+      else {
+        this.global.socket.emit('api', {
+          token: token,
+          module:'member',
+          action:'login',
+          memberType: 'local',
+          username: this.form.controls['username'].value,
+          password: this.form.controls['password'].value
+        });
+      }
+    });
     /*this.global.storage.get('token').then((token) => {
       this.global.socket.emit('api', {
         token: token,
@@ -55,14 +65,14 @@ export class LoginPage {
         password: this.form.controls['password'].value
       });
     });*/
-    this.loginSuccess();
+    //this.loginSuccess();
   }
 
   loginSuccess() {
-    let local = new Storage(LocalStorage);
-    local.set('isLogin', '1').then(() => {
-      local.set('isMember', '1').then(() => {
-        local.set('memberType', 'member').then(() => {
+    let storage = new Storage(LocalStorage);
+    storage.set('isLogin', '1').then(() => {
+      storage.set('isMember', '1').then(() => {
+        storage.set('memberType', 'member').then(() => {
           this.global.isLogin = true;
           this.global.isMember = true;
           this.global.isShowMenu = true;
@@ -77,10 +87,10 @@ export class LoginPage {
   }
 
   skipLogin() {
-    let local = new Storage(LocalStorage);
-    local.set('isLogin', '1').then(() => {
-      local.set('isMember', '0').then(() => {
-        local.set('memberType', 'guest').then(() => {
+    let storage = new Storage(LocalStorage);
+    storage.set('isLogin', '1').then(() => {
+      storage.set('isMember', '0').then(() => {
+        storage.set('memberType', 'guest').then(() => {
           this.global.isLogin = true;
           this.global.isMember = false;
           this.global.isShowMenu = true;
