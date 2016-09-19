@@ -104,15 +104,26 @@ class RemaxApp {
           //this.isOnline = true;
           alert(data.count);
       });*/
-      this.global.socket.emit('access', { apiKey: this.global.apiKey });
+	  storage.get('token').then((token) => {
+		  if (token != undefined && token.trim() != '') {
+			  this.global.socket.emit('access', { token: token });
+		  }
+		  else {
+			  this.global.socket.emit('access', { token: '' });
+		  }
+	  });
+
+      //this.global.socket.emit('access', { apiKey: this.global.apiKey });
 
       this.global.socket.on('access', function(data) {
         if(data.success){
           storage.set('token', data.token);
-          alert(data.token);
+		  console.log( data );
+          //alert(data);
         }
         else {
-          alert(data.error);
+			storage.remove('token');
+			alert(data.error+"\n"+data.errorMessage);
         }
       });
 
