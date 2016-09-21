@@ -6,19 +6,34 @@ import { Facebook, BarcodeScanner } from 'ionic-native';
 import { ShoppingPage } from '../shopping/shopping';
 
 @Component({
-  templateUrl: 'build/pages/login/login.html'
-})
+ templateUrl: 'build/pages/login/login.html' })
 
+
+	
 export class LoginPage {
 
-  global: any;
-  form: ControlGroup;
-  username: AbstractControl;
-  passwrd: AbstractControl;
+  
+	global: any;
+  
+	form: ControlGroup;
+  
+	username: AbstractControl;
+  
+	passwrd: AbstractControl;
+	alertControl: any;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, private platform: Platform, private formBuilder: FormBuilder) {
+
+
+  constructor(private platform: Platform, private navCtrl: NavController, private navParams: NavParams, private formBuilder: FormBuilder) {
     this.global = this.navParams.get('global');
+	//this.global.alertCtrl = alertCtrl;
     this.form = formBuilder.group({username: [''], password: ['']});
+		/*let alert = this.alertCtrl.create({
+			title: 'title',
+			subTitle: 'subTitle',
+			buttons: [this.global.language.th.ok]
+		});
+		alert.present();*/
 
 
     //this.global.test();
@@ -35,7 +50,10 @@ export class LoginPage {
       this.isOnline = false;
       alert('disconnect'+this.isOnline);
     });*/
+
   }
+
+
 
   login() {
     let storage = new Storage(LocalStorage);
@@ -55,17 +73,6 @@ export class LoginPage {
         });
       }
     });
-    /*this.global.storage.get('token').then((token) => {
-      this.global.socket.emit('api', {
-        token: token,
-        module:'member',
-        action:'login',
-        memberType: 'local',
-        username: this.form.controls['username'].value,
-        password: this.form.controls['password'].value
-      });
-    });*/
-    //this.loginSuccess();
   }
 
   loginSuccess() {

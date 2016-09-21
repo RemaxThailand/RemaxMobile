@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { ionicBootstrap, Platform, Nav, Storage, LocalStorage, MenuController } from 'ionic-angular';
+ import { Component, ViewChild } from '@angular/core';
+import { ionicBootstrap, Platform, Nav, Storage, LocalStorage, MenuController, AlertController } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import * as io from "socket.io-client";
 
@@ -15,15 +15,16 @@ import { ShoppingPage } from './pages/shopping/shopping';
 class RemaxApp {
   @ViewChild(Nav) nav: Nav;
 
-  constructor(private platform: Platform, private menu: MenuController, private global: Global) {
+  constructor(private platform: Platform, private menu: MenuController, private global: Global, private alertCtrl: AlertController) {
     this.global = global;
-    global.menu = menu;
-    this.initializeApp();
+    //global.menu = menu;
+	this.platform.ready().then(() => {
+		this.initializeApp(this.global.language, alertCtrl);
+	});
   }
 
-  initializeApp() {
-
-    this.platform.ready().then(() => {
+  initializeApp(language, alertCtrl) {
+    
       StatusBar.styleBlackTranslucent();
 
       this.global.socket = io('https://io-test.remaxthailand.co.th');
@@ -118,23 +119,33 @@ class RemaxApp {
       this.global.socket.on('access', function(data) {
         if(data.success){
           storage.set('token', data.token);
-		  console.log( data );
           //alert(data);
         }
         else {
 			storage.remove('token');
-			alert(data.error+"\n"+data.errorMessage);
+			//alert(data.error+"\n"+data.errorMessage);
         }
       });
 
-      this.global.socket.on('api-member-login', function(data) {
-        if(data.success){
-          alert('Success');
-        }
-        else {
-          alert(data.error+"\n"+data.errorMessage);
-        }
-      });
+	  
+	  this.global.socket.on('api-member-login', function(data) {
+		 //console.log( data );
+		if(data.success){
+		  alert('Success');
+		}
+		else {
+			
+			let alert = alertCtrl.create({
+				title: data.error,
+				subTitle: data.errorMessage,
+				buttons: [language.th.ok]
+			});
+			alert.present();
+
+			//this.showAlert( data.error, data.errorMessage );
+		  //alert(data.error+"\n"+data.errorMessage);
+		}
+	  });
 
       /*
       let storage = new Storage(SqlStorage);
@@ -169,7 +180,6 @@ class RemaxApp {
       });
       */
 
-    });
   }
 
   openPage(page) {
@@ -201,6 +211,7 @@ class RemaxApp {
       });
     }
   }
+
 }
 
 ionicBootstrap(RemaxApp);

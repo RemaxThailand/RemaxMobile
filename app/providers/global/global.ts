@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MenuController, Storage, LocalStorage } from 'ionic-angular';
+import { MenuController, Storage, LocalStorage, AlertController } from 'ionic-angular';
 import * as io from "socket.io-client";
 
 import { ShoppingPage } from '../../pages/shopping/shopping';
@@ -70,6 +70,7 @@ export class Global {
   public menu: any;
 
   public storage: Storage;
+  public alertCtrl: AlertController;
   //public socket: any;
 
   public constructor() {
@@ -332,6 +333,15 @@ export class Global {
       });
     });
   }
+
+	public showAlert( title, subTitle ) {
+		let alert = this.alertCtrl.create({
+			title: title,
+			subTitle: subTitle,
+			buttons: this.language.th.ok
+		});
+		alert.present();
+	}
 
 
   public test(){
