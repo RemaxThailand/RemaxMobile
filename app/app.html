@@ -17,10 +17,10 @@
     </ion-list>
 
     <ion-item-group *ngIf="global.menuDividerShow.member">
-      <ion-item-divider light>{{global.language[global.langCode].memberInformation}}</ion-item-divider>
+      <ion-item-divider light *ngIf="global.message.memberInformation">{{global.message.memberInformation}}</ion-item-divider>
       <template ngFor let-p [ngForOf]="global.menuGroup.member">
         <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.language[global.langCode][p.title]}}
+          <i class="fa {{p.icon}} margin-right-5" *ngIf="global.message[p.title]"></i> {{global.message[p.title]}}
         </button>
       </template>
     </ion-item-group>

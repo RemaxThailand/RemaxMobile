@@ -16,9 +16,23 @@ export class SettingPage {
   }
 
   changeLangCode($event, langCode){
-    let local = new Storage(LocalStorage);
-    local.set('langCode', langCode);
+    let storage = new Storage(LocalStorage);
+    storage.set('langCode', langCode);
     this.global.langCode = langCode;
+
+	storage.get('token').then((token) => {
+	if(token != undefined) {
+		this.global.socket.emit('api', {
+			token: token,
+			module:'system',
+			action:'language',
+			system: 'mobile',
+			langCode: this.global.langCode
+		});
+	}
+	else
+	  alert( 'Token is undefined' );
+	});
   }
 
 }

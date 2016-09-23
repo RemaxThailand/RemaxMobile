@@ -39,6 +39,7 @@ export class Global {
   public deviceToken: string = '';
   public langCode: string = 'th';
   public language: any;
+  public message: any;
   public memberType: string = 'guest';
   public memberMenu: any = {
     admin: '|profile|signOut|memberManagement|screenManagement|systemConfiguration|systemInformation|settings|updateChecking|aboutSystem|',
@@ -76,6 +77,8 @@ export class Global {
   public constructor() {
     //this.storage = new Storage(SqlStorage);
     //this.socket = io('https://realtime-test.remaxthailand.co.th');
+
+	this.message = {}
 
     this.language = {
       en:
