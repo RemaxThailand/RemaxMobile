@@ -38,7 +38,6 @@ export class Global {
   //public token: string = '';
   public deviceToken: string = '';
   public langCode: string = 'th';
-  public language: any;
   public message: any;
   public memberType: string = 'guest';
   public memberMenu: any = {
@@ -77,160 +76,7 @@ export class Global {
   public constructor() {
     //this.storage = new Storage(SqlStorage);
     //this.socket = io('https://realtime-test.remaxthailand.co.th');
-
-	this.message = {}
-
-    this.language = {
-      en:
-      {
-        language: 'Language',
-        ok: 'OK',
-        cancel: 'Cancel',
-        help: 'Help',
-        settings: 'Settings',
-        updateChecking: 'Check for Update',
-        aboutSystem: 'About',
-        memberInformation: 'Member Information',
-        profile: 'Profile',
-        wallet: 'Wallet',
-        rewardPoints: 'Reward Points',
-        signIn: 'Sign in',
-        signOut: 'Sign out',
-        salesInformation: 'Sales Information',
-        purchaseOrder: 'Purchase Order',
-        productBookings: 'Product Bookings',
-        customerInformation: 'Customer',
-        ordering: 'Ordering',
-        shopping: 'Shopping',
-        redemption: 'Redemption',
-        cart: 'Shopping Cart',
-        orderHistory: 'Order History',
-        administrator: 'Administrator',
-        memberManagement: 'Member Management',
-        screenManagement: 'Screen Management',
-        systemConfiguration: 'System Configuration',
-        systemInformation: 'System Information',
-        warehouse: 'Warehouse',
-        packingStatus: 'Packing Status',
-        transportation: 'Transportation',
-        accounting: 'Accounting',
-        payments: 'Payments',
-        memberPosition: 'Member Position',
-        roleAdministrator: 'Administrator',
-        roleDealer: 'Dealer',
-        roleDeveloper: 'Developer',
-        roleOwner: 'Owner',
-        roleGuest: 'Guest',
-        roleHeadSale: 'Head Sale',
-        roleManager: 'Manager',
-        roleMember: 'Member',
-        roleOfficer: 'Officer',
-        roleSale: 'Sale',
-        call: 'Call',
-        confirm: 'Confirm',
-        info: 'Info'
-      }
-      ,
-      th:
-      {
-        language: 'ภาษา',
-        ok: 'ตกลง',
-        cancel: 'ยกเลิก',
-        help: 'ช่วยเหลือ',
-        settings: 'การตั้งค่า',
-        updateChecking: 'ตรวจสอบการอัพเดท',
-        aboutSystem: 'ข้อมูลระบบ',
-        memberInformation: 'ข้อมูลสมาชิก',
-        profile: 'ข้อมูลส่วนตัว',
-        wallet: 'กระเป๋าเงิน',
-        rewardPoints: 'แต้มสะสม',
-        signIn: 'เข้าสู่ระบบ',
-        signOut: 'ออกจากระบบ',
-        salesInformation: 'ข้อมูลการขาย',
-        purchaseOrder: 'คำสั่งซื้อสินค้า',
-        productBookings: 'การจองสินค้า',
-        customerInformation: 'ข้อมูลลูกค้า',
-        ordering: 'การสั่งซื้อ',
-        shopping: 'เลือกซื้อสินค้า',
-        redemption: 'แลกคะแนนสะสม',
-        cart: 'ตะกร้าสินค้า',
-        orderHistory: 'ประวัติคำสั่งซื้อ',
-        administrator: 'ผู้ดูแลระบบ',
-        memberManagement: 'ข้อมูลสมาชิก',
-        screenManagement: 'หน้าจอระบบ',
-        systemConfiguration: 'การตั้งค่าระบบ',
-        systemInformation: 'สถานะต่างๆ ของระบบ',
-        warehouse: 'คลังสินค้า',
-        packingStatus: 'สถานะการจัดสินค้า',
-        transportation: 'การขนส่ง',
-        accounting: 'การบัญชี',
-        payments: 'รายการชำระเงิน',
-        memberPosition: 'ประเภทสมาชิก',
-        roleAdministrator: 'ผู้ดูแลระบบ',
-        roleDealer: 'ดีลเลอร์',
-        roleDeveloper: 'ผู้พัฒนาระบบ',
-        roleOwner: 'ผู้บริหาร',
-        roleGuest: 'ผู้เยี่ยมชมทั่วไป',
-        roleHeadSale: 'หัวหน้าเซลล์',
-        roleManager: 'หัวหน้าทีม',
-        roleMember: 'สมาชิก',
-        roleOfficer: 'พนักงานบริษัท',
-        roleSale: 'ฝ่ายขาย',
-        call: 'โทร',
-        confirm: 'ยืนยัน',
-        info: 'ข้อมูล'
-      }
-      ,
-      jp:
-      {
-        language: '言語',
-        ok: 'はい',
-        cancel: 'いいえ',
-        help: '助けて',
-        settings: '設定',
-        updateChecking: '更新を確認',
-        aboutSystem: 'システムについて',
-        memberInformation: '会員情報',
-        profile: 'プロフィール',
-        wallet: '財布',
-        rewardPoints: '報酬ポイント',
-        signIn: 'ログイン',
-        signOut: 'ログアウト',
-        salesInformation: '販売情報',
-        purchaseOrder: '注文書',
-        productBookings: '製品の予約',
-        customerInformation: '顧客情報',
-        ordering: '発注',
-        shopping: 'ショッピング',
-        redemption: '償還',
-        cart: 'ショッピングカート',
-        orderHistory: '注文履歴',
-        administrator: '管理者',
-        memberManagement: '会員管理',
-        screenManagement: '画面管理',
-        systemConfiguration: 'システム構成',
-        systemInformation: 'システムインフォメーション',
-        warehouse: '倉庫',
-        packingStatus: 'パッキングステータス',
-        transportation: '交通',
-        accounting: '会計',
-        payments: '支払い',
-        memberPosition: '部材位置',
-        roleAdministrator: '管理者',
-        roleDealer: 'ディーラー',
-        roleDeveloper: 'ディベロッパー',
-        roleOwner: 'オーナー',
-        roleGuest: 'ゲスト',
-        roleHeadSale: 'ヘッドセール',
-        roleManager: 'マネージャー',
-        roleMember: 'メンバー',
-        roleOfficer: '役員',
-        roleSale: '販売',
-        call: 'コール',
-        confirm: '確認します',
-        info: '情報'
-      }
-    }
+    this.message = {}
 
     this.menuGroup = {
       member: [
@@ -341,7 +187,7 @@ export class Global {
 		let alert = this.alertCtrl.create({
 			title: title,
 			subTitle: subTitle,
-			buttons: this.language.th.ok
+			buttons: this.message.ok
 		});
 		alert.present();
 	}

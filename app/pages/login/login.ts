@@ -6,28 +6,20 @@ import { Facebook, BarcodeScanner } from 'ionic-native';
 import { ShoppingPage } from '../shopping/shopping';
 
 @Component({
- templateUrl: 'build/pages/login/login.html' })
+  templateUrl: 'build/pages/login/login.html'
+})
 
-
-	
 export class LoginPage {
-
-  
-	global: any;
-  
-	form: ControlGroup;
-  
-	username: AbstractControl;
-  
-	passwrd: AbstractControl;
-	alertControl: any;
-
-
+  global: any;
+  form: ControlGroup;
+  username: AbstractControl;
+  passwrd: AbstractControl;
+  alertControl: any;
 
   constructor(private platform: Platform, private navCtrl: NavController, private navParams: NavParams, private formBuilder: FormBuilder) {
     this.global = this.navParams.get('global');
-	//this.global.alertCtrl = alertCtrl;
-    this.form = formBuilder.group({username: [''], password: ['']});
+    //this.global.alertCtrl = alertCtrl;
+    this.form = formBuilder.group({ username: [''], password: [''] });
 		/*let alert = this.alertCtrl.create({
 			title: 'title',
 			subTitle: 'subTitle',
@@ -41,10 +33,10 @@ export class LoginPage {
 
     //this.cordovaOauth = new CordovaOauth(new Facebook({ clientId: "337592559713793", appScope: ["email,public_profile"] }));
 
-  /*  this.global.socket.on('connect', function () {
-      this.isOnline = true;
-      alert('connect'+this.isOnline);
-    });*/
+    /*  this.global.socket.on('connect', function () {
+        this.isOnline = true;
+        alert('connect'+this.isOnline);
+      });*/
 
     /*this.global.socket.on('disconnect', function () {
       this.isOnline = false;
@@ -59,14 +51,14 @@ export class LoginPage {
     let storage = new Storage(LocalStorage);
 
     storage.get('token').then((token) => {
-      if(token == undefined || token == '') {
+      if (token == undefined || token == '') {
         this.global.socket.emit('access', { apiKey: this.global.apiKey });
       }
       else {
         this.global.socket.emit('api', {
           token: token,
-          module:'member',
-          action:'login',
+          module: 'member',
+          action: 'login',
           memberType: 'local',
           username: this.form.controls['username'].value,
           password: this.form.controls['password'].value
@@ -86,7 +78,7 @@ export class LoginPage {
           this.global.isShowMenu = true;
           this.global.memberType = 'member';
           this.navCtrl.setRoot(ShoppingPage, {
-            global:this.global
+            global: this.global
           });
           this.global.updateRoleMenu();
         });
@@ -104,7 +96,7 @@ export class LoginPage {
           this.global.isShowMenu = true;
           this.global.memberType = 'guest';
           this.navCtrl.setRoot(ShoppingPage, {
-            global:this.global
+            global: this.global
           });
           this.global.updateRoleMenu();
         });
@@ -156,7 +148,7 @@ export class LoginPage {
         else if (result.status == 'connected') {
           this.global.storage.get('member').then((member) => {
             let json = JSON.parse(member);
-            if(member.type == 'facebook'){
+            if (member.type == 'facebook') {
               this.getFacebokInfo(member.id);
             }
             else {
@@ -180,16 +172,16 @@ export class LoginPage {
       this.global.member.type = 'facebook';
       this.global.member.email = result.email;
       this.global.member.birthday = result.birthday;
-      this.global.member.picture = 'http://graph.facebook.com/'+userID+'/picture?type=square';
+      this.global.member.picture = 'http://graph.facebook.com/' + userID + '/picture?type=square';
       this.global.member.name = result.name;
       this.global.member.gender = result.gender;
       //this.test = 'result : ' + JSON.stringify(result);
-      try{
+      try {
         //let storage = new Storage(SqlStorage);
         this.global.storage.set('member', JSON.stringify(this.global.member)).then(() => {
           this.loginSuccess();
         });
-      } catch(e){
+      } catch (e) {
         alert(e.message);
       }
     }, function(error) {

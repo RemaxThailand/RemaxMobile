@@ -26,55 +26,55 @@
     </ion-item-group>
 
     <ion-item-group *ngIf="global.menuDividerShow.product">
-      <ion-item-divider light>{{global.language[global.langCode].ordering}}</ion-item-divider>
+      <ion-item-divider light *ngIf="global.message.ordering">{{global.message.ordering}}</ion-item-divider>
       <template ngFor let-p [ngForOf]="global.menuGroup.product">
         <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.language[global.langCode][p.title]}}
+          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
         </button>
       </template>
     </ion-item-group>
 
     <ion-item-group *ngIf="global.menuDividerShow.sales">
-      <ion-item-divider light>{{global.language[global.langCode].salesInformation}}</ion-item-divider>
+      <ion-item-divider light *ngIf="global.message.salesInformation">{{global.message.salesInformation}}</ion-item-divider>
       <template ngFor let-p [ngForOf]="global.menuGroup.sales">
         <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.language[global.langCode][p.title]}}
+          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
         </button>
       </template>
     </ion-item-group>
 
     <ion-item-group *ngIf="global.menuDividerShow.account">
-      <ion-item-divider light>{{global.language[global.langCode].accounting}}</ion-item-divider>
+      <ion-item-divider light *ngIf="global.message.accounting">{{global.message.accounting}}</ion-item-divider>
       <template ngFor let-p [ngForOf]="global.menuGroup.account">
         <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.language[global.langCode][p.title]}}
+          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
         </button>
       </template>
     </ion-item-group>
 
     <ion-item-group *ngIf="global.menuDividerShow.warehouse">
-      <ion-item-divider light>{{global.language[global.langCode].warehouse}}</ion-item-divider>
+      <ion-item-divider light *ngIf="global.message.warehouse">{{global.message.warehouse}}</ion-item-divider>
       <template ngFor let-p [ngForOf]="global.menuGroup.warehouse">
         <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.language[global.langCode][p.title]}}
+          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
         </button>
       </template>
     </ion-item-group>
 
     <ion-item-group *ngIf="global.menuDividerShow.admin">
-      <ion-item-divider light>{{global.language[global.langCode].administrator}}</ion-item-divider>
+      <ion-item-divider light *ngIf="global.message.administrator">{{global.message.administrator}}</ion-item-divider>
       <template ngFor let-p [ngForOf]="global.menuGroup.admin">
         <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.language[global.langCode][p.title]}}
+          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
         </button>
       </template>
     </ion-item-group>
 
     <ion-item-group *ngIf="global.menuDividerShow.system">
-      <ion-item-divider light>{{global.language[global.langCode].help}}</ion-item-divider>
+      <ion-item-divider light *ngIf="global.message.help">{{global.message.help}}</ion-item-divider>
       <template ngFor let-p [ngForOf]="global.menuGroup.system">
         <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.language[global.langCode][p.title]}}
+          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
         </button>
       </template>
     </ion-item-group>

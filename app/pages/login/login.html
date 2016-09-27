@@ -20,14 +20,14 @@
               <ion-label>
                 <ion-icon name="md-person"></ion-icon>
               </ion-label>
-              <ion-input type="text" placeholder="ชื่อผู้ใช้" [formControl]="form.controls['username']"></ion-input>
+              <ion-input type="text" placeholder="{{global.message.username}}" [formControl]="form.controls['username']"></ion-input>
             </ion-item>
 
             <ion-item>
               <ion-label>
                 <ion-icon name="md-lock"></ion-icon>
               </ion-label>
-              <ion-input type="password" placeholder="รหัสผ่าน" [formControl]="form.controls['password']"></ion-input>
+              <ion-input type="password" placeholder="{{global.message.password}}" [formControl]="form.controls['password']"></ion-input>
             </ion-item>
           </form>
 
@@ -39,13 +39,13 @@
       <ion-col width-5></ion-col>
       <ion-col width-90>
         <button block large (click)="login()" class="capitalize">
-          <i class="fa fa-lg fa-sign-in margin-right-10"></i> <b>เข้าสู่ระบบ</b>
+          <i class="fa fa-lg fa-sign-in margin-right-10"></i> <b>{{global.message.login}}</b>
         </button>
       </ion-col>
       <ion-col width-5></ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="isShowFacebook">
       <ion-col width-5></ion-col>
       <ion-col width-90>
         <div class="line"></div>
@@ -53,7 +53,7 @@
       <ion-col width-5></ion-col>
     </ion-row>
 
-    <div text-center class="margin-top-5">
+    <div text-center class="margin-top-5" *ngIf="isShowFacebook">
       หรือเข้าสู่ระบบโดยใช้
       <ion-row>
         <ion-col width-5></ion-col>
@@ -78,12 +78,12 @@
         <ion-col width-5></ion-col>
         <ion-col width-45>
           <button block danger (click)="forgotPassword()" class="capitalize">
-            <i class="fa fa-exclamation-circle margin-right-5"></i> ลืมรหัสผ่าน ?
+            <i class="fa fa-exclamation-circle margin-right-5"></i> {{global.message.forgotPassword}} ?
           </button>
         </ion-col>
         <ion-col width-45>
           <button block secondary (click)="register()" class="capitalize">
-            สมัครสมาชิก <i class="fa fa-plus-circle margin-left-5"></i>
+            {{global.message.register}} <i class="fa fa-plus-circle margin-left-5"></i>
           </button>
         </ion-col>
         <ion-col width-5></ion-col>
@@ -92,7 +92,7 @@
         <ion-col width-5></ion-col>
         <ion-col width-90>
           <button block light (click)="skipLogin()" class="capitalize">
-            ข้ามขั้นตอนนี้ <i class="fa fa-chevron-right margin-left-5"></i>
+            {{global.message.skipStep}} <i class="fa fa-chevron-right margin-left-5"></i>
           </button>
         </ion-col>
         <ion-col width-5></ion-col>

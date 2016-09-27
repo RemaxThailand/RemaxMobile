@@ -3,7 +3,7 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{global.language[global.langCode].settings}}</ion-title>
+    <ion-title *ngIf="global.message.settings">{{global.message.settings}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,10 +11,10 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label>{{global.language[global.langCode].language}}</ion-label>
+      <ion-label>{{global.message.language}}</ion-label>
       <ion-select [(ngModel)]="langCode" (ionChange)="changeLangCode($event, langCode)"
-        cancelText="{{global.language[global.langCode].cancel}}"
-        okText="{{global.language[global.langCode].ok}}">
+        cancelText="{{global.message.cancel}}"
+        okText="{{global.message.ok}}">
         <ion-option value="th">ภาษาไทย</ion-option>
         <ion-option value="en">English</ion-option>
         <ion-option value="jp">日本語</ion-option>
