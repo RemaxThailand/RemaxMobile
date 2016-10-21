@@ -163,7 +163,7 @@ class RemaxApp {
 
 
     global.socket.on('api-member-login', function(data) {
-      //console.log( data );
+      console.log( data );
       if (data.success) {
         alert('Success');
       }
