@@ -165,19 +165,26 @@ class RemaxApp {
     global.socket.on('api-member-login', function(data) {
       console.log( data );
       if (data.success) {
-        alert('Success');
+        storage.set('token', data.token);
+        storage.get('page').then((page) => {
+          if(page == 'signOut' || page == 'signIn'){
+            this.global.isShowMenu = true;
+            this.nav.setRoot(ShoppingPage, {
+              global: this.global
+            });
+          }
+          //alert(page);
+        });
+        //alert('Success');
       }
       else {
 
         let alert = alertCtrl.create({
           title: global.message.error,
-          subTitle: global.message[data.error],
+          subTitle: global.message['err'+data.error],
           buttons: [global.message.ok]
         });
         alert.present();
-
-        //this.showAlert( data.error, data.errorMessage );
-        //alert(data.error+"\n"+data.errorMessage);
       }
     });
 
@@ -220,20 +227,21 @@ class RemaxApp {
     if (page.title == 'signIn' || page.title == 'signOut') {
       this.menu.close().then(() => {
         let local = new Storage(LocalStorage);
-        try {
+        local.set('page', page.title);
+        /*try {
           local.set('isLogin', '0').then(() => {
-            local.set('isMember', '0').then(() => {
+            local.set('isMember', '0').then(() => {*/
               this.global.isLogin = false;
               this.global.isMember = false;
               this.global.isShowMenu = false;
               this.nav.setRoot(LoginPage, {
                 global: this.global
               });
-            });
+            /*});
           });
         } catch (e) {
           alert(e.message);
-        }
+        }*/
       });
     }
     else {
