@@ -39,13 +39,14 @@ class RemaxApp {
     });
 
     global.isShowMenu = true;
-
     storage.get('page').then((page) => {
       if (page == undefined) page = 'shopping';
+        //console.log(page);
       let success = false;
       for (var menu in global.menuGroup) {
         let json = global.menuGroup[menu];
         for (var idx in json) {
+          //console.log(json[idx].title);
           if (json[idx].title == page) {
             success = true;
             this.nav.setRoot(json[idx].component, {
@@ -118,8 +119,8 @@ class RemaxApp {
     //global.socket.emit('access', { apiKey: global.apiKey });
 
     global.socket.on('access', function(data) {
-      console.log(global.langCode);
-      console.log(data);
+      /*console.log(global.langCode);
+      console.log(data);*/
       if (data.success) {
         storage.set('token', data.token);
         global.socket.emit('api', {
@@ -164,18 +165,17 @@ class RemaxApp {
 
     global.socket.on('api-member-login', function(data) {
       console.log( data );
+
       if (data.success) {
         storage.set('token', data.token);
         storage.get('page').then((page) => {
           if(page == 'signOut' || page == 'signIn'){
-            this.global.isShowMenu = true;
+            storage.set('page', 'shopping');
             this.nav.setRoot(ShoppingPage, {
-              global: this.global
+              global: global
             });
           }
-          //alert(page);
         });
-        //alert('Success');
       }
       else {
 
