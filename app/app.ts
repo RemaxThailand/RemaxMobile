@@ -19,16 +19,17 @@ class RemaxApp {
     this.global = global;
     //global.menu = menu;
     this.platform.ready().then(() => {
-      this.initializeApp(this.global, alertCtrl);
+      this.initializeApp(this.global, alertCtrl, this.nav);
     });
   }
 
-  initializeApp(global, alertCtrl) {
+  initializeApp(global, alertCtrl, navCtrl) {
     let retryCount = 0;
 
     StatusBar.styleBlackTranslucent();
 
     global.socket = io('https://io-test.remaxthailand.co.th');
+
     let storage = new Storage(LocalStorage);
 
     storage.get('langCode').then((langCode) => {
@@ -40,8 +41,8 @@ class RemaxApp {
 
     global.isShowMenu = true;
     storage.get('page').then((page) => {
-      if (page == undefined) page = 'shopping';
-        //console.log(page);
+      if (page == undefined || page == 'signOut' || page == 'signIn') page = 'shopping';
+      console.log(page);
       let success = false;
       for (var menu in global.menuGroup) {
         let json = global.menuGroup[menu];
@@ -118,7 +119,7 @@ class RemaxApp {
 
     //global.socket.emit('access', { apiKey: global.apiKey });
 
-    global.socket.on('access', function(data) {
+    global.socket.on('access', function (data) {
       /*console.log(global.langCode);
       console.log(data);*/
       if (data.success) {
@@ -133,47 +134,55 @@ class RemaxApp {
       }
       else {
         storage.remove('token');
-        if(retryCount < 3){
+        if (retryCount < 3) {
           global.socket.emit('access', { token: '' });
           retryCount++;
         }
         else {
-          alert(data.error+"\n"+data.errorMessage);
+          alert(data.error + "\n" + data.errorMessage);
         }
       }
     });
 
-    global.socket.on('api-system-language', function(data) {
-      console.log(data);
+    global.socket.on('api-system-language', function (data) {
       if (data.success) {
         global.message = {};
         for (let i = 0; i < data.result.length; i++) {
           global.message[data.result[i].messageKey] = data.result[i].message;
         }
       }
-      else if ( data.error = 'APP0002'){
-        if(retryCount < 3){
+      else if (data.error = 'APP0002') {
+        if (retryCount < 3) {
           global.socket.emit('access', { token: '' });
           retryCount++;
         }
         else {
-          alert(data.error+"\n"+data.errorMessage);
+          alert(data.error + "\n" + data.errorMessage);
         }
       }
     });
 
 
-    global.socket.on('api-member-login', function(data) {
-      console.log( data );
+    global.socket.on('api-member-login', function (data) {
 
       if (data.success) {
         storage.set('token', data.token);
         storage.get('page').then((page) => {
-          if(page == 'signOut' || page == 'signIn'){
+          if (page == 'signOut' || page == 'signIn') {
+            // this.openPage(global.menuGroup.product[0]);
             storage.set('page', 'shopping');
-            this.nav.setRoot(ShoppingPage, {
+            console.log('AA');
+            //console.log( global.isLogin );
+            global.isLogin = true;
+            global.isMember = true;
+            global.isShowMenu = true;
+            navCtrl.setRoot(ShoppingPage, {
               global: global
             });
+
+          }
+          else {
+            console.log('BB');
           }
         });
       }
@@ -181,7 +190,7 @@ class RemaxApp {
 
         let alert = alertCtrl.create({
           title: global.message.error,
-          subTitle: global.message['err'+data.error],
+          subTitle: global.message['err' + data.error],
           buttons: [global.message.ok]
         });
         alert.present();
@@ -224,29 +233,31 @@ class RemaxApp {
   }
 
   openPage(page) {
+    let storage = new Storage(LocalStorage);
     if (page.title == 'signIn' || page.title == 'signOut') {
+      this.global.socket.emit('access', { token: '' });
+      //storage.remove('token');
       this.menu.close().then(() => {
-        let local = new Storage(LocalStorage);
-        local.set('page', page.title);
+
+        storage.set('page', page.title);
         /*try {
-          local.set('isLogin', '0').then(() => {
-            local.set('isMember', '0').then(() => {*/
-              this.global.isLogin = false;
-              this.global.isMember = false;
-              this.global.isShowMenu = false;
-              this.nav.setRoot(LoginPage, {
-                global: this.global
-              });
-            /*});
-          });
-        } catch (e) {
-          alert(e.message);
-        }*/
+          storage.set('isLogin', '0').then(() => {
+            storage.set('isMember', '0').then(() => {*/
+        this.global.isLogin = false;
+        this.global.isMember = false;
+        this.global.isShowMenu = false;
+        this.nav.setRoot(LoginPage, {
+          global: this.global
+        });
+        /*});
+      });
+    } catch (e) {
+      alert(e.message);
+    }*/
       });
     }
     else {
-      let local = new Storage(LocalStorage);
-      local.set('page', page.title).then(() => {
+      storage.set('page', page.title).then(() => {
         this.nav.setRoot(page.component, {
           global: this.global
         });

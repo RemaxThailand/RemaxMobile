@@ -52,9 +52,11 @@ export class LoginPage {
 
     storage.get('token').then((token) => {
       if (token == undefined || token == '') {
+		  console.log('token undefined');
         this.global.socket.emit('access', { apiKey: this.global.apiKey });
       }
       else {
+		  console.log('has token');
         this.global.socket.emit('api', {
           token: token,
           module: 'member',
