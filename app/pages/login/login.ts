@@ -52,11 +52,9 @@ export class LoginPage {
 
     storage.get('token').then((token) => {
       if (token == undefined || token == '') {
-		  console.log('token undefined');
         this.global.socket.emit('access', { apiKey: this.global.apiKey });
       }
       else {
-		  console.log('has token');
         this.global.socket.emit('api', {
           token: token,
           module: 'member',
@@ -127,7 +125,7 @@ export class LoginPage {
     this.platform.ready().then(() => {
       BarcodeScanner.scan().then((barcodeData) => {
         //this.test = JSON.stringify(barcodeData);
-      }, function(error) {
+      }, function (error) {
         //this.test = 'error : ' + error;
       })
     })
@@ -143,7 +141,7 @@ export class LoginPage {
           Facebook.login(["public_profile", "email"]).then((result) => {
             //this.test = 'result : ' + JSON.stringify(result);
             this.getFacebokInfo(result.authResponse.userID);
-          }, function(error) {
+          }, function (error) {
             this.test = 'error : ' + error;
           })
         }
@@ -161,7 +159,7 @@ export class LoginPage {
           //this.getFacebokInfo(result.authResponse.userID);
         }
         //alert(JSON.stringify(result));
-      }, function(error) {
+      }, function (error) {
         this.test = 'error : ' + error;
       })
     })
@@ -186,7 +184,7 @@ export class LoginPage {
       } catch (e) {
         alert(e.message);
       }
-    }, function(error) {
+    }, function (error) {
       this.test = 'error : ' + error;
     })
   }

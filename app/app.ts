@@ -17,7 +17,6 @@ class RemaxApp {
 
   constructor(private platform: Platform, private menu: MenuController, private global: Global, private alertCtrl: AlertController) {
     this.global = global;
-    //global.menu = menu;
     this.platform.ready().then(() => {
       this.initializeApp(this.global, alertCtrl, this.nav);
     });
@@ -27,11 +26,9 @@ class RemaxApp {
     let retryCount = 0;
 
     StatusBar.styleBlackTranslucent();
-
     global.socket = io('https://io-test.remaxthailand.co.th');
 
     let storage = new Storage(LocalStorage);
-
     storage.get('langCode').then((langCode) => {
       if (langCode == undefined)
         storage.set('langCode', 'th');
@@ -42,12 +39,10 @@ class RemaxApp {
     global.isShowMenu = true;
     storage.get('page').then((page) => {
       if (page == undefined || page == 'signOut' || page == 'signIn') page = 'shopping';
-      console.log(page);
       let success = false;
       for (var menu in global.menuGroup) {
         let json = global.menuGroup[menu];
         for (var idx in json) {
-          //console.log(json[idx].title);
           if (json[idx].title == page) {
             success = true;
             this.nav.setRoot(json[idx].component, {
@@ -117,11 +112,8 @@ class RemaxApp {
       }
     });
 
-    //global.socket.emit('access', { apiKey: global.apiKey });
-
+    /*## ข้อมูล Token ##*/
     global.socket.on('access', function (data) {
-      /*console.log(global.langCode);
-      console.log(data);*/
       if (data.success) {
         storage.set('token', data.token);
         global.socket.emit('api', {
@@ -144,6 +136,7 @@ class RemaxApp {
       }
     });
 
+    /*## ข้อมูลภาษา ##*/
     global.socket.on('api-system-language', function (data) {
       if (data.success) {
         global.message = {};
@@ -162,32 +155,30 @@ class RemaxApp {
       }
     });
 
-
+    /*## ผลตรวจสอบการ Login ##*/
     global.socket.on('api-member-login', function (data) {
-
-      if (data.success) {
+      if (data.success) { // ถ้าเข้าระบบสำเร็จ
         storage.set('token', data.token);
         storage.get('page').then((page) => {
           if (page == 'signOut' || page == 'signIn') {
-            // this.openPage(global.menuGroup.product[0]);
             storage.set('page', 'shopping');
-            console.log('AA');
-            //console.log( global.isLogin );
-            global.isLogin = true;
+            global.socket.emit('api', {
+              token: data.token,
+              module: 'system',
+              action: 'screen'
+            });
+
+            /*global.isLogin = true;
             global.isMember = true;
             global.isShowMenu = true;
             navCtrl.setRoot(ShoppingPage, {
               global: global
             });
-
-          }
-          else {
-            console.log('BB');
+            */
           }
         });
       }
-      else {
-
+      else { // ถ้ามี Error
         let alert = alertCtrl.create({
           title: global.message.error,
           subTitle: global.message['err' + data.error],
@@ -197,38 +188,20 @@ class RemaxApp {
       }
     });
 
-    /*
-    let storage = new Storage(SqlStorage);
-    storage.get('isLogin').then((isLogin) => {
-      global.isLogin = isLogin == undefined ? false : isLogin === '1';
-      storage.get('isMember').then((isMember) => {
-        global.isMember = isMember == undefined ? false : isMember === '1';
-        if (global.isLogin) {
-          global.isShowMenu = true;
-          this.nav.setRoot(ProductPage)
-          if (global.isMember)
-            global.setShowHideMenu('|history|profile|logout|', '|login|');
-          else
-            global.setShowHideMenu('|login|', '|history|profile|logout|');
-        }
-        else {
-          global.isShowMenu = false;
-          this.nav.setRoot(LoginPage);
-        }
-      });
-    });
-
-    global.socket.emit('access', { apiKey: '41C38027-7953-4DA8-8BBE-399CAD6592D4' });
-
-    global.socket.on('access', function(data) {
-      if(data.success){
-        storage.set('token', data.token)
+    /*## ข้อมูลหน้าจอระบบ ##*/
+    global.socket.on('api-system-screen', function (data) {
+      console.log(data);
+      if (data.success) { // ถ้ามีข้อมูล
       }
-      else {
-        alert(data.error);
+      else { // ถ้ามี Error
+        let alert = alertCtrl.create({
+          title: global.message.error,
+          subTitle: global.message['err' + data.error],
+          buttons: [global.message.ok]
+        });
+        alert.present();
       }
     });
-    */
 
   }
 
