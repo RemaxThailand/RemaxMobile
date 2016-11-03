@@ -64,6 +64,8 @@ export class Global {
     system: true
   };
 
+  public memberScreen: any;
+
   public pages: Array<{ id: string, title: string, component: any, icon: string, isShow: boolean }>;
   public menuGroup: any;
 

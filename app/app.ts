@@ -190,8 +190,16 @@ class RemaxApp {
 
     /*## ข้อมูลหน้าจอระบบ ##*/
     global.socket.on('api-system-screen', function (data) {
-      console.log(data);
       if (data.success) { // ถ้ามีข้อมูล
+        global.memberScreen = data.result;
+
+        global.isLogin = true;
+        global.isMember = true;
+        global.isShowMenu = true;
+        navCtrl.setRoot(ShoppingPage, {
+          global: global
+        });
+
       }
       else { // ถ้ามี Error
         let alert = alertCtrl.create({
