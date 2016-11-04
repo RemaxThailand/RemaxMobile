@@ -167,14 +167,6 @@ class RemaxApp {
               module: 'system',
               action: 'screen'
             });
-
-            /*global.isLogin = true;
-            global.isMember = true;
-            global.isShowMenu = true;
-            navCtrl.setRoot(ShoppingPage, {
-              global: global
-            });
-            */
           }
         });
       }

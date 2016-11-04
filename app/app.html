@@ -16,6 +16,17 @@
       </ion-item>
     </ion-list>
 
+    <template ngFor let-p [ngForOf]="global.memberScreen">
+      <ion-item-group>
+        <ion-item-divider light>{{global.message[p.group]}}</ion-item-divider>
+        <template ngFor let-m [ngForOf]="p.screen">
+          <button menuClose ion-item>
+            <i class="fa fa-table margin-right-5"></i> {{global.message[m]}}
+          </button>
+        </template>
+      </ion-item-group>
+    </template>
+
     <ion-item-group *ngIf="global.menuDividerShow.member">
       <ion-item-divider light *ngIf="global.message.memberInformation">{{global.message.memberInformation}}</ion-item-divider>
       <template ngFor let-p [ngForOf]="global.menuGroup.member">
