@@ -21,7 +21,7 @@
         <ion-item-divider light>{{global.message[p.group]}}</ion-item-divider>
         <template ngFor let-m [ngForOf]="p.screen">
           <button menuClose ion-item>
-            <i class="fa fa-table margin-right-5"></i> {{global.message[m]}}
+            <i class="fa {{m.icon}} margin-right-5"></i> {{global.message[m.name]}}
           </button>
         </template>
       </ion-item-group>
