@@ -3,7 +3,7 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{global.language[global.langCode].purchaseOrder}}</ion-title>
+    <ion-title>{{global.message.purchaseOrder}}</ion-title>
     <ion-buttons end>
       <button (click)="search()">
         <ion-icon name="search"></ion-icon>
@@ -18,7 +18,7 @@
   <ion-list class="margin-0 no-border-top">
     <ion-item class="bg-blue no-border-bottom no-border-top">
       <ion-label class="color-white">ประเภทข้อมูล</ion-label>
-      <ion-select class="color-white" [(ngModel)]="dataType" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+      <ion-select class="color-white" [(ngModel)]="dataType" cancelText="{{global.message.cancel}}" okText="{{global.message.ok}}">
         <ion-option value="waiting">รอตรวจสอบ</ion-option>
         <ion-option value="queue">คิวการจัดสินค้า</ion-option>
         <ion-option value="lost">สินค้าไม่ครบ</ion-option>
@@ -51,21 +51,21 @@
       <ion-item-options side="left">
         <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
           <ion-icon name="call"></ion-icon>
-          {{global.language[global.langCode].call}}
+          {{global.message.call}}
         </a>
       </ion-item-options>
       <ion-item-options side="right">
         <button danger (click)="cancelOrder()" class="capitalize">
           <ion-icon name="trash"></ion-icon>
-          {{global.language[global.langCode].cancel}}
+          {{global.message.cancel}}
         </button>
         <button secondary (click)="confirmOrder()" class="capitalize">
           <ion-icon name="md-checkbox"></ion-icon>
-          {{global.language[global.langCode].confirm}}
+          {{global.message.confirm}}
         </button>
         <button dark class="capitalize">
           <ion-icon name="md-list-box"></ion-icon>
-          {{global.language[global.langCode].info}}
+          {{global.message.info}}
         </button>
       </ion-item-options>
     </ion-item-sliding>
@@ -91,21 +91,21 @@
       <ion-item-options side="left">
         <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
           <ion-icon name="call"></ion-icon>
-          {{global.language[global.langCode].call}}
+          {{global.message.call}}
         </a>
       </ion-item-options>
       <ion-item-options side="right">
         <button danger (click)="cancelOrder()" class="capitalize">
           <ion-icon name="trash"></ion-icon>
-          {{global.language[global.langCode].cancel}}
+          {{global.message.cancel}}
         </button>
         <button secondary (click)="confirmOrder()" class="capitalize">
           <ion-icon name="md-checkbox"></ion-icon>
-          {{global.language[global.langCode].confirm}}
+          {{global.message.confirm}}
         </button>
         <button dark class="capitalize">
           <ion-icon name="md-list-box"></ion-icon>
-          {{global.language[global.langCode].info}}
+          {{global.message.info}}
         </button>
       </ion-item-options>
     </ion-item-sliding>
@@ -131,21 +131,21 @@
       <ion-item-options side="left">
         <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
           <ion-icon name="call"></ion-icon>
-          {{global.language[global.langCode].call}}
+          {{global.message.call}}
         </a>
       </ion-item-options>
       <ion-item-options side="right">
         <button danger (click)="cancelOrder()" class="capitalize">
           <ion-icon name="trash"></ion-icon>
-          {{global.language[global.langCode].cancel}}
+          {{global.message.cancel}}
         </button>
         <button secondary (click)="confirmOrder()" class="capitalize">
           <ion-icon name="md-checkbox"></ion-icon>
-          {{global.language[global.langCode].confirm}}
+          {{global.message.confirm}}
         </button>
         <button dark class="capitalize">
           <ion-icon name="md-list-box"></ion-icon>
-          {{global.language[global.langCode].info}}
+          {{global.message.info}}
         </button>
       </ion-item-options>
     </ion-item-sliding>

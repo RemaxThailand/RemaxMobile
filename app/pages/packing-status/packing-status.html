@@ -3,7 +3,7 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{global.language[global.langCode].packingStatus}}</ion-title>
+    <ion-title>{{global.message.packingStatus}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -14,8 +14,8 @@
     <ion-item class="bg-blue no-border-bottom no-border-top">
       <ion-label class="color-white">ประเภทข้อมูล</ion-label>
       <ion-select class="color-white" [(ngModel)]="dataType" (ionChange)="changeDataType($event, dataType)"
-        cancelText="{{global.language[global.langCode].cancel}}"
-        okText="{{global.language[global.langCode].ok}}">
+        cancelText="{{global.message.cancel}}"
+        okText="{{global.message.ok}}">
         <ion-option value="queue">คิวการจัดสินค้า</ion-option>
         <ion-option value="prepare">เตรียมสินค้าแล้ว</ion-option>
         <ion-option value="packing">จัดสินค้าลงกล่อง</ion-option>
@@ -36,7 +36,7 @@
       </ion-item>
       <ion-item-options side="right">
         <button secondary (click)="queueAssign()" class="capitalize">
-          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
         </button>
         <button dark (click)="confirmOrder()" class="capitalize">
           <ion-icon name="print"></ion-icon> พิมพ์
@@ -54,7 +54,7 @@
       </ion-item>
       <ion-item-options side="right">
         <button secondary (click)="queueAssign()" class="capitalize">
-          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
         </button>
         <button dark (click)="confirmOrder()" class="capitalize">
           <ion-icon name="print"></ion-icon> พิมพ์
@@ -70,7 +70,7 @@
       </ion-item>
       <ion-item-options side="right">
         <button secondary (click)="queueAssign()" class="capitalize">
-          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
         </button>
         <button dark (click)="confirmOrder()" class="capitalize">
           <ion-icon name="print"></ion-icon> พิมพ์
@@ -86,7 +86,7 @@
       </ion-item>
       <ion-item-options side="right">
         <button secondary (click)="queueAssign()" class="capitalize">
-          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
         </button>
         <button dark (click)="confirmOrder()" class="capitalize">
           <ion-icon name="print"></ion-icon> พิมพ์
@@ -102,7 +102,7 @@
       </ion-item>
       <ion-item-options side="right">
         <button secondary (click)="queueAssign()" class="capitalize">
-          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
         </button>
         <button dark (click)="confirmOrder()" class="capitalize">
           <ion-icon name="print"></ion-icon> พิมพ์
@@ -117,7 +117,7 @@
       </ion-item>
       <ion-item-options side="right">
         <button secondary (click)="queueAssign()" class="capitalize">
-          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
         </button>
         <button dark (click)="confirmOrder()" class="capitalize">
           <ion-icon name="print"></ion-icon> พิมพ์
@@ -132,7 +132,7 @@
       </ion-item>
       <ion-item-options side="right">
         <button secondary (click)="queueAssign()" class="capitalize">
-          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
         </button>
         <button dark (click)="confirmOrder()" class="capitalize">
           <ion-icon name="print"></ion-icon> พิมพ์
@@ -148,7 +148,7 @@
       </ion-item>
       <ion-item-options side="right">
         <button secondary (click)="queueAssign()" class="capitalize">
-          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
         </button>
         <button dark (click)="confirmOrder()" class="capitalize">
           <ion-icon name="print"></ion-icon> พิมพ์
@@ -164,7 +164,7 @@
       </ion-item>
       <ion-item-options side="right">
         <button secondary (click)="queueAssign()" class="capitalize">
-          <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+          <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
         </button>
         <button dark (click)="confirmOrder()" class="capitalize">
           <ion-icon name="print"></ion-icon> พิมพ์
@@ -187,7 +187,7 @@
       </ion-item>
       <ion-item-options side="right">
         <button secondary (click)="viewDetail()" class="capitalize">
-          <ion-icon name="md-list-box"></ion-icon> {{global.language[global.langCode].info}}
+          <ion-icon name="md-list-box"></ion-icon> {{global.message.info}}
         </button>
         <button dark (click)="confirmOrder()" class="capitalize">
           <ion-icon name="print"></ion-icon> พิมพ์
@@ -220,7 +220,7 @@
         </button>
         <button dark class="capitalize">
           <ion-icon name="md-list-box"></ion-icon>
-          {{global.language[global.langCode].info}}
+          {{global.message.info}}
         </button>
       </ion-item-options>
     </ion-item-sliding>
@@ -240,7 +240,7 @@
         </button>
         <button dark class="capitalize">
           <ion-icon name="md-list-box"></ion-icon>
-          {{global.language[global.langCode].info}}
+          {{global.message.info}}
         </button>
       </ion-item-options>
     </ion-item-sliding>
@@ -309,7 +309,7 @@
         </ion-item>
         <ion-item-options side="right">
           <button secondary (click)="shipAssign()" class="capitalize">
-            <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+            <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
           </button>
         </ion-item-options>
       </ion-item-sliding>
@@ -323,7 +323,7 @@
         </ion-item>
         <ion-item-options side="right">
           <button secondary (click)="shipAssign()" class="capitalize">
-            <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+            <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
           </button>
         </ion-item-options>
       </ion-item-sliding>
@@ -341,7 +341,7 @@
         </ion-item>
         <ion-item-options side="right">
           <button secondary (click)="shipAssign()" class="capitalize">
-            <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+            <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
           </button>
         </ion-item-options>
       </ion-item-sliding>
@@ -359,7 +359,7 @@
         </ion-item>
         <ion-item-options side="right">
           <button secondary (click)="shipAssign()" class="capitalize">
-            <ion-icon name="md-checkbox"></ion-icon> {{global.language[global.langCode].confirm}}
+            <ion-icon name="md-checkbox"></ion-icon> {{global.message.confirm}}
           </button>
         </ion-item-options>
       </ion-item-sliding>
@@ -383,13 +383,13 @@
         <ion-item-options side="left">
           <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
             <ion-icon name="call"></ion-icon>
-            {{global.language[global.langCode].call}}
+            {{global.message.call}}
           </a>
         </ion-item-options>
         <ion-item-options side="right">
           <button secondary (click)="confirmOrder()" class="capitalize">
             <ion-icon name="md-checkbox"></ion-icon>
-            {{global.language[global.langCode].confirm}}
+            {{global.message.confirm}}
           </button>
         </ion-item-options>
       </ion-item-sliding>
@@ -404,13 +404,13 @@
         <ion-item-options side="left">
           <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
             <ion-icon name="call"></ion-icon>
-            {{global.language[global.langCode].call}}
+            {{global.message.call}}
           </a>
         </ion-item-options>
         <ion-item-options side="right">
           <button secondary (click)="confirmOrder()" class="capitalize">
             <ion-icon name="md-checkbox"></ion-icon>
-            {{global.language[global.langCode].confirm}}
+            {{global.message.confirm}}
           </button>
         </ion-item-options>
       </ion-item-sliding>
@@ -429,13 +429,13 @@
         <ion-item-options side="left">
           <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
             <ion-icon name="call"></ion-icon>
-            {{global.language[global.langCode].call}}
+            {{global.message.call}}
           </a>
         </ion-item-options>
         <ion-item-options side="right">
           <button secondary (click)="confirmOrder()" class="capitalize">
             <ion-icon name="md-checkbox"></ion-icon>
-            {{global.language[global.langCode].confirm}}
+            {{global.message.confirm}}
           </button>
         </ion-item-options>
       </ion-item-sliding>
@@ -454,13 +454,13 @@
         <ion-item-options side="left">
           <a button href="tel:0876733414" class="bg-favorite" class="capitalize">
             <ion-icon name="call"></ion-icon>
-            {{global.language[global.langCode].call}}
+            {{global.message.call}}
           </a>
         </ion-item-options>
         <ion-item-options side="right">
           <button secondary (click)="confirmOrder()" class="capitalize">
             <ion-icon name="md-checkbox"></ion-icon>
-            {{global.language[global.langCode].confirm}}
+            {{global.message.confirm}}
           </button>
         </ion-item-options>
       </ion-item-sliding>
@@ -474,8 +474,8 @@
       <ion-label>วันที่</ion-label>
       <ion-datetime displayFormat="DD MMMM YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="selectDate"
           monthNames="มกราคม, กุมภาพันธ์, มีนาคม, เมษายน, พฤษภาคม, มิถุนายน, กรกฎาคม, สิงหาคม, กันยายน, ตุลาคม, พฤศจิกายน, ธันวาคม"
-          cancelText="{{global.language[global.langCode].cancel}}"
-          doneText="{{global.language[global.langCode].ok}}">
+          cancelText="{{global.message.cancel}}"
+          doneText="{{global.message.ok}}">
       </ion-datetime>
     </ion-item>
     <ion-item text-wrap>

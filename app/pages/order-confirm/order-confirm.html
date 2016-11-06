@@ -39,7 +39,7 @@
       <ion-item-divider light>รายละเอียดการชำระเงิน</ion-item-divider>
       <ion-item>
         <ion-label>ประเภทการชำระเงิน</ion-label>
-        <ion-select [(ngModel)]="payType" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+        <ion-select [(ngModel)]="payType" cancelText="{{global.message.cancel}}" okText="{{global.message.ok}}">
           <ion-option value="transfer">โอนเงิน</ion-option>
           <ion-option value="cash">เงินสด</ion-option>
           <ion-option value="cheque">เช็ค</ion-option>
@@ -47,7 +47,7 @@
       </ion-item>
       <ion-item *ngIf="payType == 'transfer' || payType == 'cheque'">
         <ion-label>ธนาคาร</ion-label>
-        <ion-select [(ngModel)]="bankName" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+        <ion-select [(ngModel)]="bankName" cancelText="{{global.message.cancel}}" okText="{{global.message.ok}}">
           <ion-option value="kbank">กสิกรไทย</ion-option>
           <ion-option value="bbl">กรุงเทพ</ion-option>
           <ion-option value="ktb">กรุงไทย</ion-option>
@@ -56,7 +56,7 @@
       </ion-item>
       <ion-item *ngIf="payType == 'transfer'">
         <ion-label>เลขที่บัญชี</ion-label>
-        <ion-select cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+        <ion-select cancelText="{{global.message.cancel}}" okText="{{global.message.ok}}">
           <ion-option value="1234567890">1234567890</ion-option>
           <ion-option value="6789012345">6789012345</ion-option>
           <ion-option value="9012345678">9012345678</ion-option>
@@ -65,7 +65,7 @@
       </ion-item>
       <ion-item *ngIf="payType == 'transfer'">
         <ion-label>ชื่อบัญชี</ion-label>
-        <ion-select cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+        <ion-select cancelText="{{global.message.cancel}}" okText="{{global.message.ok}}">
           <ion-option value="nes">โอนเงิน</ion-option>
           <ion-option value="n64">เก็บเงินปลายทาง</ion-option>
           <ion-option value="ps">เครดิต</ion-option>
@@ -74,8 +74,8 @@
       </ion-item>
       <ion-item *ngIf="payType == 'transfer'">
         <ion-label>วันที่โอน</ion-label>
-        <ion-datetime displayFormat="DD MMMM YYYY HH:mm" pickerFormat="DD MMMM YYYY HH:mm" [(ngModel)]="transferDate" monthNames="มกราคม, กุมภาพันธ์, มีนาคม, เมษายน, พฤษภาคม, มิถุนายน, กรกฎาคม, สิงหาคม, กันยายน, ตุลาคม, พฤศจิกายน, ธันวาคม" cancelText="{{global.language[global.langCode].cancel}}"
-            doneText="{{global.language[global.langCode].ok}}">
+        <ion-datetime displayFormat="DD MMMM YYYY HH:mm" pickerFormat="DD MMMM YYYY HH:mm" [(ngModel)]="transferDate" monthNames="มกราคม, กุมภาพันธ์, มีนาคม, เมษายน, พฤษภาคม, มิถุนายน, กรกฎาคม, สิงหาคม, กันยายน, ตุลาคม, พฤศจิกายน, ธันวาคม" cancelText="{{global.message.cancel}}"
+            doneText="{{global.message.ok}}">
         </ion-datetime>
       </ion-item>
       <ion-item *ngIf="payType == 'transfer'">
@@ -96,7 +96,7 @@
       </ion-item>
       <ion-item *ngIf="payType == 'transfer'">
         <ion-label>ช่องทางการแจ้ง</ion-label>
-        <ion-select cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+        <ion-select cancelText="{{global.message.cancel}}" okText="{{global.message.ok}}">
           <ion-option value="sms">SMS</ion-option>
           <ion-option value="line">Line</ion-option>
           <ion-option value="email">e-Mail</ion-option>
@@ -133,7 +133,7 @@
     </ion-item-group>
     <ion-item>
       <ion-label>ลำดับความสำคัญ</ion-label>
-      <ion-select [(ngModel)]="priority" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+      <ion-select [(ngModel)]="priority" cancelText="{{global.message.cancel}}" okText="{{global.message.ok}}">
         <ion-option value="2">ด่วนมาก</ion-option>
         <ion-option value="1">ด่วน</ion-option>
         <ion-option value="0">ปกติ</ion-option>
@@ -145,13 +145,13 @@
       <ion-label>กำหนดส่ง</ion-label>
       <ion-datetime displayFormat="DD MMMM YYYY HH:mm" pickerFormat="DD MMMM YYYY HH:mm" [(ngModel)]="shipDate"
           monthNames="มกราคม, กุมภาพันธ์, มีนาคม, เมษายน, พฤษภาคม, มิถุนายน, กรกฎาคม, สิงหาคม, กันยายน, ตุลาคม, พฤศจิกายน, ธันวาคม"
-          cancelText="{{global.language[global.langCode].cancel}}"
-          doneText="{{global.language[global.langCode].ok}}">
+          cancelText="{{global.message.cancel}}"
+          doneText="{{global.message.ok}}">
       </ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>การขนส่ง</ion-label>
-      <ion-select [(ngModel)]="shipMethod" cancelText="{{global.language[global.langCode].cancel}}" okText="{{global.language[global.langCode].ok}}">
+      <ion-select [(ngModel)]="shipMethod" cancelText="{{global.message.cancel}}" okText="{{global.message.ok}}">
         <ion-option value="kerry" *ngIf="payStatus != 'cash'">เคอรี่ เอ็กซ์เพรส</ion-option>
         <ion-option value="self">ขนส่งเอง</ion-option>
         <ion-option value="ems" *ngIf="payStatus != 'cash'">ไปรษณีย์ด่วนพิเศษ</ion-option>
