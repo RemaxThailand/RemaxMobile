@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MenuController, Storage, LocalStorage, AlertController } from 'ionic-angular';
+import { MenuController, Storage, LocalStorage } from 'ionic-angular';
 import * as io from "socket.io-client";
 
 import { ShoppingPage } from '../../pages/shopping/shopping';
@@ -35,136 +35,43 @@ export class Global {
     id: '0', type: 'guest', picture: 'build/img/remax.png',
     name: 'Remax Thailand', shopName: ''
   };
-  //public token: string = '';
   public deviceToken: string = '';
   public langCode: string = 'th';
   public message: any;
-  public memberType: string = 'guest';
-  public memberMenu: any = {
-    admin: '|profile|signOut|memberManagement|screenManagement|systemConfiguration|systemInformation|settings|updateChecking|aboutSystem|',
-    developer: '|profile|signOut|memberManagement|screenManagement|systemConfiguration|systemInformation|settings|updateChecking|aboutSystem|',
-    guest: '|signIn|shopping|cart|settings|updateChecking|aboutSystem|',
-    dealer: '|profile|wallet|rewardPoints|signOut|shopping|redemption|cart|orderHistory|settings|updateChecking|aboutSystem|',
-    member: '|profile|wallet|rewardPoints|signOut|shopping|redemption|cart|orderHistory|settings|updateChecking|aboutSystem|',
-    owner: '|profile|signOut|purchaseOrder|productBookings|customerInformation|payments|packingStatus|transportation|settings|updateChecking|aboutSystem|',
-    headSale: '|profile|wallet|rewardPoints|signOut|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|',
-    sale: '|profile|wallet|rewardPoints|signOut|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|',
-    manager: '|profile|wallet|rewardPoints|signOut|purchaseOrder|productBookings|customerInformation|settings|updateChecking|aboutSystem|',
-    officer: '|profile|wallet|rewardPoints|signOut|shopping|redemption|cart|orderHistory|purchaseOrder|productBookings|customerInformation|payments|packingStatus|transportation|settings|updateChecking|aboutSystem|'
-  };
-
-  public menuDividerShow: any =
-  {
-    member: true,
-    product: true,
-    sales: true,
-    account: true,
-    warehouse: true,
-    admin: true,
-    system: true
-  };
 
   public memberScreen: any;
-
-  public pages: Array<{ id: string, title: string, component: any, icon: string, isShow: boolean }>;
-  public menuGroup: any;
-
-  public menu: any;
+  public screen: any;
 
   public storage: Storage;
-  public alertCtrl: AlertController;
-  //public socket: any;
 
   public constructor() {
-    //this.storage = new Storage(SqlStorage);
-    //this.socket = io('https://realtime-test.remaxthailand.co.th');
     this.message = {}
 
-    this.menuGroup = {
-      member: [
-        { title: 'profile', component: ProfilePage, icon: 'fa-user', isShow: true },
-        { title: 'wallet', component: WalletPage, icon: 'fa-credit-card', isShow: true },
-        { title: 'rewardPoints', component: RewardPointsPage, icon: 'fa-star', isShow: true },
-        { title: 'signIn', component: null, icon: 'fa-sign-in', isShow: false },
-        { title: 'signOut', component: null, icon: 'fa-sign-out', isShow: true },
-      ],
-      product: [
-        { title: 'shopping', component: ShoppingPage, icon: 'fa-cubes', isShow: true },
-        { title: 'redemption', component: RedemptionPage, icon: 'fa-gift', isShow: true },
-        { title: 'cart', component: CartPage, icon: 'fa-shopping-basket', isShow: true },
-        { title: 'orderHistory', component: HistoryPage, icon: 'fa-clock-o', isShow: true }
-      ],
-      sales: [
-        { title: 'purchaseOrder', component: OrderPage, icon: 'fa-paper-plane-o', isShow: true },
-        { title: 'productBookings', component: ProductBookingPage, icon: 'fa-lock', isShow: true },
-        { title: 'customerInformation', component: CustomerPage, icon: 'fa-github-alt', isShow: true }
-      ],
-      account: [
-        { title: 'payments', component: PaymentsPage, icon: 'fa-btc', isShow: true }
-      ],
-      warehouse: [
-        { title: 'packingStatus', component: PackingStatusPage, icon: 'fa-hourglass-half', isShow: true },
-        { title: 'transportation', component: TransportationPage, icon: 'fa-truck', isShow: true }
-      ],
-      admin: [
-        { title: 'memberManagement', component: MemberPage, icon: 'fa-slideshare', isShow: true },
-        { title: 'screenManagement', component: ScreenPage, icon: 'fa-windows', isShow: true },
-        { title: 'systemConfiguration', component: SystemConfigPage, icon: 'fa-wrench', isShow: true },
-        { title: 'systemInformation', component: SystemInfoPage, icon: 'fa-plug', isShow: true }
-      ],
-      system: [
-        { title: 'settings', component: SettingPage, icon: 'fa-cog', isShow: true },
-        { title: 'updateChecking', component: null, icon: 'fa-refresh', isShow: true },
-        { title: 'aboutSystem', component: AboutPage, icon: 'fa-shield', isShow: true }
-      ]
+    this.screen = {
+      profile: { title: 'profile', component: ProfilePage },
+      wallet: { title: 'wallet', component: WalletPage },
+      rewardPoints: { title: 'rewardPoints', component: RewardPointsPage },
+      signIn: { title: 'signIn', component: null },
+      signOut: { title: 'signOut', component: null },
+      shopping: { title: 'shopping', component: ShoppingPage },
+      redemption: { title: 'redemption', component: RedemptionPage },
+      cart: { title: 'cart', component: CartPage },
+      orderHistory: { title: 'orderHistory', component: HistoryPage },
+      purchaseOrder: { title: 'purchaseOrder', component: OrderPage },
+      productBookings: { title: 'productBookings', component: ProductBookingPage },
+      customerInformation: { title: 'customerInformation', component: CustomerPage },
+      payments: { title: 'payments', component: PaymentsPage },
+      packingStatus: { title: 'packingStatus', component: PackingStatusPage },
+      transportation: { title: 'transportation', component: TransportationPage },
+      memberManagement: { title: 'memberManagement', component: MemberPage },
+      screenManagement: { title: 'screenManagement', component: ScreenPage },
+      systemConfiguration: { title: 'systemConfiguration', component: SystemConfigPage },
+      systemInformation: { title: 'systemInformation', component: SystemInfoPage },
+      settings: { title: 'settings', component: SettingPage },
+      updateChecking: { title: 'updateChecking', component: null },
+      aboutSystem: { title: 'aboutSystem', component: AboutPage }
     };
 
-    this.pages = [
-      { id: 'setting', title: 'การตั้งค่า', component: SettingPage, icon: 'md-settings', isShow: true }
-    ];
-
-    this.updateRoleMenu();
-
-  }
-
-  /*public setShowHideMenu(show, hide) {
-    for (let i = 0; i < this.pages.length; i++) {
-      if (hide.indexOf('|' + this.pages[i].id + '|') != -1) {
-        this.pages[i].isShow = false;
-      }
-      if (show.indexOf('|' + this.pages[i].id + '|') != -1) {
-        this.pages[i].isShow = true;
-      }
-    }
-  }*/
-
-
-  public updateRoleMenu() {
-    let local = new Storage(LocalStorage);
-    local.get('memberType').then((memberType) => {
-      if(memberType == undefined){
-        local.set('memberType', 'guest');
-      }
-      else {
-        this.memberType = memberType;
-
-        for (var menu in this.menuGroup) {
-          let json = this.menuGroup[menu];
-          let hasChild = false;
-          for (var idx in json) {
-            if (this.memberMenu[this.memberType].indexOf('|' + json[idx].title + '|') != -1) {
-              json[idx].isShow = true;
-              hasChild = true;
-            }
-            else {
-              json[idx].isShow = false;
-            }
-          }
-          this.menuDividerShow[menu] = hasChild;
-        }
-
-      }
-    });
   }
 
   public login() {
@@ -183,20 +90,6 @@ export class Global {
         });
       });
     });
-  }
-
-	public showAlert( title, subTitle ) {
-		let alert = this.alertCtrl.create({
-			title: title,
-			subTitle: subTitle,
-			buttons: this.message.ok
-		});
-		alert.present();
-	}
-
-
-  public test(){
-    alert('ddd');
   }
 
 }

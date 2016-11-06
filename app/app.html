@@ -5,7 +5,7 @@
   </ion-toolbar>
 
   <ion-content>
-
+    
     <ion-list class="margin-bottom-0">
       <ion-item>
         <ion-avatar item-left>
@@ -20,79 +20,15 @@
       <ion-item-group>
         <ion-item-divider light>{{global.message[p.group]}}</ion-item-divider>
         <template ngFor let-m [ngForOf]="p.screen">
-          <button menuClose ion-item>
+          <button menuClose ion-item (click)="openPage(global.screen[m.name])">
             <i class="fa {{m.icon}} margin-right-5"></i> {{global.message[m.name]}}
           </button>
         </template>
       </ion-item-group>
     </template>
 
-    <ion-item-group *ngIf="global.menuDividerShow.member">
-      <ion-item-divider light *ngIf="global.message.memberInformation">{{global.message.memberInformation}}</ion-item-divider>
-      <template ngFor let-p [ngForOf]="global.menuGroup.member">
-        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5" *ngIf="global.message[p.title]"></i> {{global.message[p.title]}}
-        </button>
-      </template>
-    </ion-item-group>
-
-    <ion-item-group *ngIf="global.menuDividerShow.product">
-      <ion-item-divider light *ngIf="global.message.ordering">{{global.message.ordering}}</ion-item-divider>
-      <template ngFor let-p [ngForOf]="global.menuGroup.product">
-        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
-        </button>
-      </template>
-    </ion-item-group>
-
-    <ion-item-group *ngIf="global.menuDividerShow.sales">
-      <ion-item-divider light *ngIf="global.message.salesInformation">{{global.message.salesInformation}}</ion-item-divider>
-      <template ngFor let-p [ngForOf]="global.menuGroup.sales">
-        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
-        </button>
-      </template>
-    </ion-item-group>
-
-    <ion-item-group *ngIf="global.menuDividerShow.account">
-      <ion-item-divider light *ngIf="global.message.accounting">{{global.message.accounting}}</ion-item-divider>
-      <template ngFor let-p [ngForOf]="global.menuGroup.account">
-        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
-        </button>
-      </template>
-    </ion-item-group>
-
-    <ion-item-group *ngIf="global.menuDividerShow.warehouse">
-      <ion-item-divider light *ngIf="global.message.warehouse">{{global.message.warehouse}}</ion-item-divider>
-      <template ngFor let-p [ngForOf]="global.menuGroup.warehouse">
-        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
-        </button>
-      </template>
-    </ion-item-group>
-
-    <ion-item-group *ngIf="global.menuDividerShow.admin">
-      <ion-item-divider light *ngIf="global.message.administrator">{{global.message.administrator}}</ion-item-divider>
-      <template ngFor let-p [ngForOf]="global.menuGroup.admin">
-        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
-        </button>
-      </template>
-    </ion-item-group>
-
-    <ion-item-group *ngIf="global.menuDividerShow.system">
-      <ion-item-divider light *ngIf="global.message.help">{{global.message.help}}</ion-item-divider>
-      <template ngFor let-p [ngForOf]="global.menuGroup.system">
-        <button menuClose ion-item (click)="openPage(p)" *ngIf="p.isShow">
-          <i class="fa {{p.icon}} margin-right-5"></i> {{global.message[p.title]}}
-        </button>
-      </template>
-    </ion-item-group>
-
   </ion-content>
 
 </ion-menu>
 
-<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

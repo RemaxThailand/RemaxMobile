@@ -13,7 +13,7 @@ export class ProfilePage {
 
   constructor(private navCtrl: NavController, private navParams: NavParams, private actionSheetController: ActionSheetController) {
     this.global = this.navParams.get('global');
-    this.role = [
+    /*this.role = [
       { title: 'roleAdministrator', type: 'admin' },
       { title: 'roleOwner', type: 'owner' },
       { title: 'roleManager', type: 'manager' },
@@ -54,12 +54,12 @@ export class ProfilePage {
     push.on('error', function(e) {
       alert(e.message);
         // e.message
-    });
+    });*/
 
   }
 
   chengeMemberRole() {
-    let actionSheet = this.actionSheetController.create({
+    /*let actionSheet = this.actionSheetController.create({
       title: this.global.language[this.global.langCode].memberPosition
     });
 
@@ -91,7 +91,7 @@ export class ProfilePage {
         console.log('Cancel clicked');
       }
     });
-    actionSheet.present();
+    actionSheet.present();*/
   }
 
   /*updateRoleMenu() {

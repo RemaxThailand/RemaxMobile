@@ -123,6 +123,13 @@ class RemaxApp {
           system: 'mobile',
           langCode: global.langCode
         });
+
+        global.socket.emit('api', {
+          token: data.token,
+          module: 'system',
+          action: 'screen'
+        });
+
       }
       else {
         storage.remove('token');
