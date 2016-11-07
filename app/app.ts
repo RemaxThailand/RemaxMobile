@@ -36,25 +36,6 @@ class RemaxApp {
         global.langCode = langCode;
     });
 
-    global.isShowMenu = true;
-    storage.get('page').then((page) => {
-      if (page == undefined || page == 'signOut' || page == 'signIn') page = 'shopping';
-      let success = false;
-      for (var menu in global.menuGroup) {
-        let json = global.menuGroup[menu];
-        for (var idx in json) {
-          if (json[idx].title == page) {
-            success = true;
-            this.nav.setRoot(json[idx].component, {
-              global: global
-            });
-            break;
-          }
-        }
-        if (success) break;
-      }
-    });
-
     /*LocalNotifications.schedule({
       id: 1,
       title: "หัวข้อหลัก",
@@ -187,6 +168,14 @@ class RemaxApp {
       }
     });
 
+
+    /*## ข้อมูลส่วนตัว ##*/
+    global.socket.on('api-member-info', function (data) {
+      if (data.success) { // ถ้ามีข้อมูล
+        global.member = data.result;
+      }
+    });
+
     /*## ข้อมูลหน้าจอระบบ ##*/
     global.socket.on('api-system-screen', function (data) {
       if (data.success) { // ถ้ามีข้อมูล
@@ -194,11 +183,26 @@ class RemaxApp {
 
         global.isLogin = true;
         global.isMember = true;
-        global.isShowMenu = true;
-        navCtrl.setRoot(ShoppingPage, {
-          global: global
-        });
 
+        global.isShowMenu = true;
+        storage.get('page').then((page) => {
+          // Load หน้าจอที่เข้าล่าสุด
+          if (page == undefined || page == 'signOut' || page == 'signIn') page = 'shopping';
+          let success = false;
+          for (let i=0; i<global.memberScreen.length; i++) {
+            let screen = global.memberScreen[i].screen;
+            for (let j=0; j<screen.length; j++) {
+              if (screen[j].name == page) {
+                success = true;
+                navCtrl.setRoot(global.screen[screen[j].name].component, {
+                  global: global
+                });
+                break;
+              }
+            }
+            if (success) break;
+          }
+        });
       }
       else { // ถ้ามี Error
         let alert = alertCtrl.create({
@@ -207,6 +211,20 @@ class RemaxApp {
           buttons: [global.message.ok]
         });
         alert.present();
+      }
+    });
+
+
+    global.socket.on('api-member-profile', function (data) {
+      if (data.success) { // ถ้ามีข้อมูล
+        global.role = [];
+        for (let i = 0; i < data.result.role.length; i++) {
+          let msg = data.result.role[i].charAt(0).toUpperCase() + data.result.role[i].slice(1);
+          let MemberType: any = [
+            { title: 'role' + msg, type: data.result.role[i] }
+          ];
+          global.role.push(MemberType);
+        }
       }
     });
 

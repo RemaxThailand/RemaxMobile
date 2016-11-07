@@ -9,10 +9,25 @@ import { LocalNotifications, Push } from 'ionic-native';
 export class ProfilePage {
 
   global: any;
-  role: any;
 
   constructor(private navCtrl: NavController, private navParams: NavParams, private actionSheetController: ActionSheetController) {
     this.global = this.navParams.get('global');
+
+
+    /*## ข้อมูลส่วนตัว ##*/
+    
+    let storage = new Storage(LocalStorage);
+
+    storage.get('token').then((token) => {
+        this.global.socket.emit('api', {
+          token: token,
+          module: 'member',
+          action: 'profile'
+        });
+    });
+
+
+
     /*this.role = [
       { title: 'roleAdministrator', type: 'admin' },
       { title: 'roleOwner', type: 'owner' },
@@ -59,39 +74,41 @@ export class ProfilePage {
   }
 
   chengeMemberRole() {
-    /*let actionSheet = this.actionSheetController.create({
-      title: this.global.language[this.global.langCode].memberPosition
+    let actionSheet = this.actionSheetController.create({
+      title: this.global.message.memberPosition
     });
 
-    LocalNotifications.schedule({
+    /*LocalNotifications.schedule({
         title: "Test Title",
         text: "Delayed Notification",
         at: new Date(new Date().getTime() + 5 * 1000),
         sound: null
-    });
+    });*/
 
-    for (var idx in this.role) {
-      let type = this.role[idx].type;
+    for (let idx=0; idx<this.global.role.length; idx++) {
+      let type = this.global.role[idx].type;
+      
       actionSheet.addButton({
-        text: this.global.language[this.global.langCode][this.role[idx].title],
+        text: this.global.message[this.global.role[idx].title],
         handler: () => {
-          let local = new Storage(LocalStorage);
+          /*let local = new Storage(LocalStorage);
           local.set('memberType', type).then(() => {
             this.global.memberType = type;
             this.global.updateRoleMenu();
-          });
+          });*/
+          console.log(type+' clicked');
         }
       });
     };
 
     actionSheet.addButton({
-      text: this.global.language[this.global.langCode].cancel,
+      text: this.global.message.cancel,
       role: 'cancel',
       handler: () => {
         console.log('Cancel clicked');
       }
     });
-    actionSheet.present();*/
+    actionSheet.present();
   }
 
   /*updateRoleMenu() {

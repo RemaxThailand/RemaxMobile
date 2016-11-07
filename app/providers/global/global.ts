@@ -41,6 +41,7 @@ export class Global {
 
   public memberScreen: any;
   public screen: any;
+  public role: any;
 
   public storage: Storage;
 
@@ -90,6 +91,10 @@ export class Global {
         });
       });
     });
+  }
+
+  public capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
 }
