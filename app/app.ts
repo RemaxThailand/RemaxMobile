@@ -220,11 +220,23 @@ class RemaxApp {
         global.role = [];
         for (let i = 0; i < data.result.role.length; i++) {
           let msg = data.result.role[i].charAt(0).toUpperCase() + data.result.role[i].slice(1);
-          let MemberType: any = [
-            { title: 'role' + msg, type: data.result.role[i] }
-          ];
+          let MemberType: any = { title: 'role' + msg, type: data.result.role[i] };
           global.role.push(MemberType);
         }
+      }
+    });
+
+    // Update ประเภทสมาชิก
+    global.socket.on('api-member-updateType', function (data) {
+      if (data.success) { // ถ้ามีข้อมูล
+        global.member.type = data.type;
+        storage.get('token').then((token) => {
+          global.socket.emit('api', {
+            token: token,
+            module: 'system',
+            action: 'screen'
+          });
+        });
       }
     });
 

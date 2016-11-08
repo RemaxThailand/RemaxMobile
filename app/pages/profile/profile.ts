@@ -19,11 +19,11 @@ export class ProfilePage {
     let storage = new Storage(LocalStorage);
 
     storage.get('token').then((token) => {
-        this.global.socket.emit('api', {
-          token: token,
-          module: 'member',
-          action: 'profile'
-        });
+      this.global.socket.emit('api', {
+        token: token,
+        module: 'member',
+        action: 'profile'
+      });
     });
 
 
@@ -86,17 +86,25 @@ export class ProfilePage {
     });*/
 
     for (let idx=0; idx<this.global.role.length; idx++) {
-      let type = this.global.role[idx].type;
-      
+      let role = this.global.role[idx];
       actionSheet.addButton({
-        text: this.global.message[this.global.role[idx].title],
+        text: this.global.message[role.title],
         handler: () => {
           /*let local = new Storage(LocalStorage);
           local.set('memberType', type).then(() => {
             this.global.memberType = type;
             this.global.updateRoleMenu();
           });*/
-          console.log(type+' clicked');
+          //console.log(role.type+' clicked');
+          let storage = new Storage(LocalStorage);
+          storage.get('token').then((token) => {
+            this.global.socket.emit('api', {
+              token: token,
+              module: 'member',
+              action: 'updateType',
+              type: role.type
+            });
+          });
         }
       });
     };
