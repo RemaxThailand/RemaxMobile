@@ -36,6 +36,33 @@ class RemaxApp {
         global.langCode = langCode;
     });
 
+    storage.get('message').then((message) => {
+      if (message != null || message != undefined)
+        global.message = JSON.parse(message);
+    });
+
+    storage.get('memberInfo').then((memberInfo) => {
+      if (memberInfo != null || memberInfo != undefined || memberInfo != ''){
+        global.member = JSON.parse(memberInfo);
+        if( global.member.type != 'guest' ){
+          storage.get('token').then((token) => {
+            this.global.socket.emit('api', {
+              token: token,
+              module: 'member',
+              action: 'profile'
+            });
+          });
+        }
+      }
+      else {
+        global.member = {
+          id: '0', type: 'guest', typeMessage: 'roleGuest', picture: 'build/img/remax.png',
+          name: 'Remax Thailand', shopName: ''
+        };
+        storage.set('memberInfo', global.member);
+      }
+    });
+
     /*LocalNotifications.schedule({
       id: 1,
       title: "หัวข้อหลัก",
@@ -79,11 +106,6 @@ class RemaxApp {
       alert(e.message);
     });*/
 
-
-    /*global.socket.on('online', function (data) {
-        //this.isOnline = true;
-        alert(data.count);
-    });*/
     storage.get('token').then((token) => {
       if (token != undefined && token.trim() != '') {
         global.socket.emit('access', { token: token });
@@ -131,6 +153,7 @@ class RemaxApp {
         for (let i = 0; i < data.result.length; i++) {
           global.message[data.result[i].messageKey] = data.result[i].message;
         }
+        storage.set('message', JSON.stringify(global.message));
       }
       else if (data.error = 'APP0002') {
         if (retryCount < 3) {
@@ -168,14 +191,6 @@ class RemaxApp {
       }
     });
 
-
-    /*## ข้อมูลส่วนตัว ##*/
-    global.socket.on('api-member-info', function (data) {
-      if (data.success) { // ถ้ามีข้อมูล
-        global.member = data.result;
-      }
-    });
-
     /*## ข้อมูลหน้าจอระบบ ##*/
     global.socket.on('api-system-screen', function (data) {
       if (data.success) { // ถ้ามีข้อมูล
@@ -187,7 +202,10 @@ class RemaxApp {
         global.isShowMenu = true;
         storage.get('page').then((page) => {
           // Load หน้าจอที่เข้าล่าสุด
-          if (page == undefined || page == 'signOut' || page == 'signIn') page = 'shopping';
+          if (page == undefined || page == 'signOut' || page == 'signIn') {
+            page = 'shopping';
+            storage.set('page', page);
+          }
           let success = false;
           for (let i=0; i<global.memberScreen.length; i++) {
             let screen = global.memberScreen[i].screen;
@@ -201,6 +219,11 @@ class RemaxApp {
               }
             }
             if (success) break;
+          }
+          if (!success) {
+            navCtrl.setRoot(global.screen.shopping.component, {
+              global: global
+            });
           }
         });
       }
@@ -223,6 +246,10 @@ class RemaxApp {
           let MemberType: any = { title: 'role' + msg, type: data.result.role[i] };
           global.role.push(MemberType);
         }
+        global.member = data.result.info;
+        global.member.typeMessage = 'role'+data.result.info.type.charAt(0).toUpperCase() + data.result.info.type.slice(1);
+        storage.set('memberInfo', JSON.stringify(global.member));
+
       }
     });
 
@@ -246,24 +273,20 @@ class RemaxApp {
     let storage = new Storage(LocalStorage);
     if (page.title == 'signIn' || page.title == 'signOut') {
       this.global.socket.emit('access', { token: '' });
+      storage.set('memberInfo', JSON.stringify({
+        id: '0', type: 'guest', typeMessage: 'roleGuest', picture: 'build/img/remax.png',
+        name: 'Remax Thailand', shopName: ''
+      }));
       //storage.remove('token');
       this.menu.close().then(() => {
 
         storage.set('page', page.title);
-        /*try {
-          storage.set('isLogin', '0').then(() => {
-            storage.set('isMember', '0').then(() => {*/
         this.global.isLogin = false;
         this.global.isMember = false;
         this.global.isShowMenu = false;
         this.nav.setRoot(LoginPage, {
           global: this.global
         });
-        /*});
-      });
-    } catch (e) {
-      alert(e.message);
-    }*/
       });
     }
     else {

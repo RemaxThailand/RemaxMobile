@@ -31,10 +31,7 @@ export class Global {
   public isShowMenu: boolean = false;
   public isLogin: boolean = false;
   public isMember: boolean = false;
-  public member: any = {
-    id: '0', type: 'guest', picture: 'build/img/remax.png',
-    name: 'Remax Thailand', shopName: ''
-  };
+  public member: any;
   public deviceToken: string = '';
   public langCode: string = 'th';
   public message: any;
