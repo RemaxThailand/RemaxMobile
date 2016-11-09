@@ -178,6 +178,12 @@ class RemaxApp {
               module: 'system',
               action: 'screen'
             });
+
+            global.socket.emit('api', {
+              token: data.token,
+              module: 'member',
+              action: 'profile'
+            });
           }
         });
       }
@@ -273,10 +279,11 @@ class RemaxApp {
     let storage = new Storage(LocalStorage);
     if (page.title == 'signIn' || page.title == 'signOut') {
       this.global.socket.emit('access', { token: '' });
-      storage.set('memberInfo', JSON.stringify({
+      this.global.member = {
         id: '0', type: 'guest', typeMessage: 'roleGuest', picture: 'build/img/remax.png',
         name: 'Remax Thailand', shopName: ''
-      }));
+      };
+      storage.set('memberInfo', JSON.stringify(this.global.member));
       //storage.remove('token');
       this.menu.close().then(() => {
 
