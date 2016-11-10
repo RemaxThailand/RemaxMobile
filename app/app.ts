@@ -42,7 +42,7 @@ class RemaxApp {
     });
 
     storage.get('memberInfo').then((memberInfo) => {
-      if (memberInfo != null || memberInfo != undefined || memberInfo != ''){
+      if (memberInfo != null && memberInfo != undefined && memberInfo != ''){
         global.member = JSON.parse(memberInfo);
         if( global.member.type != 'guest' ){
           storage.get('token').then((token) => {
