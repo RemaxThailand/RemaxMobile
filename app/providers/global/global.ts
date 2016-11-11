@@ -6,6 +6,7 @@ import { ShoppingPage } from '../../pages/shopping/shopping';
 import { ProfilePage } from '../../pages/profile/profile';
 import { CartPage } from '../../pages/cart/cart';
 import { HistoryPage } from '../../pages/history/history';
+import { OrderDetailPage } from '../../pages/order-detail/order-detail';
 import { SettingPage } from '../../pages/setting/setting';
 import { SearchPage } from '../../pages/search/search';
 import { LoginPage } from '../../pages/login/login';
@@ -35,6 +36,7 @@ export class Global {
   public deviceToken: string = '';
   public langCode: string = 'th';
   public message: any;
+  public data: any;
 
   public memberScreen: any;
   public screen: any;
@@ -55,6 +57,7 @@ export class Global {
       redemption: { title: 'redemption', component: RedemptionPage },
       cart: { title: 'cart', component: CartPage },
       orderHistory: { title: 'orderHistory', component: HistoryPage },
+      orderDetail: { title: 'orderDetail', component: OrderDetailPage },
       purchaseOrder: { title: 'purchaseOrder', component: OrderPage },
       productBookings: { title: 'productBookings', component: ProductBookingPage },
       customerInformation: { title: 'customerInformation', component: CustomerPage },
@@ -92,6 +95,15 @@ export class Global {
 
   public capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
+  public numberMoney(x) {
+    x = parseFloat(x).toFixed(2);
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  
+  public numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
 }

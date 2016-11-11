@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController, ActionSheetController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ActionSheetController, AlertController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'build/pages/order-detail/order-detail.html',
@@ -7,8 +7,12 @@ import { NavController, ViewController, ActionSheetController, AlertController }
 export class OrderDetailPage {
 
   viewType: string;
+  global: any;
+  orderNo: string;
 
-  constructor(private navCtrl: NavController, private viewCtrl: ViewController, private actionSheetController: ActionSheetController, private alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private actionSheetController: ActionSheetController, private alertCtrl: AlertController) {
+    this.global = this.navParams.get('global');
+    this.orderNo = this.navParams.get('orderNo');
     this.viewType = 'images';
   }
 

@@ -10,46 +10,56 @@
 
 <ion-content style="background-color: #f4f4f4">
 
-  <ion-card>
-
+  <ion-card *ngFor="let item of global.data">
     <ion-card-content class="padding-0">
       <table width="100%" class="bg-light-gray border-1-white" padding>
         <tr>
-          <td class="padding-5"><h2 class="margin-top-0" primary><i class="fa fa-check-circle"></i> <b>1603B00753</b></h2></td>
-          <td text-right class="padding-5"><p class="color-light-gray">2016-03-18 12:59</p></td>
+          <td class="padding-5"><h2 class="margin-top-0" [class.color-gray]="!item.active" [class.color-primary]="item.active">
+            <i class="fa fa-check-circle" *ngIf="item.active && item.isPay && item.isPack && item.isShip"></i> 
+            <i class="fa fa-cog fa-spin" *ngIf="item.active && (!item.isPay || !item.isPack || !item.isShip)"></i> 
+            <b>{{item.orderNo}}</b></h2>
+          </td>
+          <td text-right class="padding-5"><p class="color-light-gray">{{item.orderDate}}</p></td>
         </tr>
       </table>
       <table width="100%">
         <tr>
-          <td class="padding-left-10">จำนวนรายการ/ชิ้น</td><td text-right class="padding-right-10">12/458</td>
+          <td class="padding-left-10" [class.color-light-gray]="!item.isPay">จำนวนรายการ/ชิ้น</td>
+          <td text-right class="padding-right-10">{{global.numberWithCommas(item.cnt)}}/{{global.numberWithCommas(item.qty)}}</td>
         </tr>
         <tr>
-          <td class="padding-left-10">ราคารวม (บาท)</td><td text-right class="padding-right-10"><ion-badge item-right class="margin-0">56,465.00</ion-badge></td>
+          <td class="padding-left-10" [class.color-light-gray]="!item.isPay">ราคารวม (บาท)</td>
+          <td text-right class="padding-right-10">
+            <ion-badge item-right class="margin-0" [class.bg-gray]="!item.active">{{global.numberMoney(item.totalPrice+item.shippingPrice)}}</ion-badge>
+          </td>
         </tr>
       </table>
     </ion-card-content>
     <hr class="margin-0 margin-top-5" />
     <table width="100%">
       <tr>
-        <td nowrap="nowrap">
-          <span class="fa-stack fa-lg text-muted margin-left-5 color-light-gray">
+        <td *ngIf="item.active" nowrap="nowrap">
+          <span class="fa-stack fa-lg text-muted margin-left-5" [class.color-light-gray]="!item.isPay" [class.color-secondary]="item.isPay">
             <i class="fa fa-circle fa-stack-2x"></i>
             <i class="fa fa-bitcoin fa-stack-1x fa-inverse"></i>
           </span>
-          <span class="fa-stack fa-lg color-light-gray">
+          <span class="fa-stack fa-lg" [class.color-light-gray]="!item.isPack" [class.color-secondary]="item.isPack">
             <i class="fa fa-circle fa-stack-2x"></i>
             <i class="fa fa-cube fa-stack-1x fa-inverse"></i>
           </span>
-          <span class="fa-stack fa-lg color-light-gray">
+          <span class="fa-stack fa-lg" [class.color-light-gray]="!item.isShip" [class.color-secondary]="item.isShip">
             <i class="fa fa-circle fa-stack-2x"></i>
             <i class="fa fa-truck fa-stack-1x fa-inverse"></i>
           </span>
         </td>
+        <td class="padding-left-10" *ngIf="!item.active" nowrap="nowrap">
+          <ion-badge class="bg-gray margin-0">ยกเลิก</ion-badge>
+        </td>
         <td text-right>
-          <button danger clear class="padding-left-5 padding-right-5">
+          <button *ngIf="item.active && !item.isPay" danger clear class="padding-left-5 padding-right-5">
             <i class="fa fa-send-o margin-right-5 relative top-1"></i> แจ้งชำระเงิน
           </button>
-          <button dark clear class="margin-right-5 padding-left-5 padding-right-5">
+          <button dark clear class="margin-right-5 padding-left-5 padding-right-5" (click)="viewDetail(item.orderNo)">
             <i class="fa fa-list margin-right-5 relative top-1"></i> รายละเอียด
           </button>
         </td>

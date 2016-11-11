@@ -26,21 +26,7 @@ export class ProfilePage {
       });
     });
 
-
-
-    /*this.role = [
-      { title: 'roleAdministrator', type: 'admin' },
-      { title: 'roleOwner', type: 'owner' },
-      { title: 'roleManager', type: 'manager' },
-      { title: 'roleHeadSale', type: 'headSale' },
-      { title: 'roleSale', type: 'sale' },
-      { title: 'roleDealer', type: 'dealer' },
-      { title: 'roleMember', type: 'member' },
-      { title: 'roleDeveloper', type: 'developer' },
-      { title: 'roleOfficer', type: 'officer' }
-    ];
-
-    var push = Push.init({
+    /*var push = Push.init({
        android: {
            senderID: '3066538051'
        },
@@ -58,12 +44,6 @@ export class ProfilePage {
 
     push.on('notification', function(data) {
       alert('notification '+ JSON.stringify(data) );
-        // data.message,
-        // data.title,
-        // data.count,
-        // data.sound,
-        // data.image,
-        // data.additionalData
     });
 
     push.on('error', function(e) {
@@ -90,12 +70,6 @@ export class ProfilePage {
       actionSheet.addButton({
         text: this.global.message[role.title],
         handler: () => {
-          /*let local = new Storage(LocalStorage);
-          local.set('memberType', type).then(() => {
-            this.global.memberType = type;
-            this.global.updateRoleMenu();
-          });*/
-          //console.log(role.type+' clicked');
           let storage = new Storage(LocalStorage);
           storage.get('token').then((token) => {
             this.global.socket.emit('api', {
@@ -118,22 +92,5 @@ export class ProfilePage {
     });
     actionSheet.present();
   }
-
-  /*updateRoleMenu() {
-    for (var menu in this.global.menuGroup) {
-      let json = this.global.menuGroup[menu];
-      let hasChild = false;
-      for (var idx in json) {
-        if(this.global.memberMenu[this.global.memberType].indexOf('|'+json[idx].title+'|') != -1){
-          json[idx].isShow = true;
-          hasChild = true;
-        }
-        else {
-          json[idx].isShow = false;
-        }
-      }
-      this.global.menuDividerShow[menu] = hasChild;
-    }
-  }*/
 
 }
