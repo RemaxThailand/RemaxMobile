@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Storage, LocalStorage } from 'ionic-angular';
+import { PaymentsConfirmPage } from '../../pages/payments-confirm/payments-confirm';
 
 @Component({
   templateUrl: 'build/pages/history/history.html',
@@ -25,6 +26,13 @@ export class HistoryPage {
 
   viewDetail(orderNo) {
     this.navCtrl.push(this.global.screen.orderDetail.component, {
+      global: this.global,
+      orderNo: orderNo
+    });
+  }
+
+  payments_confirm(orderNo) {
+    this.navCtrl.push(PaymentsConfirmPage, {
       global: this.global,
       orderNo: orderNo
     });
