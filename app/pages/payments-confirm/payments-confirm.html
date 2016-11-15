@@ -20,7 +20,7 @@
     <ion-item>
       <ion-label>ชำระเงินเข้าบัญชีธนาคาร</ion-label>
       <ion-select>
-        <ion-option value="" selected>NES</ion-option>
+        <ion-option value="" selected>กสิกรไทย : อิทธิพล</ion-option>
         <ion-option value="nes">NES</ion-option>
         <ion-option value="n64">Nintendo64</ion-option>
         <ion-option value="ps">PlayStation</ion-option>
@@ -31,23 +31,11 @@
     </ion-item>
     <ion-item>
       <ion-label>วันที่ทำรายการ</ion-label>
-      <ion-datetime displayFormat="DD MMM YYYY"></ion-datetime>
+      <ion-datetime displayFormat="DD MMM YYYY HH:mm"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>เวลาที่ทำรายการ</ion-label>
       <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>วิธีการชำระเงิน</ion-label>
-      <ion-select>
-        <ion-option value="" selected>NES</ion-option>
-        <ion-option value="nes">NES</ion-option>
-        <ion-option value="n64">Nintendo64</ion-option>
-        <ion-option value="ps">PlayStation</ion-option>
-        <ion-option value="genesis">Sega Genesis</ion-option>
-        <ion-option value="saturn">Sega Saturn</ion-option>
-        <ion-option value="snes">SNES</ion-option>
-      </ion-select>
     </ion-item>
     <ion-item>
       <ion-label floating>หมายเหตุ</ion-label>
@@ -55,5 +43,10 @@
     </ion-item>
 
   </ion-list>
-รูปภาพ :
+
+  <img [src]="base64Image" *ngIf="base64Image" />
+
+          <button dark clear class="margin-right-5 padding-left-5 padding-right-5" (click)="takePicture()">
+            <i class="fa fa-list margin-right-5 relative top-1"></i> รูปภาพ
+          </button>
 </ion-content>
