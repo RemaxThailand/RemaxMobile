@@ -31,11 +31,7 @@
     </ion-item>
     <ion-item>
       <ion-label>วันที่ทำรายการ</ion-label>
-      <ion-datetime displayFormat="DD MMM YYYY HH:mm"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>เวลาที่ทำรายการ</ion-label>
-      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+      <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="now" monthShortNames="ม.ค., ก.พ., มี.ค., เม.ย., พ.ค., มิ.ย., ก.ค., ส.ค., ก.ย., ต.ค., พ.ย., ธ.ค."></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label floating>หมายเหตุ</ion-label>
@@ -46,7 +42,8 @@
 
   <img [src]="base64Image" *ngIf="base64Image" />
 
-          <button dark clear class="margin-right-5 padding-left-5 padding-right-5" (click)="takePicture()">
-            <i class="fa fa-list margin-right-5 relative top-1"></i> รูปภาพ
-          </button>
+  <button dark clear class="margin-right-5 padding-left-5 padding-right-5" (click)="takePicture()">
+    <i class="fa fa-list margin-right-5 relative top-1"></i> รูปภาพ
+  </button>
+
 </ion-content>

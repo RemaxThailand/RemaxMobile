@@ -42,4 +42,5 @@
     </plugin>
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.4" />
     <plugin name="cordova-plugin-device" spec="~1.1.2" />
+    <plugin name="cordova-plugin-camera" spec="~2.3.0" />
 </widget>
