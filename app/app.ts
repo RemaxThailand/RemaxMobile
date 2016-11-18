@@ -276,8 +276,6 @@ class RemaxApp {
     this.global.socket.on('api-order-history', function (data) {
       if (data.success) { // ถ้ามีข้อมูล
         global.data = data.result;
-        console.log('xx');
-        console.log(global.data);
       }
     });
 

@@ -22,8 +22,13 @@
       <ion-list-header>
         ชำระเงินเข้าบัญชีธนาคาร
       </ion-list-header>
+
+
       <ion-item>
-        <ion-label>กสิกรไทย <br>กหด หกดหกดหหดห กด</ion-label>
+        <ion-label>
+          <h2>Cher</h2>
+          <p>Ugh. As if.</p>
+        </ion-label>
         <ion-radio checked="true" value="go"></ion-radio>
       </ion-item>
       <ion-item>
@@ -42,11 +47,18 @@
       </ion-item>
   </ion-list>
 
-
   <img [src]="base64Image" *ngIf="base64Image" />
 
-  <button dark clear class="margin-right-5 padding-left-5 padding-right-5" (click)="takePicture()">
-    <i class="fa fa-list margin-right-5 relative top-1"></i> รูปภาพ
+  <button dark clear block class="margin-right-5 padding-left-5 padding-right-5" (click)="takePicture()">
+    <i class="fa fa-camera margin-right-5 relative top-1"></i> ถ่ายภาพหลักฐานการโอนเงิน
   </button>
+
+  <hr />
+
+  <div text-center>
+    <button dark>
+      <i class="fa fa-camera margin-right-5 relative top-1"></i> บันทึกข้อมูล
+    </button>
+  </div>
 
 </ion-content>
