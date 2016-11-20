@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Storage, LocalStorage } from 'ionic-angular';
 import { Camera } from 'ionic-native';
 
 @Component({
@@ -9,8 +9,9 @@ export class PaymentsConfirmPage {
 
   global: any;
   orderNo: string;
-  public base64Image: string;
-  public now: string;
+  base64Image: string;
+  now: string;
+  note: string;
 
   constructor(private navCtrl: NavController, private navParams: NavParams) {
     this.global = this.navParams.get('global');
@@ -33,6 +34,29 @@ export class PaymentsConfirmPage {
     }, (err) => {
         console.log(err);
     });
+  }
+
+  confirm() {
+    let storage = new Storage(LocalStorage);
+
+    storage.get('token').then((token) => {
+      if (token == undefined || token == '') {
+        this.global.socket.emit('access', { apiKey: this.global.apiKey });
+      }
+      else {
+        this.global.socket.emit('api', {
+          token: token,
+          module: 'order',
+          action: 'payment_confirm',
+          orderNo: this.orderNo,
+          bank: '123',
+          date: this.now,
+          note: this.note,
+          photo: this.base64Image
+        });
+      }
+    });
+
   }
 
 }

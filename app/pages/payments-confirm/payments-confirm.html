@@ -43,7 +43,7 @@
       </ion-item>
       <ion-item>
         <ion-label floating>หมายเหตุ</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" [(ngModel)]="note"></ion-input>
       </ion-item>
   </ion-list>
 
@@ -56,7 +56,7 @@
   <hr />
 
   <div text-center>
-    <button dark>
+    <button dark (click)="confirm()">
       <i class="fa fa-camera margin-right-5 relative top-1"></i> บันทึกข้อมูล
     </button>
   </div>
