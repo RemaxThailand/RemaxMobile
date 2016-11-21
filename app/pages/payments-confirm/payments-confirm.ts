@@ -12,13 +12,15 @@ export class PaymentsConfirmPage {
   base64Image: string;
   now: string;
   note: string;
+  index: number;
 
   constructor(private navCtrl: NavController, private navParams: NavParams) {
     this.global = this.navParams.get('global');
     this.orderNo = this.navParams.get('orderNo');
+    this.index = this.navParams.get('index');
+    console.log(this.index);
     let now = new Date();
     this.now = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString();
-    this.global.data = { success: false }
   }
 
   takePicture(){
@@ -53,7 +55,8 @@ export class PaymentsConfirmPage {
           bank: '123',
           date: this.now,
           note: this.note,
-          photo: this.base64Image
+          photo: this.base64Image,
+          index: this.index
         });
       }
     });

@@ -31,10 +31,11 @@ export class HistoryPage {
     });
   }
 
-  payments_confirm(orderNo) {
+  payments_confirm(orderNo, index) {
     this.navCtrl.push(PaymentsConfirmPage, {
       global: this.global,
-      orderNo: orderNo
+      orderNo: orderNo,
+      index: index
     });
   }
 

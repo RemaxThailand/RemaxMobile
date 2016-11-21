@@ -273,14 +273,23 @@ class RemaxApp {
       }
     });
     
-    this.global.socket.on('api-order-history', function (data) {
+    global.socket.on('api-order-history', function (data) {
       if (data.success) { // ถ้ามีข้อมูล
         global.data = data.result;
       }
     });
     
-    this.global.socket.on('api-order-payment_confirm', function (data) {
-      global.data = { success: data.success }
+    global.socket.on('api-order-payment_confirm', function (data) {
+      if (data.success) {
+        let alert = alertCtrl.create({
+          title: 'ผลการทำงาน',
+          subTitle: 'บันทึกข้อมูลสำเร็จแล้ว',
+          buttons: [global.message.ok]
+        });
+        alert.present();
+        global.data[data.index].active = false;
+        navCtrl.pop();
+      }
     });
 
   }

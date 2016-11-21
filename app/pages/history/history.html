@@ -10,7 +10,7 @@
 
 <ion-content style="background-color: #f4f4f4">
 
-  <ion-card *ngFor="let item of global.data">
+  <ion-card *ngFor="let item of global.data; let i = index">
     <ion-card-content class="padding-0">
       <table width="100%" class="bg-light-gray border-1-white" padding>
         <tr>
@@ -56,7 +56,7 @@
           <ion-badge class="bg-gray margin-0">ยกเลิก</ion-badge>
         </td>
         <td text-right>
-          <button *ngIf="item.active && item.isPay" danger clear class="padding-left-5 padding-right-5" (click)="payments_confirm(item.orderNo)">
+          <button *ngIf="item.active && item.isPay" danger clear class="padding-left-5 padding-right-5" (click)="payments_confirm(item.orderNo, i)">
             <i class="fa fa-send-o margin-right-5 relative top-1"></i> แจ้งชำระเงิน
           </button>
           <button dark clear class="margin-right-5 padding-left-5 padding-right-5" (click)="viewDetail(item.orderNo)">
