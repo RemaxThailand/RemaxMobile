@@ -278,6 +278,10 @@ class RemaxApp {
         global.data = data.result;
       }
     });
+    
+    this.global.socket.on('api-order-payment_confirm', function (data) {
+      global.data = { success: data.success }
+    });
 
   }
 

@@ -18,6 +18,7 @@ export class PaymentsConfirmPage {
     this.orderNo = this.navParams.get('orderNo');
     let now = new Date();
     this.now = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString();
+    this.global.data = { success: false }
   }
 
   takePicture(){
