@@ -56,8 +56,11 @@
           <ion-badge class="bg-gray margin-0">ยกเลิก</ion-badge>
         </td>
         <td text-right>
-          <button *ngIf="item.active && item.isPay" danger clear class="padding-left-5 padding-right-5" (click)="payments_confirm(item.orderNo, i)">
+          <button *ngIf="item.active && !item.isSentConfirm" danger clear class="padding-left-5 padding-right-5" (click)="paymentsConfirm(item.orderNo, i)">
             <i class="fa fa-send-o margin-right-5 relative top-1"></i> แจ้งชำระเงิน
+          </button>
+          <button *ngIf="item.active && item.isSentConfirm" secondary clear class="padding-left-5 padding-right-5" (click)="paymentsData(item.orderNo)">
+            <i class="fa fa-credit-card margin-right-5 relative top-1"></i> การชำระเงิน
           </button>
           <button dark clear class="margin-right-5 padding-left-5 padding-right-5" (click)="viewDetail(item.orderNo)">
             <i class="fa fa-list margin-right-5 relative top-1"></i> รายละเอียด

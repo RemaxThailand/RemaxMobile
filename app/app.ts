@@ -291,6 +291,12 @@ class RemaxApp {
         navCtrl.pop();
       }
     });
+    
+    global.socket.on('api-order-payment_data', function (data) {
+      if (data.success) {
+        console.log(data.result);
+      }
+    });
 
   }
 

@@ -18,7 +18,6 @@ export class PaymentsConfirmPage {
     this.global = this.navParams.get('global');
     this.orderNo = this.navParams.get('orderNo');
     this.index = this.navParams.get('index');
-    console.log(this.index);
     let now = new Date();
     this.now = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString();
   }

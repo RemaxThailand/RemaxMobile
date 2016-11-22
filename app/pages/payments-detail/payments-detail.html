@@ -17,26 +17,16 @@
       <ion-label>หมายเลขคำสั่งซื้อ</ion-label>
       <ion-label clear item-right text-right>{{orderNo}}</ion-label>
     </ion-item>
-
-    <ion-list radio-group>
-      <ion-list-header>
-        ชำระเงินเข้าบัญชีธนาคาร
-      </ion-list-header>
-
+    <ion-item>
+      <ion-label>ชำระเงินเข้าบัญชีธนาคาร</ion-label>
+    </ion-item>
 
       <ion-item>
         <ion-label>
           <h2>Cher</h2>
           <p>Ugh. As if.</p>
         </ion-label>
-        <ion-radio checked="true" value="go"></ion-radio>
       </ion-item>
-      <ion-item>
-        <ion-label>Rust</ion-label>
-        <ion-radio value="rust"></ion-radio>
-      </ion-item>
-    </ion-list>
-
       <ion-item>
         <ion-label>วันที่ทำรายการ</ion-label>
         <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="now" monthShortNames="ม.ค., ก.พ., มี.ค., เม.ย., พ.ค., มิ.ย., ก.ค., ส.ค., ก.ย., ต.ค., พ.ย., ธ.ค."></ion-datetime>
@@ -49,15 +39,9 @@
 
   <img [src]="base64Image" *ngIf="base64Image" />
 
-  <button dark clear block class="margin-right-5 padding-left-5 padding-right-5" (click)="takePicture()">
-    <i class="fa fa-camera margin-right-5 relative top-1"></i> ถ่ายภาพหลักฐานการโอนเงิน
-  </button>
-
-  <hr />
-
   <div text-center>
-    <button dark (click)="confirm()">
-      <i class="fa fa-camera margin-right-5 relative top-1"></i> บันทึกข้อมูล
+    <button dark (click)="back()">
+      <i class="fa fa-camera margin-right-5 relative top-1"></i> ย้อนกลับ
     </button>
   </div>
 

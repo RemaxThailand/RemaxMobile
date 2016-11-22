@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Storage, LocalStorage } from 'ionic-angular';
 import { PaymentsConfirmPage } from '../../pages/payments-confirm/payments-confirm';
+import { PaymentsDetailPage } from '../../pages/payments-detail/payments-detail';
 
 @Component({
   templateUrl: 'build/pages/history/history.html',
@@ -31,11 +32,18 @@ export class HistoryPage {
     });
   }
 
-  payments_confirm(orderNo, index) {
+  paymentsConfirm(orderNo, index) {
     this.navCtrl.push(PaymentsConfirmPage, {
       global: this.global,
       orderNo: orderNo,
       index: index
+    });
+  }
+
+  paymentsData(orderNo) {
+    this.navCtrl.push(PaymentsDetailPage, {
+      global: this.global,
+      orderNo: orderNo
     });
   }
 
