@@ -295,7 +295,6 @@ class RemaxApp {
     global.socket.on('api-order-payment_data', function (data) {
       if (data.success) {
         global.subData = data.result;
-        console.log(data.result);
       }
     });
 

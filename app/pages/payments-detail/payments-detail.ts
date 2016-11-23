@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Storage, LocalStorage } from 'ionic-angular';
+import { NavController, NavParams, Storage, LocalStorage, LoadingController } from 'ionic-angular';
 
 /*
   Generated class for the PaymentsDetailPage page.
@@ -16,11 +16,21 @@ export class PaymentsDetailPage {
   orderNo: string;
   base64Image: string;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController) {
     this.global = this.navParams.get('global');
     this.orderNo = this.navParams.get('orderNo');
 
-    console.log( this.orderNo );
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+    });
+    loader.present();
+
+    var timer = setInterval(() => {
+      if(this.global.subData.bank != undefined) {
+        clearInterval(timer);
+        loader.dismiss();
+      }
+    }, 500);
 
     /*## รายละเอียดการชำระเงิน ##*/
     let storage = new Storage(LocalStorage);
