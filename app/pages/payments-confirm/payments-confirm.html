@@ -45,15 +45,14 @@
         <ion-label floating>หมายเหตุ</ion-label>
         <ion-input type="text" [(ngModel)]="note"></ion-input>
       </ion-item>
+      <ion-item>
+        <img [src]="base64Image" *ngIf="base64Image" />
+        <button dark clear block medium (click)="takePicture()">
+          <i class="fa fa-camera margin-right-5 relative top-1"></i> ถ่ายภาพหลักฐานการโอนเงิน
+        </button>
+      </ion-item>
+
   </ion-list>
-
-  <img [src]="base64Image" *ngIf="base64Image" />
-
-  <button dark clear block class="margin-right-5 padding-left-5 padding-right-5" (click)="takePicture()">
-    <i class="fa fa-camera margin-right-5 relative top-1"></i> ถ่ายภาพหลักฐานการโอนเงิน
-  </button>
-
-  <hr />
 
   <div text-center>
     <button dark (click)="confirm()">

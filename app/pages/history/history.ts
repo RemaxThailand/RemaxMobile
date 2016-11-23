@@ -41,6 +41,7 @@ export class HistoryPage {
   }
 
   paymentsData(orderNo) {
+    this.global.subData = {};
     this.navCtrl.push(PaymentsDetailPage, {
       global: this.global,
       orderNo: orderNo

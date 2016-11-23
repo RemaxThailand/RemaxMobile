@@ -34,4 +34,8 @@ export class PaymentsDetailPage {
     });
   }
 
+  back(){
+    this.navCtrl.pop();
+  }
+
 }

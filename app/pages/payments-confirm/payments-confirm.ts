@@ -23,7 +23,6 @@ export class PaymentsConfirmPage {
   }
 
   takePicture(){
-    console.log(this.now);
     Camera.getPicture({
         destinationType: Camera.DestinationType.DATA_URL,
         targetWidth: 1024,

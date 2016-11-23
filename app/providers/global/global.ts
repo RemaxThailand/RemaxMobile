@@ -37,7 +37,7 @@ export class Global {
   public langCode: string = 'th';
   public message: any;
   public data: any;
-  public subData: any;
+  public subData: any = {};
 
   public memberScreen: any;
   public screen: any;

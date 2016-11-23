@@ -12,32 +12,43 @@
 
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="global.subData.bank">
     <ion-item>
       <ion-label>หมายเลขคำสั่งซื้อ</ion-label>
       <ion-label clear item-right text-right>{{orderNo}}</ion-label>
     </ion-item>
     <ion-item>
+      <ion-label>สถานะ</ion-label>
+      <ion-label clear item-right text-right danger>
+        <i class="fa fa-hourglass-half margin-right-5 relative top-1"></i>รอการตรวจสอบ
+      </ion-label>
+    </ion-item>
+    <ion-item>
       <ion-label>ชำระเงินเข้าบัญชีธนาคาร</ion-label>
+      <ion-label clear item-right text-right>{{global.subData.bank}}</ion-label>
     </ion-item>
 
-      <ion-item>
-        <ion-label>
-          <h2>Cher</h2>
-          <p>Ugh. As if.</p>
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>วันที่ทำรายการ</ion-label>
-        <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="now" monthShortNames="ม.ค., ก.พ., มี.ค., เม.ย., พ.ค., มิ.ย., ก.ค., ส.ค., ก.ย., ต.ค., พ.ย., ธ.ค."></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>หมายเหตุ</ion-label>
-        <ion-input type="text" [(ngModel)]="note"></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-label>
+        
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>วันที่ทำรายการ</ion-label>
+      <ion-datetime ng-disabled displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="global.subData.transferDate" monthShortNames="ม.ค., ก.พ., มี.ค., เม.ย., พ.ค., มิ.ย., ก.ค., ส.ค., ก.ย., ต.ค., พ.ย., ธ.ค."></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="global.subData.note">
+      <ion-label>หมายเหตุ</ion-label>
+      <ion-label clear item-right text-right>{{global.subData.note}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <img src="{{global.subData.photo}}" *ngIf="global.subData.photo" />
+    </ion-item>
+    <ion-item>
+      <ion-label>วันที่แจ้งการชำระเงิน</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="global.subData.addDate" monthShortNames="ม.ค., ก.พ., มี.ค., เม.ย., พ.ค., มิ.ย., ก.ค., ส.ค., ก.ย., ต.ค., พ.ย., ธ.ค."></ion-datetime>
+    </ion-item>
   </ion-list>
-
-  <img [src]="base64Image" *ngIf="base64Image" />
 
   <div text-center>
     <button dark (click)="back()">
