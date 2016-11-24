@@ -292,6 +292,12 @@ class RemaxApp {
       }
     });
     
+    global.socket.on('api-bank-data', function (data) {
+      if (data.success) {
+        global.bank = data.result;
+      }
+    });
+    
     global.socket.on('api-order-payment_data', function (data) {
       if (data.success) {
         global.subData = data.result;

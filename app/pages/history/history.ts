@@ -21,8 +21,13 @@ export class HistoryPage {
         module: 'order',
         action: 'history'
       });
-    });
 
+      this.global.socket.emit('api', {
+        token: token,
+        module: 'bank',
+        action: 'data'
+      });
+    });
   }
 
   viewDetail(orderNo) {

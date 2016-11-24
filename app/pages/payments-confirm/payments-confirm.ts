@@ -10,6 +10,7 @@ export class PaymentsConfirmPage {
   global: any;
   orderNo: string;
   base64Image: string;
+  bank: string;
   now: string;
   note: string;
   index: number;
@@ -20,6 +21,7 @@ export class PaymentsConfirmPage {
     this.index = this.navParams.get('index');
     let now = new Date();
     this.now = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString();
+    this.bank = this.global.bank[0].id;
   }
 
   takePicture(){
@@ -39,7 +41,6 @@ export class PaymentsConfirmPage {
 
   confirm() {
     let storage = new Storage(LocalStorage);
-
     storage.get('token').then((token) => {
       if (token == undefined || token == '') {
         this.global.socket.emit('access', { apiKey: this.global.apiKey });
@@ -50,7 +51,7 @@ export class PaymentsConfirmPage {
           module: 'order',
           action: 'payment_confirm',
           orderNo: this.orderNo,
-          bank: '123',
+          bank: this.bank,
           date: this.now,
           note: this.note,
           photo: this.base64Image,
@@ -58,7 +59,6 @@ export class PaymentsConfirmPage {
         });
       }
     });
-
   }
 
 }

@@ -38,6 +38,7 @@ export class Global {
   public message: any;
   public data: any;
   public subData: any = {};
+  public bank: any = {};
 
   public memberScreen: any;
   public screen: any;
