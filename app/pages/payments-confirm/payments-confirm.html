@@ -14,13 +14,13 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label>{{global.message.orderNo}}</ion-label>
+      <ion-label>{{global.message.orderNumber}}</ion-label>
       <ion-label clear item-right text-right>{{orderNo}}</ion-label>
     </ion-item>
 
     <ion-list radio-group [(ngModel)]="bank">
       <ion-list-header>
-        ชำระเงินเข้าบัญชีธนาคาร
+        {{global.message.paymentsToBankAccounts}}
       </ion-list-header>
 
       <ion-item *ngFor="let item of global.bank">
@@ -37,8 +37,8 @@
     </ion-list>
 
       <ion-item>
-        <ion-label>วันที่ทำรายการ</ion-label>
-        <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="now" monthShortNames="ม.ค., ก.พ., มี.ค., เม.ย., พ.ค., มิ.ย., ก.ค., ส.ค., ก.ย., ต.ค., พ.ย., ธ.ค."></ion-datetime>
+        <ion-label>{{global.message.transactionDate}}</ion-label>
+        <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="now" monthShortNames="{{global.message.monthShortNames}}"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label floating>{{global.message.note}}</ion-label>
@@ -46,16 +46,16 @@
       </ion-item>
       <ion-item>
         <img [src]="base64Image" *ngIf="base64Image" />
-        <button dark clear block medium (click)="takePicture()">
-          <i class="fa fa-camera margin-right-5 relative top-1"></i> ถ่ายภาพหลักฐานการโอนเงิน
+        <button dark clear block medium (click)="takePicture()" class="capitalize">
+          <i class="fa fa-camera margin-right-5 relative top-1"></i> {{global.message.proofOfPaymentPhoto}}
         </button>
       </ion-item>
 
   </ion-list>
 
   <div text-center>
-    <button dark (click)="confirm()">
-      <i class="fa fa-camera margin-right-5 relative top-1"></i> บันทึกข้อมูล
+    <button dark (click)="confirm()" class="capitalize">
+      <i class="fa fa-camera margin-right-5 relative top-1"></i> {{global.message.saveData}}
     </button>
   </div>
 

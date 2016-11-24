@@ -14,23 +14,23 @@
 <ion-content>
   <ion-list *ngIf="global.subData.bank">
     <ion-item>
-      <ion-label>หมายเลขคำสั่งซื้อ</ion-label>
+      <ion-label>{{global.message.orderNumber}}</ion-label>
       <ion-label clear item-right text-right>{{orderNo}}</ion-label>
     </ion-item>
     <ion-item *ngIf="global.subData.confirmDate == null">
-      <ion-label>สถานะ</ion-label>
+      <ion-label>{{global.message.status}}</ion-label>
       <ion-label clear item-right text-right danger>
-        <i class="fa fa-hourglass-half margin-right-5 relative top-1"></i>รอการตรวจสอบ
+        <i class="fa fa-hourglass-half margin-right-5 relative top-1"></i>{{global.message.pendingReview}}
       </ion-label>
     </ion-item>
     <ion-item *ngIf="global.subData.confirmDate != null">
-      <ion-label>สถานะ</ion-label>
+      <ion-label>{{global.message.status}}</ion-label>
       <ion-label clear item-right text-right secondary>
-        <i class="fa fa-check-circle margin-right-5 relative top-1"></i>ตรวจสอบแล้ว
+        <i class="fa fa-check-circle margin-right-5 relative top-1"></i>{{global.message.checked}}
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>ชำระเงินเข้าบัญชีธนาคาร</ion-label>
+      <ion-label>{{global.message.paymentsToBankAccounts}}</ion-label>
       <ion-label clear item-right text-right>{{global.subData.bank}}</ion-label>
     </ion-item>
 
@@ -40,25 +40,25 @@
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>วันที่ทำรายการ</ion-label>
-      <ion-datetime ng-disabled displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="global.subData.transferDate" monthShortNames="ม.ค., ก.พ., มี.ค., เม.ย., พ.ค., มิ.ย., ก.ค., ส.ค., ก.ย., ต.ค., พ.ย., ธ.ค."></ion-datetime>
+      <ion-label>{{global.message.transactionDate}}</ion-label>
+      <ion-datetime ng-disabled displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="global.subData.transferDate" monthShortNames="{{global.message.monthShortNames}}"></ion-datetime>
     </ion-item>
     <ion-item *ngIf="global.subData.note">
-      <ion-label>หมายเหตุ</ion-label>
+      <ion-label>{{global.message.note}}</ion-label>
       <ion-label clear item-right text-right>{{global.subData.note}}</ion-label>
     </ion-item>
     <ion-item>
       <img src="{{global.subData.photo}}" *ngIf="global.subData.photo" />
     </ion-item>
     <ion-item>
-      <ion-label>วันที่แจ้งการชำระเงิน</ion-label>
-      <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="global.subData.addDate" monthShortNames="ม.ค., ก.พ., มี.ค., เม.ย., พ.ค., มิ.ย., ก.ค., ส.ค., ก.ย., ต.ค., พ.ย., ธ.ค."></ion-datetime>
+      <ion-label>{{global.message.sendDataDate}}</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="global.subData.addDate" monthShortNames="{{global.message.monthShortNames}}"></ion-datetime>
     </ion-item>
   </ion-list>
 
   <div text-center>
-    <button dark (click)="back()">
-      <i class="fa fa-camera margin-right-5 relative top-1"></i> ย้อนกลับ
+    <button dark (click)="back()" class="capitalize">
+      <i class="fa fa-camera margin-right-5 relative top-1"></i> {{global.message.back}}
     </button>
   </div>
 
