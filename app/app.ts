@@ -300,7 +300,9 @@ class RemaxApp {
     
     global.socket.on('api-order-payment_data', function (data) {
       if (data.success) {
-        global.subData = data.result;
+        global.subData = { bankTransfer: data.result.bankTransfer, sendTransfer:data.result.sendTransfer };
+        console.log(global.subData);
+        //global.subData = data.result;
       }
     });
 
