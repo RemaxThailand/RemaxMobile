@@ -12,18 +12,18 @@
 
 
 <ion-content>
-  <ion-list *ngIf="global.subData.bankTransfer.payType">
+  <ion-list *ngIf="global.subData.sendTransfer">
     <ion-item>
       <ion-label>{{global.message.orderNumber}}</ion-label>
       <ion-label clear item-right text-right>{{orderNo}}</ion-label>
     </ion-item>
-    <ion-item *ngIf="global.subData.sendTransfer.confirmDate == null">
+    <ion-item *ngIf="global.subData.sendTransfer.confirmDate == null && global.subData.bankTransfer.payType == null">
       <ion-label>{{global.message.status}}</ion-label>
       <ion-label clear item-right text-right danger>
         <i class="fa fa-hourglass-half margin-right-5 relative top-1"></i>{{global.message.pendingReview}}
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="global.subData.sendTransfer.confirmDate != null">
+    <ion-item *ngIf="global.subData.sendTransfer.confirmDate != null || global.subData.bankTransfer.payType != null">
       <ion-label>{{global.message.status}}</ion-label>
       <ion-label clear item-right text-right secondary>
         <i class="fa fa-check-circle margin-right-5 relative top-1"></i>{{global.message.checked}}
@@ -31,26 +31,47 @@
     </ion-item>
     <ion-item>
       <ion-label>{{global.message.paymentsToBankAccounts}}</ion-label>
-      <ion-label clear item-right text-right>{{global.subData.sendTransfer.bank}}</ion-label>
     </ion-item>
-
-    <ion-item>
+    <ion-item *ngIf="global.subData.bankTransfer.payType != null">
+      <ion-avatar item-left>
+        <img src="build/img/{{global.subData.bankTransfer.bank}}.jpg">
+      </ion-avatar>
       <ion-label>
-        
+        <h2>{{global.message[global.subData.bankTransfer.bank]}}</h2>
+        <p>{{global.message.accountNumber}} : {{global.subData.bankTransfer.number}}</p>
+        <p>{{global.message.accountName}} : {{global.subData.bankTransfer.name}}</p>
       </ion-label>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="global.subData.sendTransfer.bank && global.subData.bankTransfer.payType == null">
+      <ion-avatar item-left>
+        <img src="build/img/{{global.subData.sendTransfer.bank}}.jpg">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{global.message[global.subData.sendTransfer.bank]}}</h2>
+        <p>{{global.message.accountNumber}} : {{global.subData.sendTransfer.number}}</p>
+        <p>{{global.message.accountName}} : {{global.subData.sendTransfer.name}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="global.subData.bankTransfer.receiveDate">
+      <ion-label>{{global.message.receiptDate}}</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="global.subData.bankTransfer.receiveDate" monthShortNames="{{global.message.monthShortNames}}"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="global.subData.bankTransfer.transferMoney">
+      <ion-label>{{global.message.moneyTransfer}}</ion-label>
+      <ion-label clear item-right text-right>{{global.numberMoney(global.subData.bankTransfer.transferMoney)}}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="global.subData.sendTransfer.transferDate && global.subData.bankTransfer.payType == null">
       <ion-label>{{global.message.transactionDate}}</ion-label>
-      <ion-datetime ng-disabled displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="global.subData.sendTransfer.transferDate" monthShortNames="{{global.message.monthShortNames}}"></ion-datetime>
+      <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="global.subData.sendTransfer.transferDate" monthShortNames="{{global.message.monthShortNames}}"></ion-datetime>
     </ion-item>
     <ion-item *ngIf="global.subData.sendTransfer.note">
       <ion-label>{{global.message.note}}</ion-label>
       <ion-label clear item-right text-right>{{global.subData.sendTransfer.note}}</ion-label>
     </ion-item>
-    <ion-item>
-      <img src="{{global.subData.sendTransfer.photo}}" *ngIf="global.subData.sendTransfer.photo" />
+    <ion-item *ngIf="global.subData.sendTransfer.photo">
+      <img src="{{global.subData.sendTransfer.photo}}" />
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="global.subData.sendTransfer.addDate && global.subData.bankTransfer.payType == null">
       <ion-label>{{global.message.sendDataDate}}</ion-label>
       <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="global.subData.sendTransfer.addDate" monthShortNames="{{global.message.monthShortNames}}"></ion-datetime>
     </ion-item>

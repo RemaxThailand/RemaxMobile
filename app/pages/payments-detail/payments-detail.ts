@@ -26,7 +26,7 @@ export class PaymentsDetailPage {
     loader.present();
 
     var timer = setInterval(() => {
-      if(this.global.subData.bank != undefined) {
+      if(this.global.subData.bankTransfer != undefined) {
         clearInterval(timer);
         loader.dismiss();
       }
