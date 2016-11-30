@@ -12,27 +12,53 @@
 
 
 <ion-content>
-  <ion-list *ngIf="global.subData.sendTransfer">
+  <ion-list *ngIf="global.subData.bankTransfer">
     <ion-item>
       <ion-label>{{global.message.orderNumber}}</ion-label>
       <ion-label clear item-right text-right>{{orderNo}}</ion-label>
     </ion-item>
-    <ion-item *ngIf="global.subData.sendTransfer.confirmDate == null && global.subData.bankTransfer.payType == null">
+    <ion-item *ngIf="global.subData.bankTransfer.payType == null">
       <ion-label>{{global.message.status}}</ion-label>
       <ion-label clear item-right text-right danger>
         <i class="fa fa-hourglass-half margin-right-5 relative top-1"></i>{{global.message.pendingReview}}
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="global.subData.sendTransfer.confirmDate != null || global.subData.bankTransfer.payType != null">
+    <ion-item *ngIf="global.subData.bankTransfer.paid == 1">
       <ion-label>{{global.message.status}}</ion-label>
       <ion-label clear item-right text-right secondary>
-        <i class="fa fa-check-circle margin-right-5 relative top-1"></i>{{global.message.checked}}
+        <i class="fa fa-check-circle margin-right-5 relative top-1"></i>{{global.message.paid}}
       </ion-label>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="global.subData.bankTransfer.paid == 0 && global.subData.bankTransfer.totalPrice != global.subData.bankTransfer.receiveMoney">
+      <ion-label>{{global.message.status}}</ion-label>
+      <ion-label clear item-right text-right danger>
+        <i class="fa fa-exclamation-circle margin-right-5 relative top-1"></i>{{global.message.notFullyPaid}}
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="global.subData.bankTransfer.totalPrice">
+      <ion-label>{{global.message.totalPrice}}</ion-label>
+      <ion-label clear item-right text-right><b>{{global.numberMoney(global.subData.bankTransfer.totalPrice)}}</b> {{global.message.baht}}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="global.subData.bankTransfer.transferMoney && global.subData.bankTransfer.transferMoney != global.subData.bankTransfer.receiveMoney">
+      <ion-label>{{global.message.moneyTransfer}}</ion-label>
+      <ion-label clear item-right text-right danger><b>{{global.numberMoney(global.subData.bankTransfer.transferMoney)}}</b> {{global.message.baht}}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="global.subData.bankTransfer.receiveMoney">
+      <ion-label>{{global.message.moneyReceived}} 
+        <span *ngIf="global.subData.bankTransfer.payType == 1">({{global.message.cash}})</span>
+        <span *ngIf="global.subData.bankTransfer.payType == 2">({{global.message.bank}})</span>
+        <span *ngIf="global.subData.bankTransfer.payType == 3">({{global.message.cheque}})</span>
+      </ion-label>
+      <ion-label clear item-right text-right secondary><b>{{global.numberMoney(global.subData.bankTransfer.receiveMoney)}}</b> {{global.message.baht}}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="global.subData.bankTransfer.receiveDate">
+      <ion-label class="color-black opacity-100">{{global.message.receiptDate}}</ion-label>
+      <ion-datetime class="color-black opacity-100" displayFormat="DD MMM YYYY HH:mm" disabled=true [(ngModel)]="global.subData.bankTransfer.receiveDate" monthShortNames="{{global.message.monthShortNames}}"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="(global.subData.bankTransfer.bank || global.subData.sendTransfer.bank) && global.subData.bankTransfer.payType != 3">
       <ion-label>{{global.message.paymentsToBankAccounts}}</ion-label>
     </ion-item>
-    <ion-item *ngIf="global.subData.bankTransfer.payType != null">
+    <ion-item *ngIf="global.subData.bankTransfer.bank && global.subData.bankTransfer.payType != 3">
       <ion-avatar item-left>
         <img src="build/img/{{global.subData.bankTransfer.bank}}.jpg">
       </ion-avatar>
@@ -42,7 +68,7 @@
         <p>{{global.message.accountName}} : {{global.subData.bankTransfer.name}}</p>
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="global.subData.sendTransfer.bank && global.subData.bankTransfer.payType == null">
+    <ion-item *ngIf="global.subData.sendTransfer.bank && !global.subData.bankTransfer.bank && global.subData.bankTransfer.payType != 3">
       <ion-avatar item-left>
         <img src="build/img/{{global.subData.sendTransfer.bank}}.jpg">
       </ion-avatar>
@@ -52,13 +78,44 @@
         <p>{{global.message.accountName}} : {{global.subData.sendTransfer.name}}</p>
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="global.subData.bankTransfer.receiveDate">
-      <ion-label>{{global.message.receiptDate}}</ion-label>
-      <ion-datetime displayFormat="DD MMM YYYY HH:mm" [(ngModel)]="global.subData.bankTransfer.receiveDate" monthShortNames="{{global.message.monthShortNames}}"></ion-datetime>
+    <ion-item *ngIf="global.subData.bankTransfer.bank && global.subData.bankTransfer.payType == 3">
+      <ion-label>{{global.message.chequeOf}}</ion-label>
     </ion-item>
-    <ion-item *ngIf="global.subData.bankTransfer.transferMoney">
-      <ion-label>{{global.message.moneyTransfer}}</ion-label>
-      <ion-label clear item-right text-right>{{global.numberMoney(global.subData.bankTransfer.transferMoney)}}</ion-label>
+    <ion-item *ngIf="global.subData.bankTransfer.bank && global.subData.bankTransfer.payType == 3">
+      <ion-avatar item-left>
+        <img src="build/img/{{global.subData.bankTransfer.bank}}.jpg">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{global.message[global.subData.bankTransfer.bank]}}</h2>
+        <p>{{global.message.chequeNumber}} : {{global.subData.bankTransfer.chequeNumber}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="global.subData.bankTransfer.comment">
+      <ion-label>{{global.message.note}}</ion-label>
+      <ion-label clear item-right text-right>{{global.subData.bankTransfer.comment}}</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="global.subData.otherTransfer.receiveMoney">
+      <ion-label>{{global.message.moneyReceived}} 
+        <span *ngIf="global.subData.otherTransfer.payType == 1">({{global.message.cash}})</span>
+        <span *ngIf="global.subData.otherTransfer.payType == 2">({{global.message.bank}})</span>
+        <span *ngIf="global.subData.otherTransfer.payType == 3">({{global.message.cheque}})</span>
+      </ion-label>
+      <ion-label clear item-right text-right secondary><b>{{global.numberMoney(global.subData.otherTransfer.receiveMoney)}}</b> {{global.message.baht}}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="global.subData.otherTransfer.receiveDate">
+      <ion-label class="color-black opacity-100">{{global.message.receiptDate}}</ion-label>
+      <ion-datetime class="color-black opacity-100" displayFormat="DD MMM YYYY HH:mm" disabled=true [(ngModel)]="global.subData.otherTransfer.receiveDate" monthShortNames="{{global.message.monthShortNames}}"></ion-datetime>
+    </ion-item>
+
+    <ion-item *ngIf="global.subData.otherTransfer.receiveMoney">
+      <ion-label>{{global.message.totalMoneyReceived}}</ion-label>
+      <ion-label clear item-right text-right primary><b>{{global.numberMoney(global.subData.otherTransfer.receiveMoney+global.subData.bankTransfer.receiveMoney)}}</b> {{global.message.baht}}</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="global.subData.bankTransfer.paid == 0 && global.subData.bankTransfer.totalPrice != global.subData.bankTransfer.receiveMoney">
+      <ion-label>{{global.message.outstandingBalance}}</ion-label>
+      <ion-label clear item-right text-right danger><b>{{global.numberMoney(global.subData.bankTransfer.totalPrice-global.subData.bankTransfer.receiveMoney)}}</b> {{global.message.baht}}</ion-label>
     </ion-item>
     <ion-item *ngIf="global.subData.sendTransfer.transferDate && global.subData.bankTransfer.payType == null">
       <ion-label>{{global.message.transactionDate}}</ion-label>
@@ -79,7 +136,7 @@
 
   <div text-center>
     <button dark (click)="back()" class="capitalize">
-      <i class="fa fa-camera margin-right-5 relative top-1"></i> {{global.message.back}}
+      <i class="fa fa-chevron-left margin-right-5 relative top-1"></i> {{global.message.back}}
     </button>
   </div>
 

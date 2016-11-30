@@ -56,12 +56,15 @@
 .top-2 { top:2px !important }
 .top-1 { top:1px !important }
 
+.color-black { color: black !important }
 .color-white { color: white !important }
 .color-danger { color: color($colors, danger) !important }
 .color-primary { color: color($colors, primary) !important }
 .color-secondary { color: color($colors, secondary) !important }
 .color-gray { color: #888 !important }
 .color-light-gray { color: #aeacb4 !important }
+
+.opacity-100 { opacity: 1 !important }
 
 .bg-dark { background-color: color($colors, dark) !important }
 .bg-primary { background-color: color($colors, primary) !important }
