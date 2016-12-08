@@ -88,9 +88,11 @@
       <ion-label>
         <h2>{{global.message[global.subData.bankTransfer.bank]}}</h2>
         <p>{{global.message.chequeNumber}} : {{global.subData.bankTransfer.chequeNumber}}</p>
+        <p>{{global.message.amount}} : {{global.numberMoney(global.subData.bankTransfer.chequeMoney)}} {{global.message.baht}}</p>
+        <p>{{global.message.date}} : {{global.subData.bankTransfer.chequeDate}}</p>
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="global.subData.bankTransfer.comment">
+    <ion-item *ngIf="global.subData.bankTransfer.comment" text-wrap>
       <ion-label>{{global.message.note}}</ion-label>
       <ion-label clear item-right text-right>{{global.subData.bankTransfer.comment}}</ion-label>
     </ion-item>
