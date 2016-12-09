@@ -252,9 +252,14 @@ class RemaxApp {
           let MemberType: any = { title: 'role' + msg, type: data.result.role[i] };
           global.role.push(MemberType);
         }
-        global.member = data.result.info;
-        global.member.typeMessage = 'role'+data.result.info.type.charAt(0).toUpperCase() + data.result.info.type.slice(1);
-        storage.set('memberInfo', JSON.stringify(global.member));
+        //try {
+          global.member = data.result.info;
+          global.member.typeMessage = 'role'+data.result.info.type.charAt(0).toUpperCase() + data.result.info.type.slice(1);
+          storage.set('memberInfo', JSON.stringify(global.member));
+        /*}
+        catch(ex){
+
+        }*/
 
       }
     });
@@ -303,6 +308,13 @@ class RemaxApp {
         global.subData = { bankTransfer: data.result.bankTransfer, otherTransfer:data.result.otherTransfer, sendTransfer:data.result.sendTransfer };
         console.log(global.subData);
         //global.subData = data.result;
+      }
+    });
+    
+    global.socket.on('api-order-detail', function (data) {
+      if (data.success) { // ถ้ามีข้อมูล
+        global.subData = data.result;
+        console.log(global.subData);
       }
     });
 

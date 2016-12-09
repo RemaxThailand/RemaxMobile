@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, ActionSheetController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ActionSheetController, AlertController, Storage, LocalStorage } from 'ionic-angular';
 
 @Component({
   templateUrl: 'build/pages/order-detail/order-detail.html',
@@ -13,7 +13,18 @@ export class OrderDetailPage {
   constructor(private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private actionSheetController: ActionSheetController, private alertCtrl: AlertController) {
     this.global = this.navParams.get('global');
     this.orderNo = this.navParams.get('orderNo');
-    this.viewType = 'images';
+    this.viewType = 'list';
+
+    let storage = new Storage(LocalStorage);
+    storage.get('token').then((token) => {
+      this.global.socket.emit('api', {
+        token: token,
+        module: 'order',
+        action: 'detail',
+        orderNo: this.orderNo
+      });
+    });
+    
   }
 
   dismiss() {
