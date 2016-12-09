@@ -97,8 +97,9 @@
 			<ion-item *ngFor="let item of global.subData; let i = index">
         <ion-label><i class="fa" 
 					[class.fa-check-circle]="item.qty == item.realQty" [class.color-secondary]="item.qty == item.realQty"
-					[class.fa-minus-circle]="item.qty != item.realQty && item.realQty == 0" [class.color-danger]="item.qty != item.realQty && item.realQty == 0"
-					[class.fa-plus-circle]="item.qty != item.realQty && item.qty == 0" [class.color-primary]="item.qty != item.realQty && item.qty == 0"
+					[class.fa-minus-circle]="item.qty > 0 && item.realQty == 0" [class.color-danger]="item.qty > 0 && item.realQty == 0 || (item.qty != item.realQty && item.qty > 0 && item.realQty > 0)"
+					[class.fa-plus-circle]="item.qty == 0 && item.realQty > 0" [class.color-primary]="item.qty == 0 && item.realQty > 0"
+					[class.fa-warning]="item.qty != item.realQty && item.qty > 0 && item.realQty > 0"
 				></i> {{item.name}}</ion-label>
 				<ion-badge *ngIf="item.qty > 0" [class.bg-secondary]="item.qty == item.realQty" [class.bg-danger]="item.qty != item.realQty && item.qty > item.realQty" [class.bg-primary]="item.qty != item.realQty && item.qty < item.realQty"
 				text-center item-right><h1 class="color-white"><b>{{item.qty}}</b></h1></ion-badge>
