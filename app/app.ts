@@ -314,7 +314,7 @@ class RemaxApp {
     global.socket.on('api-order-detail', function (data) {
       if (data.success) { // ถ้ามีข้อมูล
         global.subData = data.result;
-        console.log(global.subData);
+        global.summaryData = data.summary[0];
       }
     });
 
