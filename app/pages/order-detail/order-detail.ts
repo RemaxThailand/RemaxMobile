@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, ActionSheetController, AlertController, Storage, LocalStorage } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ActionSheetController, AlertController, Storage, LocalStorage, LoadingController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'build/pages/order-detail/order-detail.html',
@@ -10,10 +10,25 @@ export class OrderDetailPage {
   global: any;
   orderNo: string;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private actionSheetController: ActionSheetController, private alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private actionSheetController: ActionSheetController, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
     this.global = this.navParams.get('global');
     this.orderNo = this.navParams.get('orderNo');
-    this.viewType = 'list';
+    this.viewType = 'images';
+    
+    this.global.subData = {};
+    this.global.summaryData = {};
+
+    let loader = this.loadingCtrl.create({
+      content: this.global.message.pleaseWait+"...",
+    });
+    loader.present();
+
+    var timer = setInterval(() => {
+      if(this.global.summaryData.hasOrder != undefined) {
+        clearInterval(timer);
+        loader.dismiss();
+      }
+    }, 500);
 
     let storage = new Storage(LocalStorage);
     storage.get('token').then((token) => {

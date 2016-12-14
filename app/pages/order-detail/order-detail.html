@@ -19,111 +19,58 @@
 
 <ion-content>
 
-  <div *ngIf="viewType == 'images'">
-
-    <ion-item-group>
-      <ion-item-divider light><b>รอจัดสินค้า</b></ion-item-divider>
-
-    	<ion-card>
-    		<img src="build/img/p1.jpg"/>
-    		<ion-card-content class="padding-5 bg-light">
-    			<table width="100%"><tr>
-    				<td>Cable Micro (2M,Gold) - สายชาร์จ REMAX</td>
-    				<td width="10" class="nowrap padding-left-5">
-    					<ion-badge primary text-center><h1 class="color-white"><b>8</b></h1></ion-badge>
-    					<ion-badge dark text-center (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-cog fa-spin"></i></h1></ion-badge>
-    				</td>
-    			</tr></table>
-    		</ion-card-content>
-    	</ion-card>
-
-    	<ion-card>
-    		<img src="build/img/p2.jpg"/>
-    		<ion-card-content class="padding-5 bg-light">
-    			<table width="100%"><tr>
-    				<td>MICRO SD Card 64GB/CL10 ( REMAX )</td>
-    				<td width="10" class="nowrap padding-left-5">
-    					<ion-badge primary text-center><h1 class="color-white"><b>96</b></h1></ion-badge>
-    					<ion-badge dark text-center (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-cog fa-spin"></i></h1></ion-badge>
-    				</td>
-    			</tr></table>
-    		</ion-card-content>
-    	</ion-card>
-
-    </ion-item-group>
-
-    <ion-item-group>
-      <ion-item-divider light><b>จัดสินค้าแล้ว</b></ion-item-divider>
-
-    	<ion-card>
-    		<img src="build/img/p3.jpg"/>
-    		<ion-card-content class="padding-5 bg-light">
-    			<table width="100%"><tr>
-    				<td>Cable Micro (2M,Gold) - สายชาร์จ REMAX</td>
-    				<td width="10" class="nowrap padding-left-5">
-    					<ion-badge secondary text-center><h1 class="color-white"><b>50</b></h1></ion-badge>
-    					<ion-badge secondary text-center (click)="checkConfirm()"><h1 class="color-white"><i class="fa fa-check-circle"></i></h1></ion-badge>
-    				</td>
-    			</tr></table>
-    		</ion-card-content>
-    	</ion-card>
-
-    	<ion-card>
-    		<img src="build/img/p4.jpg"/>
-    		<ion-card-content class="padding-5 bg-light">
-    			<table width="100%"><tr>
-    				<td>Cable Micro (2M,Gold) - สายชาร์จ REMAX</td>
-    				<td width="10" class="nowrap padding-left-5">
-    					<ion-badge danger text-center><h1 class="color-white"><b>8</b></h1></ion-badge>
-    					<ion-badge danger text-center (click)="checkConfirm()"><h1 class="color-white"><b>-2</b></h1></ion-badge>
-    				</td>
-    			</tr></table>
-    		</ion-card-content>
-    	</ion-card>
-
-    </ion-item-group>
-
-  </div>
-
-  <div *ngIf="viewType == 'list'">
-    <ion-item-group *ngIf="global.subData.length > 0">
-			<!--ion-item-divider light><b>รอจัดสินค้า</b></ion-item-divider-->
-			<ion-item *ngFor="let item of global.subData; let i = index">
-					<h2>{{i+1}}. <b>{{item.name}}</b></h2>
-					<p>จำนวน <b>{{global.numberWithCommas(item.qty)}}</b> ชิ้น (ราคา <b>{{global.numberWithCommas(item.price)}}</b> บาท) : ราคารวม <b primary>{{global.numberWithCommas(item.qty*item.price)}}</b> บาท</p>
-					<h3 [class.color-secondary]="item.qty == item.realQty" [class.color-danger]="item.qty > 0 && item.realQty == 0 || (item.qty != item.realQty && item.qty > 0 && item.realQty > 0)"
-						[class.color-primary]="item.qty == 0 && item.realQty > 0">
-						<i class="fa" 
-							[class.fa-check-circle]="item.qty == item.realQty" 
-							[class.fa-minus-circle]="item.qty > 0 && item.realQty == 0" 
-							[class.fa-plus-circle]="item.qty == 0 && item.realQty > 0"
-							[class.fa-warning]="item.qty != item.realQty && item.qty > 0 && item.realQty > 0"
-						></i> 
-						<span *ngIf="item.qty == item.realQty">ได้รับสินค้าครบถ้วน</span>
-						<span *ngIf="item.qty != item.realQty">สินค้าขาด จำนวน <b>{{global.numberWithCommas(item.qty-item.realQty)}}</b> ชิ้น 
-						(มูลค่า -<b>{{global.numberWithCommas((item.qty-item.realQty)*item.price)}}</b> บาท)</span>
-					</h3>
-			</ion-item>
-    </ion-item-group>
-  </div>
+	<ion-item-group *ngIf="global.subData.length > 0">
+		<!--ion-item-divider light><b>รอจัดสินค้า</b></ion-item-divider-->
+		<ion-item *ngFor="let item of global.subData; let i = index">
+			<ion-thumbnail item-left *ngIf="viewType == 'images'">
+				<img src="https://img.remaxthailand.co.th/100x100/product/{{item.sku}}/1.jpg">
+			</ion-thumbnail>
+			<h2>{{i+1}}. <b>{{item.name}}</b></h2>
+			<p>จำนวน <b>{{global.numberWithCommas(item.qty)}}</b> ชิ้น (ราคา <b>{{global.numberWithCommas(item.price)}}</b> บาท) : ราคารวม <b primary>{{global.numberWithCommas(item.qty*item.price)}}</b> บาท</p>
+			<h3 *ngIf="global.summaryData.hasOrder"
+				[class.color-secondary]="item.qty == item.realQty" [class.color-danger]="item.qty > 0 && item.realQty == 0 || (item.qty != item.realQty && item.qty > 0 && item.realQty > 0)"
+				[class.color-primary]="item.qty == 0 && item.realQty > 0">
+				<i class="fa" 
+					[class.fa-check-circle]="item.qty == item.realQty" 
+					[class.fa-minus-circle]="item.qty > 0 && item.realQty == 0" 
+					[class.fa-plus-circle]="item.qty == 0 && item.realQty > 0"
+					[class.fa-warning]="item.qty != item.realQty && item.qty > 0 && item.realQty > 0"
+				></i> 
+				<b *ngIf="item.qty == item.realQty">ได้รับสินค้าครบถ้วน</b>
+				<span *ngIf="item.qty > 0 && item.realQty == 0 || (item.qty != item.realQty && item.qty > 0 && item.realQty > 0)">สินค้าขาด จำนวน <b>{{global.numberWithCommas(item.qty-item.realQty)}}</b> ชิ้น 
+				(มูลค่า <b>{{global.numberWithCommas((item.realQty-item.qty)*item.price)}}</b> บาท)</span>
+				<span *ngIf="item.qty == 0 && item.realQty > 0">สินค้าเกิน จำนวน <b>{{global.numberWithCommas(item.qty-item.realQty)}}</b> ชิ้น 
+				(มูลค่า +<b>{{global.numberWithCommas(item.realQty*item.price)}}</b> บาท)</span>
+			</h3>
+		</ion-item>
+	</ion-item-group>
 	
 	<ion-item-group *ngIf="global.summaryData.totalPrice">
 		<ion-item-divider light><b>รวม</b></ion-item-divider>
-		<ion-item>
+		<ion-item *ngIf="global.summaryData.hasOrder && global.summaryData.totalPrice != (global.summaryData.totalPrice+global.summaryData.lostPrice+global.summaryData.addPrice+global.summaryData.shippingCost)">
 			<h2>ราคารวม</h2>
-			<h3 dark text-center item-right><b primary>{{global.numberWithCommas(global.summaryData.totalPrice)}}</b> บาท</h3>
+			<h3 dark text-center item-right><span primary>{{global.numberWithCommas(global.summaryData.totalPrice)}}</span> บาท</h3>
 		</ion-item>
-		<ion-item *ngIf="global.summaryData.lostPrice > 0">
+		<ion-item *ngIf="global.summaryData.hasOrder && global.summaryData.lostPrice != 0">
 			<h2>มูลค่าสินค้าที่ขาด</h2>
-			<h3 dark text-center item-right><b danger>-{{global.numberWithCommas(global.summaryData.lostPrice)}}</b> บาท</h3>
+			<h3 dark text-center item-right><span danger>{{global.numberWithCommas(global.summaryData.lostPrice)}}</span> บาท</h3>
 		</ion-item>
-		<ion-item *ngIf="global.summaryData.hasShippingCost">
+		<ion-item *ngIf="global.summaryData.hasOrder && global.summaryData.addPrice != 0">
+			<h2>มูลค่าสินค้าที่เกิน</h2>
+			<h3 dark text-center item-right><span primary>+{{global.numberWithCommas(global.summaryData.addPrice)}}</span> บาท</h3>
+		</ion-item>
+		<ion-item *ngIf="global.summaryData.hasOrder && global.summaryData.shippingCost != 0">
 			<h2>ค่าขนส่ง</h2>
-			<h3 dark text-center item-right><b danger>100</b> บาท</h3>
+			<h3 dark text-center item-right><span primary>+{{global.numberWithCommas(global.summaryData.shippingCost)}}</span> บาท</h3>
 		</ion-item>
 		<ion-item>
-			<h2>รวมทั้งสิ้น</h2>
-			<h3 dark text-center item-right><b primary>{{global.numberWithCommas(global.summaryData.totalPrice-global.summaryData.lostPrice+(global.summaryData.hasShippingCost ? 100 : 0))}}</b> บาท</h3>
+			<h2><b>รวมทั้งสิ้น</b></h2>
+			<h2 dark text-center item-right>
+				<b primary>
+					<span *ngIf="global.summaryData.hasOrder">{{global.numberWithCommas(global.summaryData.totalPrice+global.summaryData.lostPrice+global.summaryData.addPrice+global.summaryData.shippingCost)}}</span>
+					<span *ngIf="!global.summaryData.hasOrder">{{global.numberWithCommas(global.summaryData.totalPrice)}}</span>
+				</b>
+				บาท</h2>
 		</ion-item>
 	</ion-item-group>
 
