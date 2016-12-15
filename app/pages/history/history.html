@@ -30,7 +30,7 @@
         <tr>
           <td class="padding-left-10" [class.color-light-gray]="!item.isPay">{{global.message.totalPrice}} ({{global.message.baht}})</td>
           <td text-right class="padding-right-10">
-            <ion-badge item-right class="margin-0" [class.bg-gray]="!item.active">{{global.numberMoney(item.totalPrice+item.shippingPrice)}}</ion-badge>
+            <ion-badge item-right class="margin-0" [class.bg-gray]="!item.active">{{global.numberMoney(item.totalPrice)}}</ion-badge>
           </td>
         </tr>
       </table>
@@ -57,8 +57,10 @@
               <i class="fa fa-cube fa-stack-1x fa-inverse"></i>
             </span>
           </button>
-          <button clear class="padding-0 margin-0">
-            <span class="fa-stack fa-lg" [class.color-light-gray]="!item.isShip" [class.color-secondary]="item.isShip">
+          <button clear class="padding-0 margin-0" (click)="shippingData(item.shippingType, item.shippingCode)">
+            <span class="fa-stack fa-lg" [class.color-light-gray]="!item.isShip" 
+              [class.color-primary]="item.isShip && item.shippingType != 'SS'" 
+              [class.color-secondary]="item.isShip && item.shippingType == 'SS'">
               <i class="fa fa-circle fa-stack-2x"></i>
               <i class="fa fa-truck fa-stack-1x fa-inverse"></i>
             </span>

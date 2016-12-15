@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Storage, LocalStorage } from 'ionic-angular';
 import { PaymentsConfirmPage } from '../../pages/payments-confirm/payments-confirm';
 import { PaymentsDetailPage } from '../../pages/payments-detail/payments-detail';
+import { ShippingTrackingPage } from '../../pages/shipping-tracking/shipping-tracking';
 
 @Component({
   templateUrl: 'build/pages/history/history.html',
@@ -51,6 +52,19 @@ export class HistoryPage {
       global: this.global,
       orderNo: orderNo
     });
+  }
+
+  shippingData(type, code) {
+    if(type == 'KE'){
+      this.navCtrl.push(ShippingTrackingPage, {
+        global: this.global,
+        type: type,
+        code: code
+      });
+    }
+    else {
+
+    }
   }
 
 }
