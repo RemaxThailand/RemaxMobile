@@ -34,7 +34,8 @@ export class ShippingTrackingPage {
           module: 'curl',
           action: 'shipping',
           type: this.type,
-          code: this.code
+          code: this.code,
+          langCode: this.global.langCode
         });
       }
     });
