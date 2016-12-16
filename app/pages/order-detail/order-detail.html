@@ -26,7 +26,9 @@
 				<img src="https://img.remaxthailand.co.th/100x100/product/{{item.sku}}/1.jpg">
 			</ion-thumbnail>
 			<h2>{{i+1}}. <b>{{item.name}}</b></h2>
-			<p>จำนวน <b>{{global.numberWithCommas(item.qty)}}</b> ชิ้น (ราคา <b>{{global.numberWithCommas(item.price)}}</b> บาท) : ราคารวม <b primary>{{global.numberWithCommas(item.qty*item.price)}}</b> บาท</p>
+			<p>{{global.message.price}} <b>{{global.numberWithCommas(item.price)}}</b> {{global.message.baht}}
+				<span *ngIf="item.qty != 0">(<b>{{global.numberWithCommas(item.qty)}}</b> {{global.message.pieces}}) : 
+				{{global.message.totalPrice}} <b primary>{{global.numberWithCommas(item.qty*item.price)}}</b> {{global.message.baht}}</span></p>
 			<h3 *ngIf="global.summaryData.hasOrder"
 				[class.color-secondary]="item.qty == item.realQty" [class.color-danger]="item.qty > 0 && item.realQty == 0 || (item.qty != item.realQty && item.qty > 0 && item.realQty > 0)"
 				[class.color-primary]="item.qty == 0 && item.realQty > 0">
@@ -36,41 +38,42 @@
 					[class.fa-plus-circle]="item.qty == 0 && item.realQty > 0"
 					[class.fa-warning]="item.qty != item.realQty && item.qty > 0 && item.realQty > 0"
 				></i> 
-				<b *ngIf="item.qty == item.realQty">ได้รับสินค้าครบถ้วน</b>
-				<span *ngIf="item.qty > 0 && item.realQty == 0 || (item.qty != item.realQty && item.qty > 0 && item.realQty > 0)">สินค้าขาด จำนวน <b>{{global.numberWithCommas(item.qty-item.realQty)}}</b> ชิ้น 
-				(มูลค่า <b>{{global.numberWithCommas((item.realQty-item.qty)*item.price)}}</b> บาท)</span>
-				<span *ngIf="item.qty == 0 && item.realQty > 0">สินค้าเกิน จำนวน <b>{{global.numberWithCommas(item.qty-item.realQty)}}</b> ชิ้น 
-				(มูลค่า +<b>{{global.numberWithCommas(item.realQty*item.price)}}</b> บาท)</span>
+				<b *ngIf="item.qty == item.realQty">{{global.message.hasBeenCompleted}}</b>
+				<span *ngIf="item.qty > 0 && item.realQty == 0 || (item.qty != item.realQty && item.qty > 0 && item.realQty > 0)">
+					{{global.message.missing}} <b>{{global.numberWithCommas(item.qty-item.realQty)}}</b> {{global.message.pieces}} 
+				({{global.message.total}} <b>{{global.numberWithCommas((item.realQty-item.qty)*item.price)}}</b> {{global.message.baht}})</span>
+				<span *ngIf="item.qty == 0 && item.realQty > 0">{{global.message.adding}} <b>{{global.numberWithCommas(item.realQty)}}</b> {{global.message.pieces}} 
+				({{global.message.total}} +<b>{{global.numberWithCommas(item.realQty*item.price)}}</b> {{global.message.baht}})</span>
 			</h3>
 		</ion-item>
 	</ion-item-group>
 	
 	<ion-item-group *ngIf="global.summaryData.totalPrice">
-		<ion-item-divider light><b>รวม</b></ion-item-divider>
+		<ion-item-divider light><b>{{global.message.total}}</b></ion-item-divider>
 		<ion-item *ngIf="global.summaryData.hasOrder && global.summaryData.totalPrice != (global.summaryData.totalPrice+global.summaryData.lostPrice+global.summaryData.addPrice+global.summaryData.shippingCost)">
-			<h2>ราคารวม</h2>
-			<h3 dark text-center item-right><span primary>{{global.numberWithCommas(global.summaryData.totalPrice)}}</span> บาท</h3>
+			<h2>{{global.message.totalPrice}}</h2>
+			<h3 dark text-center item-right><span primary>{{global.numberWithCommas(global.summaryData.totalPrice)}}</span> {{global.message.baht}}</h3>
 		</ion-item>
 		<ion-item *ngIf="global.summaryData.hasOrder && global.summaryData.lostPrice != 0">
-			<h2>มูลค่าสินค้าที่ขาด</h2>
-			<h3 dark text-center item-right><span danger>{{global.numberWithCommas(global.summaryData.lostPrice)}}</span> บาท</h3>
+			<h2>{{global.message.missingPrice}}</h2>
+			<h3 dark text-center item-right><span danger>{{global.numberWithCommas(global.summaryData.lostPrice)}}</span> {{global.message.baht}}</h3>
 		</ion-item>
 		<ion-item *ngIf="global.summaryData.hasOrder && global.summaryData.addPrice != 0">
-			<h2>มูลค่าสินค้าที่เกิน</h2>
-			<h3 dark text-center item-right><span primary>+{{global.numberWithCommas(global.summaryData.addPrice)}}</span> บาท</h3>
+			<h2>{{global.message.addingPrice}}</h2>
+			<h3 dark text-center item-right><span primary>+{{global.numberWithCommas(global.summaryData.addPrice)}}</span> {{global.message.baht}}</h3>
 		</ion-item>
 		<ion-item *ngIf="global.summaryData.hasOrder && global.summaryData.shippingCost != 0">
-			<h2>ค่าขนส่ง</h2>
-			<h3 dark text-center item-right><span primary>+{{global.numberWithCommas(global.summaryData.shippingCost)}}</span> บาท</h3>
+			<h2>{{global.message.shippingCost}}</h2>
+			<h3 dark text-center item-right><span primary>+{{global.numberWithCommas(global.summaryData.shippingCost)}}</span> {{global.message.baht}}</h3>
 		</ion-item>
 		<ion-item>
-			<h2><b>รวมทั้งสิ้น</b></h2>
+			<h2><b>{{global.message.grandTotal}}</b></h2>
 			<h2 dark text-center item-right>
 				<b primary>
 					<span *ngIf="global.summaryData.hasOrder">{{global.numberWithCommas(global.summaryData.totalPrice+global.summaryData.lostPrice+global.summaryData.addPrice+global.summaryData.shippingCost)}}</span>
 					<span *ngIf="!global.summaryData.hasOrder">{{global.numberWithCommas(global.summaryData.totalPrice)}}</span>
 				</b>
-				บาท</h2>
+				{{global.message.baht}}</h2>
 		</ion-item>
 	</ion-item-group>
 

@@ -9,4 +9,39 @@
 
 
 <ion-content>
+  <ion-item-group *ngIf="global.subData.length > 0">
+		<ion-item-divider light>
+      <b *ngIf="type == 'KE'">Kerry Express</b> : 
+      <a href="http://th.kerryexpress.com/th/track/?track={{code}}" target="_blank">{{code}}</a>
+    </ion-item-divider>
+    <ion-item *ngFor="let item of global.subData; let i = index">
+      <span item-left 
+        [class.color-primary]="i == 0 && item.detail.indexOf('Successful') == -1 && item.detail.indexOf('ได้รับเรียบร้อยแล้ว') == -1 &&
+          item.detail.indexOf('ไม่สามารถ') == -1 && item.detail.indexOf('ติดปัญหา') == -1 &&
+          item.detail.indexOf('Call not answered') == -1 && item.detail.indexOf('Delivery not successful') == -1"
+        [class.color-secondary]="item.detail.indexOf('Successful') != -1 || item.detail.indexOf('ได้รับเรียบร้อยแล้ว') != -1"
+        [class.color-danger]="i == 0 && (item.detail.indexOf('ไม่สามารถ') != -1 || item.detail.indexOf('ติดปัญหา') != -1 ||
+          item.detail.indexOf('Call not answered') != -1 || item.detail.indexOf('Delivery not successful') != -1)"
+        [class.color-gray]="i > 0"
+      >
+        <i class="fa fa-2x fa-check-circle" *ngIf="item.detail.indexOf('Successful') != -1 || item.detail.indexOf('ได้รับเรียบร้อยแล้ว') != -1"></i>
+        <i class="fa fa-2x fa-exclamation-circle" *ngIf="item.detail.indexOf('Call not answered') != -1 || item.detail.indexOf('Delivery not successful') != -1 ||
+          item.detail.indexOf('ไม่สามารถ') != -1 || item.detail.indexOf('ติดปัญหา') != -1"></i>
+        <i class="fa fa-2x fa-truck" *ngIf="item.detail.indexOf('Out for delivery') != -1 || item.detail.indexOf('พัสดุรอนำส่ง') != -1"></i>
+        <i class="fa fa-2x fa-clock-o" *ngIf="item.detail.indexOf('Successful') == -1 && item.detail.indexOf('ได้รับเรียบร้อยแล้ว') == -1 &&
+          item.detail.indexOf('Call not answered') == -1 && item.detail.indexOf('Delivery not successful') == -1 &&
+          item.detail.indexOf('Out for delivery') == -1 && item.detail.indexOf('พัสดุรอนำส่ง') == -1 &&
+          item.detail.indexOf('ไม่สามารถ') == -1 && item.detail.indexOf('ติดปัญหา') == -1"></i>
+      </span>
+      <p>{{item.date}}</p>
+      <h2 [class.color-primary]="i == 0 && item.detail.indexOf('Successful') == -1 && item.detail.indexOf('ได้รับเรียบร้อยแล้ว') == -1 &&
+          item.detail.indexOf('ไม่สามารถ') == -1 && item.detail.indexOf('ติดปัญหา') == -1 &&
+          item.detail.indexOf('Call not answered') == -1 && item.detail.indexOf('Delivery not successful') == -1"
+        [class.color-secondary]="item.detail.indexOf('Successful') != -1 || item.detail.indexOf('ได้รับเรียบร้อยแล้ว') != -1"
+        [class.color-danger]="i == 0 && (item.detail.indexOf('ไม่สามารถ') != -1 || item.detail.indexOf('ติดปัญหา') != -1 ||
+          item.detail.indexOf('Call not answered') != -1 || item.detail.indexOf('Delivery not successful') != -1)"
+      ><b> {{item.detail}}</b></h2>
+      <p *ngIf="item.location != ''">{{item.location}}</p>
+		</ion-item>
+	</ion-item-group>
 </ion-content>

@@ -104,3 +104,14 @@
 
 .progress-bar { border:1px solid color($colors, dark); border-radius: 2px }
 .progress-bar > span { background-color: color($colors, primary); border-radius: 1px; display: block; text-indent: -9999px }
+
+.blink-color-black-white {
+	animation-name: anim;
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: linear;
+	color: black;
+}
+
+@keyframes anim { to { color: white } }

@@ -19,14 +19,15 @@ export class PaymentsDetailPage {
   constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController) {
     this.global = this.navParams.get('global');
     this.orderNo = this.navParams.get('orderNo');
-
+    
+    this.global.isLoaded = false;
     let loader = this.loadingCtrl.create({
       content: "Please wait...",
     });
     loader.present();
 
     var timer = setInterval(() => {
-      if(this.global.subData.bankTransfer != undefined) {
+      if(this.global.isLoaded) {
         clearInterval(timer);
         loader.dismiss();
       }

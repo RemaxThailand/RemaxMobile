@@ -17,14 +17,15 @@ export class OrderDetailPage {
     
     this.global.subData = {};
     this.global.summaryData = {};
-
+    
+    this.global.isLoaded = false;
     let loader = this.loadingCtrl.create({
       content: this.global.message.pleaseWait+"...",
     });
     loader.present();
 
     var timer = setInterval(() => {
-      if(this.global.summaryData.hasOrder != undefined) {
+      if(this.global.isLoaded) {
         clearInterval(timer);
         loader.dismiss();
       }
@@ -39,6 +40,15 @@ export class OrderDetailPage {
         orderNo: this.orderNo
       });
     });
+
+    storage.get('order-detail-viewType').then((viewType) => {
+      if(viewType == null) {
+        storage.set('order-detail-viewType', this.viewType);
+      }
+      else {
+        this.viewType = viewType;
+      }
+    });
     
   }
 
@@ -48,6 +58,8 @@ export class OrderDetailPage {
 
   changeView(viewType){
     this.viewType = viewType;
+    let storage = new Storage(LocalStorage);
+    storage.set('order-detail-viewType', this.viewType);
   }
 
   checkConfirm() {

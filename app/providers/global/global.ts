@@ -32,6 +32,7 @@ export class Global {
   public isShowMenu: boolean = false;
   public isLogin: boolean = false;
   public isMember: boolean = false;
+  public isLoaded: boolean = false;
   public member: any;
   public deviceToken: string = '';
   public langCode: string = 'th';
@@ -102,6 +103,12 @@ export class Global {
   
   public numberMoney(x) {
     x = parseFloat(x).toFixed(2);
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  
+  public numberMoneyWithCommas(x) {
+    x = parseFloat(x).toFixed(2);
+    if(x%1 == 0) x = parseFloat(x).toFixed(0);
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
   

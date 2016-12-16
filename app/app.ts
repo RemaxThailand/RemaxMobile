@@ -279,6 +279,7 @@ class RemaxApp {
     });
     
     global.socket.on('api-order-history', function (data) {
+      global.isLoaded = true;
       if (data.success) { // ถ้ามีข้อมูล
         global.data = data.result;
       }
@@ -304,17 +305,24 @@ class RemaxApp {
     });
     
     global.socket.on('api-order-payment_data', function (data) {
+      global.isLoaded = true;
       if (data.success) {
         global.subData = { bankTransfer: data.result.bankTransfer, otherTransfer:data.result.otherTransfer, sendTransfer:data.result.sendTransfer };
-        //console.log(global.subData);
-        //global.subData = data.result;
       }
     });
     
     global.socket.on('api-order-detail', function (data) {
-      if (data.success) { // ถ้ามีข้อมูล
+      global.isLoaded = true;
+      if (data.success) {
         global.subData = data.result;
         global.summaryData = data.summary[0];
+      }
+    });
+    
+    global.socket.on('api-curl-shipping', function (data) {
+      global.isLoaded = true;
+      if (data.success) {
+        global.subData = data.result;
       }
     });
 

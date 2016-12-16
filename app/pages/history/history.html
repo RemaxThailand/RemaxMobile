@@ -24,13 +24,13 @@
       </table>
       <table width="100%">
         <tr>
-          <td class="padding-left-10" [class.color-light-gray]="!item.isPay">จำนวนรายการ/ชิ้น</td>
+          <td class="padding-left-10" [class.color-light-gray]="!item.isPay">{{global.message.itemCount}}/{{global.message.pieces}}</td>
           <td text-right class="padding-right-10">{{global.numberWithCommas(item.cnt)}}/{{global.numberWithCommas(item.qty)}}</td>
         </tr>
         <tr>
           <td class="padding-left-10" [class.color-light-gray]="!item.isPay">{{global.message.totalPrice}} ({{global.message.baht}})</td>
           <td text-right class="padding-right-10">
-            <ion-badge item-right class="margin-0" [class.bg-gray]="!item.active">{{global.numberMoney(item.totalPrice)}}</ion-badge>
+            <ion-badge item-right class="margin-0" [class.bg-gray]="!item.active">{{global.numberMoneyWithCommas(item.totalPrice)}}</ion-badge>
           </td>
         </tr>
       </table>
@@ -51,7 +51,7 @@
               <i class="fa fa-bitcoin fa-stack-1x fa-inverse"></i>
             </span>
           </button>
-          <button clear class="padding-0 margin-0">
+          <button clear class="padding-0 margin-0" (click)="viewDetail(item.orderNo)">
             <span class="fa-stack fa-lg" [class.color-light-gray]="!item.isPack" [class.color-secondary]="item.isPack">
               <i class="fa fa-circle fa-stack-2x"></i>
               <i class="fa fa-cube fa-stack-1x fa-inverse"></i>
@@ -70,11 +70,8 @@
           <ion-badge class="bg-gray margin-0">{{global.message.canceled}}</ion-badge>
         </td>
         <td text-right>
-          <button *ngIf="item.active && !item.isSentConfirm" danger clear class="padding-left-5 padding-right-5 capitalize" (click)="paymentsConfirm(item.orderNo, i)">
+          <button *ngIf="item.active && !item.isSentConfirm && !item.isPay" danger clear class="padding-left-5 padding-right-5 capitalize" (click)="paymentsConfirm(item.orderNo, i)">
             <i class="fa fa-send-o margin-right-5 relative top-1"></i> {{global.message.paymentNotification}}
-          </button>
-          <button *ngIf="item.active && item.isSentConfirm" secondary clear class="padding-left-5 padding-right-5 capitalize" (click)="paymentsData(item.orderNo)">
-            <i class="fa fa-credit-card margin-right-5 relative top-1"></i> การชำระเงิน
           </button>
           <button dark clear class="margin-right-5 padding-left-5 padding-right-5 capitalize" (click)="viewDetail(item.orderNo)">
             <i class="fa fa-list margin-right-5 relative top-1"></i> {{global.message.detail}}

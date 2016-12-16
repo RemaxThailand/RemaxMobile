@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Storage, LocalStorage } from 'ionic-angular';
+import { NavController, NavParams, Storage, LocalStorage, LoadingController } from 'ionic-angular';
 import { PaymentsConfirmPage } from '../../pages/payments-confirm/payments-confirm';
 import { PaymentsDetailPage } from '../../pages/payments-detail/payments-detail';
 import { ShippingTrackingPage } from '../../pages/shipping-tracking/shipping-tracking';
@@ -11,8 +11,21 @@ export class HistoryPage {
 
   global: any;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController) {
     this.global = this.navParams.get('global');
+
+    this.global.isLoaded = false;
+    let loader = this.loadingCtrl.create({
+      content: this.global.message.pleaseWait+"...",
+    });
+    loader.present();
+
+    var timer = setInterval(() => {
+      if(this.global.isLoaded) {
+        clearInterval(timer);
+        loader.dismiss();
+      }
+    }, 500);
 
     /*## ประวัติคำสั่งซื้อ ##*/
     let storage = new Storage(LocalStorage);

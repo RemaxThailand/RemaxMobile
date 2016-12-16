@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Storage, LocalStorage, LoadingController } from 'ionic-angular';
-import {InAppBrowser} from 'ionic-native';
 
 /*
   Generated class for the ShippingTrackingPage page.
@@ -22,31 +21,32 @@ export class ShippingTrackingPage {
     this.type = this.navParams.get('type');
     this.code = this.navParams.get('code');
 
+    this.global.subData = {};
+
+    this.global.isLoaded = false;
+    let loader = this.loadingCtrl.create({
+      content: this.global.message.pleaseWait+"...",
+    });
+    loader.present();
+
+    var timer = setInterval(() => {
+      if(this.global.isLoaded) {
+        clearInterval(timer);
+        loader.dismiss();
+      }
+    }, 500);
 
     let storage = new Storage(LocalStorage);
     storage.get('token').then((token) => {
-      if (token == undefined || token == '') {
-        this.global.socket.emit('access', { apiKey: this.global.apiKey });
-      }
-      else {
-        this.global.socket.emit('api', {
-          token: token,
-          module: 'curl',
-          action: 'shipping',
-          type: this.type,
-          code: this.code,
-          langCode: this.global.langCode
-        });
-      }
+      this.global.socket.emit('api', {
+        token: token,
+        module: 'curl',
+        action: 'shipping',
+        type: this.type,
+        code: this.code,
+        langCode: this.global.langCode
+      });
     });
-    
-    //this.launch('http://th.kerryexpress.com/th/track/?track=TAIT000064549');
-
-
-  }
-
-  launch(url) {
-    InAppBrowser.open(url, '_blank');
   }
 
 }
