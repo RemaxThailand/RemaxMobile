@@ -282,6 +282,7 @@ class RemaxApp {
       global.isLoaded = true;
       if (data.success) { // ถ้ามีข้อมูล
         global.data = data.result;
+        //global.subData.allData = data.allData;
       }
     });
     

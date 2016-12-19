@@ -4,6 +4,17 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{global.message.orderHistory}}</ion-title>
+    <ion-buttons end *ngIf="global.subData">
+      <button *ngIf="page > 1" (click)="chengeMemberRole()">
+        <i class="fa fa-chevron-left"></i>
+      </button>
+      <button (click)="chengeMemberRole()">
+        page {{page}}
+      </button>
+      <button *ngIf="global.subData.allData/perPage > 1.0" (click)="chengeMemberRole()">
+        <i class="fa fa-chevron-right"></i>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 

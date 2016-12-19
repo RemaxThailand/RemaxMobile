@@ -10,9 +10,14 @@ import { ShippingTrackingPage } from '../../pages/shipping-tracking/shipping-tra
 export class HistoryPage {
 
   global: any;
+  page: number = 1;
+  perPage: number = 25;
 
   constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController) {
     this.global = this.navParams.get('global');
+
+    //this.global.data = {};
+    this.global.subData = {};
 
     this.global.isLoaded = false;
     let loader = this.loadingCtrl.create({
