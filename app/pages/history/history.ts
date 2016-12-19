@@ -12,6 +12,7 @@ export class HistoryPage {
   global: any;
   page: number = 1;
   perPage: number = 25;
+  count: number = 0;
 
   constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController) {
     this.global = this.navParams.get('global');
@@ -29,6 +30,7 @@ export class HistoryPage {
       if(this.global.isLoaded) {
         clearInterval(timer);
         loader.dismiss();
+        this.count = this.global.subData;
       }
     }, 500);
 
