@@ -326,6 +326,14 @@ class RemaxApp {
         global.subData = data.result;
       }
     });
+    
+    global.socket.on('api-product-top_4_by_category', function (data) {
+      global.isLoaded = true;
+      if (data.success) { // ถ้ามีข้อมูล
+        global.data = data.result;
+        console.log(global.data);
+      }
+    });
 
   }
 

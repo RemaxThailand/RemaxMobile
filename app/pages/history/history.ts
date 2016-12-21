@@ -10,14 +10,14 @@ import { ShippingTrackingPage } from '../../pages/shipping-tracking/shipping-tra
 export class HistoryPage {
 
   global: any;
-  page: number = 1;
+  page: number = 0;
   perPage: number = 25;
   count: number = 0;
 
   constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController, private actionSheetController: ActionSheetController) {
     this.global = this.navParams.get('global');
 
-    this.loadPage(this.page);
+    this.loadPage(1);
 
     //this.global.data = {};
     /*this.global.subData = {};
@@ -92,56 +92,57 @@ export class HistoryPage {
   }
 
   loadPage(page){
-    this.page = page;
+    if(page != this.page){
+      this.page = page;
 
-    this.global.subData = {};
+      this.global.subData = {};
 
-    this.global.isLoaded = false;
-    let loader = this.loadingCtrl.create({
-      content: this.global.message.pleaseWait+"...",
-    });
-    loader.present();
-
-    var timer = setInterval(() => {
-      if(this.global.isLoaded) {
-        clearInterval(timer);
-        loader.dismiss();
-        if(this.count == 0) {
-          this.count = this.global.subData;
-        }
-      }
-    }, 500);
-
-    let storage = new Storage(LocalStorage);
-    storage.get('token').then((token) => {
-      this.global.socket.emit('api', {
-        token: token,
-        module: 'order',
-        action: 'history',
-        page: this.page,
-        perPage: this.perPage
+      this.global.isLoaded = false;
+      let loader = this.loadingCtrl.create({
+        content: this.global.message.pleaseWait+"...",
       });
-    });
+      loader.present();
+
+      var timer = setInterval(() => {
+        if(this.global.isLoaded) {
+          clearInterval(timer);
+          loader.dismiss();
+          if(this.count == 0) {
+            this.count = this.global.subData;
+          }
+        }
+      }, 500);
+
+      let storage = new Storage(LocalStorage);
+      storage.get('token').then((token) => {
+        this.global.socket.emit('api', {
+          token: token,
+          module: 'order',
+          action: 'history',
+          page: this.page,
+          perPage: this.perPage
+        });
+      });
+    }
   }
 
   showSelectPage(){
     let actionSheet = this.actionSheetController.create({
-      title: "Page "
+      title: this.global.message.page
     });
 
-    actionSheet.addButton({
-      text: "Page 2",
-      handler: () => {
-        this.loadPage(2);
-      }
-    });
+    for(let i=1; i<=Math.round(this.count/this.perPage); i++){
+      actionSheet.addButton({
+        text: i,
+        handler: () => {
+          this.loadPage(i);
+        }
+      });
+    }
 
     actionSheet.addButton({
       text: this.global.message.cancel,
       role: 'cancel',
-      handler: () => {
-        console.log('Cancel clicked');
-      }
     });
     actionSheet.present();
   }

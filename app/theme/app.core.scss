@@ -10,6 +10,7 @@
 //@import "../pages/page1/page1";
 @import "font-awesome";
 @import "../pages/login/login";
+@import "../pages/shopping/shopping";
 
 .margin-0 { margin: 0 !important }
 .margin-top-0 { margin-top: 0px !important }
@@ -115,3 +116,5 @@
 }
 
 @keyframes anim { to { color: white } }
+
+.action-sheet-group{ overflow: scroll; max-height: 400px; }

@@ -1,3 +1,11 @@
-.shopping {
-
-}
+.shopping ion-content { background-color: #e9e9e9 }
+.shopping scroll-content { padding: 0px 10px 10px 10px }
+.shopping ion-card { margin:0; width:100% }
+.shopping .category-card { margin-top: 12px }
+.shopping .category-card ion-card-header { background-color: color($colors, light) }
+.shopping .category-card .view-all { background-color: color($colors, light); color: white }
+.shopping hr { margin:0 }
+.shopping .price { padding: 3px 5px; min-height:1em; text-align: right }
+.shopping .price span { margin-left:5px }
+.shopping .price .item-inner { padding:0 }
+.shopping .price ion-label { margin:0; padding: 3px }
