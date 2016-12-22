@@ -7,9 +7,13 @@ import { NavController, NavParams } from 'ionic-angular';
 export class ProductPage {
 
   global: any;
+  sku: any;
+  name: any;
 
   constructor(private navCtrl: NavController, private navParams: NavParams) {
     this.global = this.navParams.get('global');
+    this.sku = this.navParams.get('sku');
+    this.name = this.navParams.get('name');
   }
 
 }

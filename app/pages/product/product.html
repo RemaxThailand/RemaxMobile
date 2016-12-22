@@ -3,11 +3,26 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>สินค้า</ion-title>
+    <ion-title>{{name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-	<h1>{{global.deviceToken}}</h1>
+  <h1>{{name}}</h1>
+	<img src="https://img.remaxthailand.co.th/product/{{sku}}/1.jpg" />
+  <ion-slides>
+    <ion-slide>
+      <img src="https://img.remaxthailand.co.th/product/{{sku}}/1.jpg" />
+    </ion-slide>
+
+    <ion-slide>
+      <img src="https://img.remaxthailand.co.th/product/{{sku}}/2.jpg" />
+    </ion-slide>
+
+    <ion-slide>
+      <img src="https://img.remaxthailand.co.th/product/{{sku}}/3.jpg" />
+    </ion-slide>
+
+  </ion-slides>
 </ion-content>

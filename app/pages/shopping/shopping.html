@@ -18,116 +18,63 @@
 
 
 <ion-content padding class="shopping">
-  <ion-card class="category-card">
-    <ion-card-header>
-      <ion-icon name="ios-cube" class="relative top-2"></ion-icon>
-      <b>New Arrivals</b>
-    </ion-card-header>
-    <hr>
-    <ion-grid>
-      <ion-row wrap>
+  <div *ngIf="viewType == 'box'">
+    <ion-card class="category-card" *ngFor="let item of global.data">
+      <ion-card-header>
+        <ion-icon name="ios-cube" class="relative top-2"></ion-icon>
+        <b>{{item.name}}</b>
+      </ion-card-header>
+      <hr />
+      <ion-grid>
+        <ion-row wrap>
 
-        <ion-col width-50>
-          <ion-card class="product">
-            <img src="https://src.remaxthailand.co.th/img/category/new_arrivals/1.jpg" />
-            <ion-item class="price" text-right>
-              <b>1,256</b> บาท
-            </ion-item>
-          </ion-card>
-        </ion-col>
-
-        <ion-col width-50>
-          <ion-card class="product">
-            <img src="https://src.remaxthailand.co.th/img/category/bag/1.jpg" />
-            <ion-item class="price">
-              <span>&#3647; 1,256</span>
-            </ion-item>
-          </ion-card>
-        </ion-col>
-
-        <ion-col width-50>
-          <ion-card class="product">
-            <img src="https://src.remaxthailand.co.th/img/category/cable/1.jpg" />
-            <ion-item class="price">
-              <span>&#3647; 1,256</span>
-            </ion-item>
-          </ion-card>
-        </ion-col>
-
-        <ion-col width-50>
-          <ion-card class="product">
-            <img src="https://src.remaxthailand.co.th/img/category/adapter/1.jpg" />
-            <ion-item class="price">
-              <span>&#3647; 1,256</span>
-            </ion-item>
-          </ion-card>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-    <hr>
-    <ion-row class="view-all">
-      <ion-col text-center (click)="navigate(new)">
-        <button clear small>
-          <div class="capitalize" id="new_arrivals">ดูสินค้าทั้งหมดในหมวดหมู่ New Arrivals</div>
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-card>
-  <ion-card class="category-card" *ngFor="let c of categoryData">
-    <ion-card-header>
-      <ion-icon name="ios-cube"></ion-icon>
-      <b>{{c.name}}</b>
-    </ion-card-header>
-    <hr>
-    <ion-grid>
-      <ion-row>
-        <ion-col width-25>
-          <ion-card class="product">
-            <img src="https://src.remaxthailand.co.th/img/category/{{c.url}}/1.jpg" />
-            <ion-item class="price">
-              <span>&#3647; 1,256</span>
-              <span clear item-right danger>&#3647; <b>675</b></span>
-            </ion-item>
-          </ion-card>
-        </ion-col>
-        <ion-col width-25>
-          <ion-card class="product">
-            <img src="https://src.remaxthailand.co.th/img/category/bag/1.jpg" />
-            <ion-item class="price">
-              <span>&#3647; 1,256</span>
-              <span clear item-right danger>&#3647; <b>675</b></span>
-            </ion-item>
-          </ion-card>
-        </ion-col>
-
-        <ion-col width-25>
-          <ion-card class="product">
-            <img src="https://src.remaxthailand.co.th/img/category/cable/1.jpg" />
-            <ion-item class="price">
-              <span>&#3647; 1,256</span>
-              <span clear item-right danger>&#3647; <b>675</b></span>
-            </ion-item>
-          </ion-card>
-        </ion-col>
-        <ion-col width-25>
-          <ion-card class="product">
-            <img src="https://src.remaxthailand.co.th/img/category/adapter/1.jpg" />
-            <ion-item class="price">
-              <span>&#3647; 1,256</span>
-              <span clear item-right danger>&#3647; <b>675</b></span>
-            </ion-item>
-          </ion-card>
+          <ion-col width-50 *ngFor="let product of item.products">
+            <ion-card class="product">
+              <img src="https://img.remaxthailand.co.th/300x300/product/{{product.sku}}/1.jpg" (click)="viewDetail(product.sku, product.name)" />
+              <ion-item class="price" text-right>
+                <span danger *ngIf="product.price != product.memberPrice"><strike>({{global.numberWithCommas(product.price)}})</strike> </span>
+                <b primary>{{global.numberWithCommas(product.memberPrice)}}</b> {{global.message.baht}}
+              </ion-item>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <hr />
+      <ion-row class="view-all">
+        <ion-col text-center (click)="navigate(new)">
+          <button clear small>
+            <div class="capitalize">ดูสินค้าทั้งหมดในหมวดหมู่ <b>{{item.name}}</b></div>
+          </button>
         </ion-col>
       </ion-row>
-    </ion-grid>
-    <hr>
-    <ion-row class="view-all">
-      <ion-col text-center (click)="navigate(c)">
-        <button clear small>
-          <div class="capitalize" id="{{c.url}}">ดูสินค้าทั้งหมดในหมวดหมู่ {{c.name}}</div>
+
+    </ion-card>
+  </div>
+
+  <div *ngIf="viewType == 'list'">
+    <div class="padding-5"></div>
+    <ion-item-group *ngFor="let item of global.data">
+      <ion-item-divider light>
+        <ion-icon name="ios-cube" class="relative top-2"></ion-icon> <b>{{item.name}}</b>
+        <button item-right clear small>
+          <div class="capitalize">เพิ่มเติม</div>
         </button>
-      </ion-col>
-    </ion-row>
-  </ion-card>
+      </ion-item-divider>
+      <ion-item *ngFor="let product of item.products">
+        <ion-thumbnail item-left (click)="viewDetail(product.sku, product.name)">
+          <img src="https://img.remaxthailand.co.th/100x100/product/{{product.sku}}/1.jpg">
+        </ion-thumbnail>
+        <h2 (click)="viewDetail(product.sku, product.name)">{{product.name}}</h2>
+        <p *ngIf="product.price != product.memberPrice">
+          ราคาปลีก : <span danger><strike>({{global.numberWithCommas(product.price)}})</strike> </span> {{global.message.baht}}
+        </p>
+        <p>
+          ราคาส่ง : <b primary>{{global.numberWithCommas(product.memberPrice)}}</b> {{global.message.baht}}
+        </p>
+      </ion-item>
+    </ion-item-group>
+  </div>
+
+  <div class="padding-5"></div>
+  
 </ion-content>

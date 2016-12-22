@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LocalStorage, Storage } from 'ionic-angular';
+import { ProductPage } from '../../pages/product/product';
 
 @Component({
   templateUrl: 'build/pages/shopping/shopping.html',
@@ -38,6 +39,15 @@ export class ShoppingPage {
     this.viewType = viewType;
     let storage = new Storage(LocalStorage);
     storage.set('shopping-viewType', this.viewType);
+  }
+
+  viewDetail(sku, name){
+    this.global.subData = {};
+    this.navCtrl.push(ProductPage, {
+      global: this.global,
+      sku: sku,
+      name: name
+    });
   }
 
 }
