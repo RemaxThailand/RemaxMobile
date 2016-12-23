@@ -4,25 +4,42 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{name}}</ion-title>
+    <ion-buttons end>
+      <button royal class="notification-button">
+        <ion-icon name="md-cart">
+          <ion-badge class="notifications-badge" color="danger">5</ion-badge>
+        </ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
   <h1>{{name}}</h1>
-	<img src="https://img.remaxthailand.co.th/product/{{sku}}/1.jpg" />
-  <ion-slides>
-    <ion-slide>
-      <img src="https://img.remaxthailand.co.th/product/{{sku}}/1.jpg" />
-    </ion-slide>
-
-    <ion-slide>
-      <img src="https://img.remaxthailand.co.th/product/{{sku}}/2.jpg" />
-    </ion-slide>
-
-    <ion-slide>
-      <img src="https://img.remaxthailand.co.th/product/{{sku}}/3.jpg" />
-    </ion-slide>
-
-  </ion-slides>
+	<img *ngIf="!global.isLoaded" src="https://img.remaxthailand.co.th/product/{{sku}}/1.jpg" />
+  <div *ngIf="global.isLoaded">
+    <ion-slides [options]="slideOptions" *ngIf="global.subData.image.other.length > 1">
+      <ion-slide *ngFor="let item of global.subData.image.other">
+        <img src="https://img.remaxthailand.co.th/product/{{sku}}/{{item}}" />
+      </ion-slide>
+    </ion-slides>
+    <ion-item class="product padding-left-0">
+      <span *ngIf="global.subData.price != global.subData.memberPrice"><h2>ปลีก <span danger><strike>(<b>{{global.numberWithCommas(global.subData.price)}}</b>)</strike></span> {{global.message.baht}}</h2></span>
+      <span item-right class="margin-right-0" *ngIf="global.subData.price2 == null">
+        <h2>ส่ง <b primary>{{global.numberWithCommas(global.subData.memberPrice)}}</b> {{global.message.baht}}</h2>
+      </span>
+      <span item-right class="margin-right-0" *ngIf="global.subData.price2 != null">
+        <h2>ส่ง 1-3 ชิ้น <b primary>{{global.numberWithCommas(global.subData.memberPrice)}}</b> {{global.message.baht}}</h2>
+        <h2>6 ชิ้นขึ้นไป <b primary>{{global.numberWithCommas(global.subData.price2)}}</b> {{global.message.baht}}</h2>
+      </span>
+    </ion-item>
+    <button block danger>
+      BUY
+    </button>
+    <div *ngIf="global.subData.image.detail.length > 1">
+      <img *ngFor="let item of global.subData.image.detail" src="https://img.remaxthailand.co.th/product/{{sku}}/{{item}}" />
+      <br />
+    </div>
+  </div>
 </ion-content>

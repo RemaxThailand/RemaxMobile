@@ -11,6 +11,7 @@
 @import "font-awesome";
 @import "../pages/login/login";
 @import "../pages/shopping/shopping";
+@import "../pages/product/product";
 
 .margin-0 { margin: 0 !important }
 .margin-top-0 { margin-top: 0px !important }
@@ -118,3 +119,6 @@
 @keyframes anim { to { color: white } }
 
 .action-sheet-group{ overflow: scroll; max-height: 400px; }
+
+.notification-button { position: relative; width: 42px; top:1px; right: 1px; overflow: visible!important }
+.notifications-badge { background-color: color($colors, danger); position: absolute; top: -3px; right: -3px; border-radius: 100% }

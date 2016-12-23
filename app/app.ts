@@ -333,6 +333,14 @@ class RemaxApp {
         global.data = data.result;
       }
     });
+    
+    global.socket.on('api-product-info', function (data) {
+      global.isLoaded = true;
+      if (data.success) { // ถ้ามีข้อมูล
+        global.subData = data.result;
+        console.log(global.subData);
+      }
+    });
 
   }
 
