@@ -14,9 +14,12 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
   <h1>{{name}}</h1>
+  <p *ngIf="global.subData.model">รุ่น <b>{{global.subData.model}}</b></p>
+  <div *ngIf="global.subData.warranty" center text-center class="margin-bottom-5"><ion-badge secondary>รับประกันสินค้า 
+    {{global.subData.warranty}} วัน
+    </ion-badge> โดย Remax (Thailand)</div>
 	<img *ngIf="!global.isLoaded" src="https://img.remaxthailand.co.th/product/{{sku}}/1.jpg" />
   <div *ngIf="global.isLoaded">
     <ion-slides [options]="slideOptions" *ngIf="global.subData.image.other.length > 1">
@@ -34,9 +37,36 @@
         <h2>6 ชิ้นขึ้นไป <b primary>{{global.numberWithCommas(global.subData.price2)}}</b> {{global.message.baht}}</h2>
       </span>
     </ion-item>
-    <button block danger>
+    <button block danger class="margin-bottom-15">
       BUY
     </button>
+    <table width="100%">
+      <tr *ngIf="global.subData.chargeType"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">หัวชาร์จแบบ : </td><td>{{global.subData.chargeType}}</td></tr>
+      <tr *ngIf="global.subData.deviceSupport"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">อุปกรณ์ที่รองรับ : </td><td>{{global.subData.deviceSupport}}</td></tr>
+      <tr *ngIf="global.subData.material"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">วัสดุ/ผิวสัมผัส : </td><td>{{global.subData.material}}</td></tr>
+      <tr *ngIf="global.subData.width"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">กว้าง : </td><td>{{global.subData.width}} ซม.</td></tr>
+      <tr *ngIf="global.subData.length"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">ยาว : </td><td>{{global.subData.length}} ซม.</td></tr>
+      <tr *ngIf="global.subData.height"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">สูง : </td><td>{{global.subData.height}} ซม.</td></tr>
+      <tr *ngIf="global.subData.weight"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">น้ำหนัก : </td><td>{{global.subData.weight}}</td></tr>
+      <tr *ngIf="global.subData.grossWeight"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">น้ำหนักรวม : </td><td>{{global.subData.grossWeight}} กรัม</td></tr>
+      <tr *ngIf="global.subData.madeIn"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">ผลิตในประเทศ : </td><td>{{global.subData.madeIn}}</td></tr>
+      <tr *ngIf="global.subData.standard"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">มาตรฐาน : </td><td>{{global.subData.standard}}</td></tr>
+    </table>
+    <div *ngIf="global.subData.standard" center text-center>
+      <img *ngIf="global.subData.standard.indexOf('CE') != -1" src="build/img/logo-ce.png">
+      <img *ngIf="global.subData.standard.indexOf('FCC') != -1" src="build/img/logo-fcc.png">
+      <img *ngIf="global.subData.standard.indexOf('RoHS') != -1" src="build/img/logo-rohs.png">
+    </div>
+    <ion-card *ngIf="global.subData.detail != ''" class="margin-left-0 margin-right-0 width-100">
+      <ion-card-header>
+        <b>รายละเอียดเกี่ยวกับสินค้า</b>
+      </ion-card-header>
+      <ion-card-content class="padding-0">
+        <ul class="margin-top-0">
+          <li *ngFor="let item of global.subData.detail; let i = index">{{item}}</li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
     <div *ngIf="global.subData.image.detail.length > 1">
       <img *ngFor="let item of global.subData.image.detail" src="https://img.remaxthailand.co.th/product/{{sku}}/{{item}}" />
       <br />
