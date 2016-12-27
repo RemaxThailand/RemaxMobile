@@ -61,15 +61,40 @@
       <ion-card-header>
         <b>รายละเอียดเกี่ยวกับสินค้า</b>
       </ion-card-header>
-      <ion-card-content class="padding-0">
+      <ion-card-content class="padding-left-0">
         <ul class="margin-top-0">
           <li *ngFor="let item of global.subData.detail; let i = index">{{item}}</li>
         </ul>
       </ion-card-content>
     </ion-card>
+    <ion-card *ngIf="global.subData.specialProperties != ''" class="margin-left-0 margin-right-0 width-100">
+      <ion-card-header>
+        <b>คุณสมบัติพิเศษ</b>
+      </ion-card-header>
+      <ion-card-content class="padding-left-0">
+        <ul class="margin-top-0">
+          <li *ngFor="let item of global.subData.specialProperties; let i = index">{{item}}</li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="global.subData.howToUse != ''" class="margin-left-0 margin-right-0 width-100">
+      <ion-card-header>
+        <b>วิธีใช้งาน</b>
+      </ion-card-header>
+      <ion-card-content class="padding-left-0">
+        <ul class="margin-top-0">
+          <li *ngFor="let item of global.subData.howToUse; let i = index">{{item}}</li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
+    <div *ngIf="global.subData.inBox != ''" class="margin-left-0 margin-right-0 margin-top-15 width-100">
+      <b>อุปกรณ์ภายในกล่อง</b>
+      <ul>
+        <li *ngFor="let item of global.subData.inBox; let i = index">{{item}}</li>
+      </ul>
+    </div>
     <div *ngIf="global.subData.image.detail.length > 1">
-      <img *ngFor="let item of global.subData.image.detail" src="https://img.remaxthailand.co.th/product/{{sku}}/{{item}}" />
-      <br />
+      <div *ngFor="let item of global.subData.image.detail"><img src="https://img.remaxthailand.co.th/product/{{sku}}/{{item}}" /></div>
     </div>
   </div>
 </ion-content>
