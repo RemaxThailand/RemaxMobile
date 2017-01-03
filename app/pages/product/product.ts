@@ -42,10 +42,23 @@ export class ProductPage {
         token: token,
         module: 'product',
         action: 'info',
-        sku: this.sku
+        sku: this.sku,
+        qty: 1
       });
     });
 
+  }
+
+  addCart(sku){
+    let storage = new Storage(LocalStorage);
+    storage.get('token').then((token) => {
+      this.global.socket.emit('api', {
+        token: token,
+        module: 'order',
+        action: 'cart_update',
+        sku: this.sku
+      });
+    });
   }
 
 }

@@ -39,9 +39,12 @@
         <h2>6 ชิ้นขึ้นไป <b primary>{{global.numberWithCommas(global.subData.price2)}}</b> {{global.message.baht}}</h2>
       </span>
     </ion-item>
-    <button block danger class="margin-bottom-15">
+    <button *ngIf="global.subData.hasStock" block danger class="margin-bottom-15" (click)="addCart(sku)">
       BUY
     </button>
+    <div *ngIf="!global.subData.hasStock" danger class="margin-top-15 margin-bottom-15" text-center>
+      <h2><b danger>สินค้าหมด</b></h2>
+    </div>
     <table width="100%">
       <tr *ngIf="global.subData.chargeType"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">หัวชาร์จแบบ : </td><td>{{global.subData.chargeType}}</td></tr>
       <tr *ngIf="global.subData.deviceSupport"><td text-right nowrap="nowrap" class="padding-right-5" width="20%" valign="top">อุปกรณ์ที่รองรับ : </td><td>{{global.subData.deviceSupport}}</td></tr>
