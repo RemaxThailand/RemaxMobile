@@ -42,8 +42,7 @@ export class ProductPage {
         token: token,
         module: 'product',
         action: 'info',
-        sku: this.sku,
-        qty: 1
+        sku: this.sku
       });
     });
 
@@ -56,7 +55,8 @@ export class ProductPage {
         token: token,
         module: 'order',
         action: 'cart_update',
-        sku: this.sku
+        sku: this.sku,
+        qty: 1
       });
     });
   }
