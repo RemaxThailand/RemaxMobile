@@ -41,6 +41,7 @@ export class Global {
   public subData: any = {};
   public summaryData: any = {};
   public bank: any = {};
+  public cart: any = {};
 
   public memberScreen: any;
   public screen: any;

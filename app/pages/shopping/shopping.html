@@ -11,6 +11,11 @@
       <button (click)="changeView('box')" *ngIf="viewType == 'list'">
         <ion-icon name="md-apps"></ion-icon>
       </button>
+      <button royal class="notification-button" *ngIf="global.cart.item">
+        <ion-icon name="md-cart">
+          <ion-badge class="notifications-badge" color="danger">{{global.cart.qty}}</ion-badge>
+        </ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>

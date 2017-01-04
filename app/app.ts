@@ -341,12 +341,24 @@ class RemaxApp {
       }
     });
     
+    global.socket.on('api-order-cart_data', function (data) {
+      console.log( data );
+      if (data.success) { // ถ้ามีข้อมูล
+        global.cart = data.result;
+        console.log( global.cart );
+      }
+    });
+    
     global.socket.on('api-order-cart_update', function (data) {
       global.isLoaded = true;
-      console.log(data);
-      if (data.success) { // ถ้ามีข้อมูล
-        //global.subData = data.result;
-        console.log(global.subData);
+      if (data.success) {
+        storage.get('token').then((token) => {
+          global.socket.emit('api', {
+            token: token,
+            module: 'order',
+            action: 'cart_data'
+          });
+        });
       }
     });
 
