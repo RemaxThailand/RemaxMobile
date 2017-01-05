@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LocalStorage, Storage, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LocalStorage, Storage, LoadingController, ModalController } from 'ionic-angular';
+import { AddToCartPage } from '../../pages/add-to-cart/add-to-cart';
 
 @Component({
   templateUrl: 'build/pages/product/product.html',
@@ -11,7 +12,7 @@ export class ProductPage {
   name: any;
   slideOptions: any;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController, private modalCtrl: ModalController) {
     this.global = this.navParams.get('global');
     this.sku = this.navParams.get('sku');
     this.name = this.navParams.get('name');
@@ -48,8 +49,14 @@ export class ProductPage {
 
   }
 
-  addCart(sku){
-    let storage = new Storage(LocalStorage);
+  addCart(sku, detail){
+    let modal = this.modalCtrl.create(AddToCartPage, {
+      global: this.global,
+      sku: sku,
+      detail: detail
+    });
+    modal.present();
+    /*let storage = new Storage(LocalStorage);
     storage.get('token').then((token) => {
       this.global.socket.emit('api', {
         token: token,
@@ -58,7 +65,7 @@ export class ProductPage {
         sku: this.sku,
         qty: 1
       });
-    });
+    });*/
   }
 
 }

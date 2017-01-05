@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content padding>
-  <h1>{{name}}</h1>
+  <h1>{{name}} {{sku}}</h1>
   <p *ngIf="global.subData.model">รุ่น <b>{{global.subData.model}}</b></p>
   <div *ngIf="global.subData.warranty" center text-center class="margin-bottom-5"><ion-badge secondary>รับประกันสินค้า 
     <span *ngIf="global.subData.warranty >= 365">{{global.subData.warranty/365}} ปี</span>
@@ -29,17 +29,21 @@
         <img src="https://img.remaxthailand.co.th/product/{{sku}}/{{item}}" />
       </ion-slide>
     </ion-slides>
+    <img *ngIf="global.subData.image.other.length == 1" src="https://img.remaxthailand.co.th/product/{{sku}}/{{global.subData.image.other[0]}}" />
     <ion-item class="product padding-left-0">
       <span *ngIf="global.subData.price != global.subData.memberPrice"><h2>ปลีก <span danger><strike>(<b>{{global.numberWithCommas(global.subData.price)}}</b>)</strike></span> {{global.message.baht}}</h2></span>
       <span item-right class="margin-right-0" *ngIf="global.subData.price2 == null">
         <h2>ส่ง <b primary>{{global.numberWithCommas(global.subData.memberPrice)}}</b> {{global.message.baht}}</h2>
       </span>
-      <span item-right class="margin-right-0" *ngIf="global.subData.price2 != null">
+      <span item-right class="margin-right-0" *ngIf="global.subData.price2 != null && global.subData.memberPrice != global.subData.price2">
         <h2>ส่ง 1-3 ชิ้น <b primary>{{global.numberWithCommas(global.subData.memberPrice)}}</b> {{global.message.baht}}</h2>
         <h2>6 ชิ้นขึ้นไป <b primary>{{global.numberWithCommas(global.subData.price2)}}</b> {{global.message.baht}}</h2>
       </span>
+      <span item-right class="margin-right-0" *ngIf="global.subData.price2 != null && global.subData.memberPrice == global.subData.price2">
+        <h2>ราคา <b primary>{{global.numberWithCommas(global.subData.memberPrice)}}</b> {{global.message.baht}}</h2>
+      </span>
     </ion-item>
-    <button *ngIf="global.subData.hasStock" block danger class="margin-bottom-15" (click)="addCart(sku)">
+    <button *ngIf="global.subData.hasStock" block danger class="margin-bottom-15" (click)="addCart(sku, global.subData)">
       BUY
     </button>
     <div *ngIf="!global.subData.hasStock" danger class="margin-top-15 margin-bottom-15" text-center>

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar dark>
+    <ion-title>AddToCart</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+          <span color="primary" showWhen="ios">Cancel</span>
+          <!--ion-icon name="md-close" showWhen="android,windows"></ion-icon-->
+          <ion-icon name="md-close"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-item class="addToCart">
+    <ion-thumbnail item-left>
+      <img src="https://img.remaxthailand.co.th/100x100/product/{{sku}}/1.jpg">
+    </ion-thumbnail>
+    <h2><b>{{detail.name}}</b></h2>
+    <ion-item class="product padding-left-0">
+      <span *ngIf="detail.price2 == null">
+        <p>ส่ง <b primary>{{global.numberWithCommas(detail.memberPrice)}}</b> {{global.message.baht}}</p>
+      </span>
+      <span *ngIf="detail.price2 != null && detail.memberPrice != detail.price2">
+        <p>ส่ง 1-3 ชิ้น <b primary>{{global.numberWithCommas(detail.memberPrice)}}</b> {{global.message.baht}}</p>
+        <p>6 ชิ้นขึ้นไป <b primary>{{global.numberWithCommas(detail.price2)}}</b> {{global.message.baht}}</p>
+      </span>
+      <span *ngIf="detail.price2 != null && detail.memberPrice == detail.price2">
+        <p>ราคา <b primary>{{global.numberWithCommas(detail.memberPrice)}}</b> {{global.message.baht}}</p>
+      </span>
+    </ion-item>
+  </ion-item>
+
+</ion-content>

@@ -338,14 +338,13 @@ class RemaxApp {
       global.isLoaded = true;
       if (data.success) { // ถ้ามีข้อมูล
         global.subData = data.result;
+        console.log( global.subData );
       }
     });
     
     global.socket.on('api-order-cart_data', function (data) {
-      console.log( data );
       if (data.success) { // ถ้ามีข้อมูล
         global.cart = data.result;
-        console.log( global.cart );
       }
     });
     
