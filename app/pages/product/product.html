@@ -15,8 +15,8 @@
 </ion-header>
 
 <ion-content padding>
-  <h1>{{name}} {{sku}}</h1>
-  <p *ngIf="global.subData.model">รุ่น <b>{{global.subData.model}}</b></p>
+  <h1>{{name}}</h1>
+  <p>SKU : <b>{{sku}}</b> <span *ngIf="global.subData.model"> - รุ่น : <b>{{global.subData.model}}</b></span></p>
   <div *ngIf="global.subData.warranty" center text-center class="margin-bottom-5"><ion-badge secondary>รับประกันสินค้า 
     <span *ngIf="global.subData.warranty >= 365">{{global.subData.warranty/365}} ปี</span>
     <span *ngIf="global.subData.warranty < 365 && global.subData.warranty >= 30">{{global.subData.warranty/30}} เดือน</span>

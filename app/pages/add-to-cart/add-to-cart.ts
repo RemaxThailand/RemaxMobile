@@ -9,6 +9,7 @@ export class AddToCartPage {
   global: any;
   sku: string;
   detail: any;
+  qty: number = 1;
 
   constructor(private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController) {
     this.global = this.navParams.get('global');
@@ -18,6 +19,10 @@ export class AddToCartPage {
 
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  updateQty(qty) {
+    this.qty = qty;
   }
 
 }

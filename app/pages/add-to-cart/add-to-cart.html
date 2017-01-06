@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar dark>
-    <ion-title>AddToCart</ion-title>
+    <ion-title>add-to-cart</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
           <span color="primary" showWhen="ios">Cancel</span>
@@ -14,12 +14,12 @@
 
 
 <ion-content>
-  <ion-item class="addToCart">
+  <ion-item class="add-to-cart" text-wrap>
     <ion-thumbnail item-left>
       <img src="https://img.remaxthailand.co.th/100x100/product/{{sku}}/1.jpg">
     </ion-thumbnail>
     <h2><b>{{detail.name}}</b></h2>
-    <ion-item class="product padding-left-0">
+    <ion-item class="padding-left-0">
       <span *ngIf="detail.price2 == null">
         <p>ส่ง <b primary>{{global.numberWithCommas(detail.memberPrice)}}</b> {{global.message.baht}}</p>
       </span>
@@ -32,5 +32,15 @@
       </span>
     </ion-item>
   </ion-item>
+  <hr />
+
+  <ion-list inset class="input-padding-right-0">
+    <ion-item>
+      <button item-left (click)="updateQty(qty-1)"><i class="fa fa-minus"></i></button>
+      <ion-label>จำนวน</ion-label>
+      <ion-input type="number" placeholder="จำนวน" value="{{qty}}" text-center></ion-input>
+      <button item-right (click)="updateQty(qty+1)" class="margin-right-0"><i class="fa fa-plus"></i></button>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
