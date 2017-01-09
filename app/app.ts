@@ -351,6 +351,9 @@ class RemaxApp {
     global.socket.on('api-order-cart_update', function (data) {
       global.isLoaded = true;
       if (data.success) {
+        if(!data.hasStock){
+          global.subData.hasStock = false;
+        }
         storage.get('token').then((token) => {
           global.socket.emit('api', {
             token: token,

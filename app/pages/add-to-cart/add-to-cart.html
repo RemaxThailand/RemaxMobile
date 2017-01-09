@@ -36,11 +36,15 @@
 
   <ion-list inset class="input-padding-right-0">
     <ion-item>
-      <button item-left (click)="updateQty(qty-1)"><i class="fa fa-minus"></i></button>
+      <button item-left (click)="updateQty(-1)"><i class="fa fa-minus"></i></button>
       <ion-label>จำนวน</ion-label>
-      <ion-input type="number" placeholder="จำนวน" value="{{qty}}" text-center></ion-input>
-      <button item-right (click)="updateQty(qty+1)" class="margin-right-0"><i class="fa fa-plus"></i></button>
+      <ion-input type="number" placeholder="จำนวน" [(ngModel)]="qty" text-center></ion-input>
+      <button item-right (click)="updateQty(1)" class="margin-right-0"><i class="fa fa-plus"></i></button>
     </ion-item>
   </ion-list>
+
+  <button *ngIf="global.subData.hasStock" block danger class="margin-bottom-15" (click)="confirm()">
+    Confirm
+  </button>
 
 </ion-content>
