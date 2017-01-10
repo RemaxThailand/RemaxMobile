@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LocalStorage, Storage } from 'ionic-angular';
 import { ProductPage } from '../../pages/product/product';
+import { CartPage } from '../../pages/cart/cart';
 
 @Component({
   templateUrl: 'build/pages/shopping/shopping.html',
@@ -54,6 +55,15 @@ export class ShoppingPage {
       global: this.global,
       sku: sku,
       name: name
+    });
+  }
+
+  showCart(){
+    let storage = new Storage(LocalStorage);
+    storage.set('page', 'cart').then(() => {
+      this.navCtrl.setRoot(CartPage, {
+        global: this.global
+      });
     });
   }
 

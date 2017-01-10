@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LocalStorage, Storage, LoadingController, ModalController } from 'ionic-angular';
 import { AddToCartPage } from '../../pages/add-to-cart/add-to-cart';
+import { CartPage } from '../../pages/cart/cart';
 
 @Component({
   templateUrl: 'build/pages/product/product.html',
@@ -56,16 +57,15 @@ export class ProductPage {
       detail: detail
     });
     modal.present();
-    /*let storage = new Storage(LocalStorage);
-    storage.get('token').then((token) => {
-      this.global.socket.emit('api', {
-        token: token,
-        module: 'order',
-        action: 'cart_update',
-        sku: this.sku,
-        qty: 1
+  }
+
+  showCart(){
+    let storage = new Storage(LocalStorage);
+    storage.set('page', 'cart').then(() => {
+      this.navCtrl.setRoot(CartPage, {
+        global: this.global
       });
-    });*/
+    });
   }
 
 }

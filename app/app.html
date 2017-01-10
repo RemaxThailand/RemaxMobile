@@ -22,6 +22,7 @@
         <template ngFor let-m [ngForOf]="p.screen">
           <button menuClose ion-item (click)="openPage(global.screen[m.name])">
             <i class="fa {{m.icon}} margin-right-5"></i> {{global.message[m.name]}}
+            <ion-badge item-right danger *ngIf="m.name == 'cart' && global.cart.qty > 0">{{global.numberWithCommas(global.cart.qty)}}</ion-badge>
           </button>
         </template>
       </ion-item-group>

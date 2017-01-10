@@ -11,7 +11,7 @@
       <button (click)="changeView('box')" *ngIf="viewType == 'list'">
         <ion-icon name="md-apps"></ion-icon>
       </button>
-      <button royal class="notification-button" *ngIf="global.cart != {}">
+      <button royal class="notification-button" *ngIf="global.cart.qty > 0" (click)="showCart()">
         <ion-icon name="md-cart">
           <ion-badge class="notifications-badge" color="danger">{{global.cart.qty}}</ion-badge>
         </ion-icon>

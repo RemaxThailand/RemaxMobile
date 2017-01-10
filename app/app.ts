@@ -338,7 +338,6 @@ class RemaxApp {
       global.isLoaded = true;
       if (data.success) { // ถ้ามีข้อมูล
         global.subData = data.result;
-        console.log( global.subData );
       }
     });
     
