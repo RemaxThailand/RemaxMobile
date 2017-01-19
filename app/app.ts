@@ -235,10 +235,11 @@ class RemaxApp {
       }
       else { // ถ้ามี Error
         let alert = alertCtrl.create({
-          title: global.message.error,
-          subTitle: global.message['err' + data.error],
+          title: global.message['err' + data.error] != undefined ? global.message.error : data.error,
+          subTitle: global.message['err' + data.error] != undefined ? global.message['err' + data.error] : data.errorMessage,
           buttons: [global.message.ok]
         });
+        console.log(data);
         alert.present();
       }
     });
