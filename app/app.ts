@@ -239,7 +239,6 @@ class RemaxApp {
           subTitle: global.message['err' + data.error] != undefined ? global.message['err' + data.error] : data.errorMessage,
           buttons: [global.message.ok]
         });
-        console.log(data);
         alert.present();
       }
     });
@@ -332,6 +331,16 @@ class RemaxApp {
       global.isLoaded = true;
       if (data.success) { // ถ้ามีข้อมูล
         global.data = data.result;
+      }
+    });
+    
+    global.socket.on('outOfStock', function (data) {
+      //global.isLoaded = true;
+      if (data.success) {
+        console.log('outOfStock');
+        console.log(data);
+        //global.subData = data.result;
+        //global.summaryData = data.summary[0];
       }
     });
     
