@@ -335,12 +335,9 @@ class RemaxApp {
     });
     
     global.socket.on('outOfStock', function (data) {
-      //global.isLoaded = true;
       if (data.success) {
         console.log('outOfStock');
         console.log(data);
-        //global.subData = data.result;
-        //global.summaryData = data.summary[0];
       }
     });
     
