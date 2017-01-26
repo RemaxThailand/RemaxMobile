@@ -113,6 +113,14 @@ class RemaxApp {
       else {
         global.socket.emit('access', { token: '' });
       }
+
+      //-- ข้อมูลจำนวนสินค้าในรถเข็น --//
+      this.global.socket.emit('api', {
+        token: token,
+        module: 'cart',
+        action: 'summary'
+      });
+
     });
 
     /*## ข้อมูล Token ##*/
@@ -348,7 +356,7 @@ class RemaxApp {
       }
     });
     
-    global.socket.on('api-order-cart_data', function (data) {
+    global.socket.on('api-cart-summary', function (data) {
       if (data.success) { // ถ้ามีข้อมูล
         global.cart = data.result;
       }
@@ -367,6 +375,14 @@ class RemaxApp {
             action: 'cart_data'
           });
         });
+      }
+    });
+    
+    global.socket.on('api-cart-detail', function (data) {
+      global.isLoaded = true;
+      if (data.success) { // ถ้ามีข้อมูล
+        console.log(data);
+        //global.subData = data.result;
       }
     });
 

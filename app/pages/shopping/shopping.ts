@@ -31,14 +31,7 @@ export class ShoppingPage {
         token: token,
         module: 'product',
         action: 'top_4_by_category'
-      });
-
-      this.global.socket.emit('api', {
-        token: token,
-        module: 'order',
-        action: 'cart_data'
-      });
-      
+      });      
     });
 
   }

@@ -23,6 +23,14 @@ export class CartPage {
         this.viewType = viewType;
       }
     });
+
+    storage.get('token').then((token) => {
+      this.global.socket.emit('api', {
+        token: token,
+        module: 'cart',
+        action: 'detail'
+      });      
+    });
     
   }
 
