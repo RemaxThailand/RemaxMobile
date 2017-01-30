@@ -33,8 +33,8 @@ export class AddToCartPage {
     storage.get('token').then((token) => {
       this.global.socket.emit('api', {
         token: token,
-        module: 'order',
-        action: 'cart_update',
+        module: 'cart',
+        action: 'update',
         sku: this.sku,
         qty: this.qty
       });
