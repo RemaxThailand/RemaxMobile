@@ -24,7 +24,7 @@
         <p>ส่ง <b primary>{{global.numberWithCommas(detail.memberPrice)}}</b> {{global.message.baht}}</p>
       </span>
       <span *ngIf="detail.price2 != null && detail.memberPrice != detail.price2">
-        <p>ส่ง 1-3 ชิ้น <b primary>{{global.numberWithCommas(detail.memberPrice)}}</b> {{global.message.baht}}</p>
+        <p>3 ชิ้นขึ้นไป <b primary>{{global.numberWithCommas(detail.memberPrice)}}</b> {{global.message.baht}}</p>
         <p>6 ชิ้นขึ้นไป <b primary>{{global.numberWithCommas(detail.price2)}}</b> {{global.message.baht}}</p>
       </span>
       <span *ngIf="detail.price2 != null && detail.memberPrice == detail.price2">

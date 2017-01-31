@@ -133,6 +133,7 @@ class RemaxApp {
           module: 'system',
           action: 'screen'
         });
+
         //-- ข้อมูลจำนวนสินค้าในรถเข็น --//
         global.socket.emit('api', {
           token: data.token,
@@ -381,7 +382,7 @@ class RemaxApp {
     global.socket.on('api-cart-detail', function (data) {
       global.isLoaded = true;
       if (data.success) { // ถ้ามีข้อมูล
-        console.log(data);
+        global.data = data.result;
         //global.subData = data.result;
       }
     });

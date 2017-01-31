@@ -17,21 +17,35 @@
 
 
 <ion-content padding class="shopping">
-  <div *ngIf="viewType == 'box'">
-  </div>
-
-  <div *ngIf="viewType == 'list'">
-    <div class="padding-5"></div>
-    <ion-item-group>
-      <ion-item-divider light>
-        <ion-icon name="ios-cube" class="relative top-2"></ion-icon> <b>sss</b>
-        <button item-right clear small>
-          <div class="capitalize">เพิ่มเติม</div>
-        </button>
-      </ion-item-divider>
-    </ion-item-group>
-  </div>
-
+  
   <div class="padding-5"></div>
+  <ion-item-group>
+    <ion-item-divider light>
+      <ion-icon name="ios-cube" class="relative top-2"></ion-icon> <b>รายการสินค้า</b>
+    </ion-item-divider>
+    <ion-item *ngFor="let product of global.data">
+      <ion-thumbnail item-left (click)="viewDetail(product.sku, product.name)">
+        <img src="https://img.remaxthailand.co.th/100x100/product/{{product.sku}}/1.jpg">
+      </ion-thumbnail>
+      <table>
+        <tr>
+          <td>
+            <h2 (click)="viewDetail(product.sku, product.name)">{{product.name}}</h2>
+            <p>
+              ราคา : <b primary>{{global.numberWithCommas(product.price)}}</b>
+              {{global.message.baht}}
+            </p>
+          </td>
+          <td>
+            <p>
+              จำนวน : <button (click)="updateQty(-1)"><i class="fa fa-minus"></i></button>
+              <b primary>{{global.numberWithCommas(product.qty)}}</b>
+              <button (click)="updateQty(1)" class="margin-right-0"><i class="fa fa-plus"></i></button>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </ion-item>
+  </ion-item-group>
 
 </ion-content>
