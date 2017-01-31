@@ -23,11 +23,11 @@
     <ion-item-divider light>
       <ion-icon name="ios-cube" class="relative top-2"></ion-icon> <b>รายการสินค้า</b>
     </ion-item-divider>
-    <ion-item *ngFor="let product of global.data">
+    <ion-item *ngFor="let product of global.data" text-wrap>
       <ion-thumbnail item-left (click)="viewDetail(product.sku, product.name)">
         <img src="https://img.remaxthailand.co.th/100x100/product/{{product.sku}}/1.jpg">
       </ion-thumbnail>
-      <table>
+      <table width="100%">
         <tr>
           <td>
             <h2 (click)="viewDetail(product.sku, product.name)">{{product.name}}</h2>
@@ -36,8 +36,10 @@
               {{global.message.baht}}
             </p>
           </td>
-          <td>
-            <p>
+        </tr>
+        <tr>
+          <td align=right>
+            <p item-right>
               จำนวน : <button (click)="updateQty(-1)"><i class="fa fa-minus"></i></button>
               <b primary>{{global.numberWithCommas(product.qty)}}</b>
               <button (click)="updateQty(1)" class="margin-right-0"><i class="fa fa-plus"></i></button>
