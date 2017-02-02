@@ -65,13 +65,13 @@
           <div class="capitalize">เพิ่มเติม</div>
         </button>
       </ion-item-divider>
-      <ion-item *ngFor="let product of item.products">
+      <ion-item *ngFor="let product of item.products" text-wrap>
         <ion-thumbnail item-left (click)="viewDetail(product.sku, product.name)">
           <img src="https://img.remaxthailand.co.th/100x100/product/{{product.sku}}/1.jpg">
         </ion-thumbnail>
         <h2 (click)="viewDetail(product.sku, product.name)">{{product.name}}</h2>
         <p *ngIf="product.price != product.memberPrice">
-          ราคาปลีก : <span danger><strike>({{global.numberWithCommas(product.price)}})</strike> </span> {{global.message.baht}}
+          ราคาปลีก : <b danger>{{global.numberWithCommas(product.price)}} </b> {{global.message.baht}}
         </p>
         <p>
           ราคาส่ง : <b primary>{{global.numberWithCommas(product.memberPrice)}}</b> {{global.message.baht}}

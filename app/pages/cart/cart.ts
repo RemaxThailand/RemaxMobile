@@ -13,6 +13,7 @@ export class CartPage {
     qty: 0,
     price: 0
   };
+  hasSelected: boolean = false;
 
   constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController) {
     this.global = this.navParams.get('global');
@@ -20,7 +21,7 @@ export class CartPage {
     this.global.data = {};    
     this.global.isLoaded = false;
     let loader = this.loadingCtrl.create({
-      content: this.global.message.pleaseWait+"...",
+      content: this.global.message.pleaseWait + "...",
     });
     loader.present();
 
@@ -77,12 +78,31 @@ export class CartPage {
     this.calculateTotal();
   }
 
+  selectItem(index) {
+    this.product[index].selected = !this.product[index].selected;
+    this.checkSelected();
+  }
+
+  checkSelected(){
+    let hasSelected = false;
+    for(let i=0; i<this.product.length; i++){
+      if(this.product[i].selected){
+        hasSelected = true;
+        break;
+      }
+    }
+    this.hasSelected = hasSelected;
+  }
+
   calculateTotal(){
     this.total.price = 0;
     this.total.qty = 0;
     for(let i=0; i<this.product.length; i++){
       this.total.qty += Number(this.product[i].qty);
       this.total.price += Number(this.product[i].qty)*Number(this.product[i].price);
+      if(this.product[i].selected == undefined){
+        this.product[i].selected = false;
+      }
     }
   }
 

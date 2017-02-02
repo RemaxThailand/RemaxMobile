@@ -410,6 +410,9 @@ class RemaxApp {
         });
       });
     }
+    /*else if (page.title == 'cart' && this.global.cart.qty == 0) {
+      
+    }*/
     else {
       storage.set('page', page.title).then(() => {
         this.nav.setRoot(page.component, {

@@ -4,7 +4,10 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{global.message.cart}}</ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="total.qty > 0">
+      <button (click)="changeView('box')" *ngIf="hasSelected">
+        <ion-icon name="md-trash"></ion-icon>
+      </button>
       <button (click)="changeView('list')" *ngIf="viewType == 'box'">
         <ion-icon name="md-reorder"></ion-icon>
       </button>
@@ -17,64 +20,81 @@
 
 
 <ion-content padding class="shopping">
-  
-  <div class="padding-5"></div>
-  <ion-item-group>
-    <ion-item-divider light>
-      <ion-icon name="ios-cube" class="relative top-2"></ion-icon> <b>รายการสินค้า</b>
-    </ion-item-divider>
-    <ion-item *ngFor="let product of product; let i = index" text-wrap>
-      <ion-thumbnail item-left (click)="viewDetail(product.sku, product.name)">
-        <img src="https://img.remaxthailand.co.th/100x100/product/{{product.sku}}/1.jpg">
-      </ion-thumbnail>
-      <table width="100%">
-        <tr>
-          <td>
-            <h2 (click)="viewDetail(product.sku, product.name)">{{product.name}}</h2>
-            <p>
-              ราคา : <b primary>{{global.numberWithCommas(product.price)}}</b>
-              {{global.message.baht}} 
-              (รวม <b danger>{{global.numberWithCommas(product.price*product.qty)}}</b> {{global.message.baht}})
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td align=right>
-            <p item-right>
-              <span style="position: relative; top:5px">จำนวน : </span><button (click)="updateQty(i,-1)"><i class="fa fa-minus"></i></button>
-              <b primary style="position: relative; top:5px">{{global.numberWithCommas(product.qty)}}</b>
-              <button (click)="updateQty(i,1)" class="margin-right-0"><i class="fa fa-plus"></i></button>
-            </p>
-          </td>
-        </tr>
-      </table>
-    </ion-item>
-  </ion-item-group>
-  
-  <div class="padding-5"></div>
-  <ion-item-group>
-    <ion-item-divider light>
-      <ion-icon name="ios-cube" class="relative top-2"></ion-icon> <b>รวม</b>
-      <button item-right clear small>
-        <div class="capitalize"><b>{{global.numberWithCommas(total.qty)}}</b> ชิ้น</div>
-      </button>
-    </ion-item-divider>
-    <ion-item text-wrap>
-      <p>ราคาสินค้า</p>
-      <p item-right><b primary>{{global.numberWithCommas(total.price)}} {{global.message.baht}}</b></p>
-    </ion-item>
-    <ion-item text-wrap>
-      <p>ค่าขนส่ง</p>
-      <p item-right>sdsds {{global.message.baht}}</p>
-    </ion-item>
-    <ion-item text-wrap>
-      <p>ส่วนลด</p>
-      <p item-right>sdsds {{global.message.baht}}</p>
-    </ion-item>
-    <ion-item text-wrap>
-      <p>ราคารวมทั้งสิ้น</p>
-      <p item-right>sdsds {{global.message.baht}}</p>
-    </ion-item>
-  </ion-item-group>
+  <div *ngIf="global.isLoaded">
+    <div *ngIf="total.qty == 0">
+      <div class="padding-10"></div>
+      <div text-center>
+        <b danger>ไม่มีสินค้าในตะกร้าสินค้าของคุณค่ะ</b>
+      </div>
+    </div>
+    <div *ngIf="total.qty > 0">
+      <div class="padding-5"></div>
+      <ion-item-group>
+        <ion-item-divider light>
+          <ion-icon name="ios-cube" class="relative top-2"></ion-icon> <b>รายการสินค้า</b>
+        </ion-item-divider>
+        <ion-item *ngFor="let p of product; let i = index" text-wrap class="cart padding-left-0 padding-right-0">
+          <table width="100%">
+            <tr>
+              <td width="100">
+                <ion-thumbnail item-left (click)="viewDetail(p.sku, p.name)">
+                  <img src="https://img.remaxthailand.co.th/100x100/product/{{p.sku}}/1.jpg">
+                </ion-thumbnail>
+              </td>
+              <td>
+                <h2 (click)="viewDetail(p.sku, p.name)">{{p.name}}</h2>
+                <p>
+                  ราคา : <b primary>{{global.numberWithCommas(p.price)}}</b>
+                  {{global.message.baht}} 
+                  (รวม <b danger>{{global.numberWithCommas(p.price*p.qty)}}</b> {{global.message.baht}})
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button dark round [outline]="!p.selected" [clear]="!p.selected" class="img-btn"
+                  (click)="selectItem(i)"><i class="fa fa-check"></i></button>
+                <button dark clear round class="img-btn"><i class="fa fa-search"></i></button>
+                <button dark clear round class="img-btn"><i class="fa fa-trash-o"></i></button>
+              </td>
+              <td align=right>
+                <p item-right>
+                  <span style="position: relative; top:5px">จำนวน : </span><button (click)="updateQty(i,-1)"><i class="fa fa-minus"></i></button>
+                  <b primary style="position: relative; top:5px">{{global.numberWithCommas(p.qty)}}</b>
+                  <button (click)="updateQty(i,1)" class="margin-right-0"><i class="fa fa-plus"></i></button>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </ion-item>
+      </ion-item-group>
+      
+      <div class="padding-5"></div>
+      <ion-item-group>
+        <ion-item-divider light>
+          <ion-icon name="ios-cube" class="relative top-2"></ion-icon> <b>รวม</b>
+          <button item-right clear small>
+            <div class="capitalize"><b>{{global.numberWithCommas(total.qty)}}</b> ชิ้น</div>
+          </button>
+        </ion-item-divider>
+        <ion-item text-wrap>
+          <p>ราคาสินค้า</p>
+          <p item-right><b primary>{{global.numberWithCommas(total.price)}} {{global.message.baht}}</b></p>
+        </ion-item>
+        <ion-item text-wrap>
+          <p>ค่าขนส่ง</p>
+          <p item-right>sdsds {{global.message.baht}}</p>
+        </ion-item>
+        <ion-item text-wrap>
+          <p>ส่วนลด</p>
+          <p item-right>sdsds {{global.message.baht}}</p>
+        </ion-item>
+        <ion-item text-wrap>
+          <p>ราคารวมทั้งสิ้น</p>
+          <p item-right>sdsds {{global.message.baht}}</p>
+        </ion-item>
+      </ion-item-group>
+    </div>
+  </div>
 
 </ion-content>
