@@ -24,7 +24,7 @@
 
 
 <ion-content padding class="shopping">
-  <div *ngIf="global.isLoaded">
+  <div *ngIf="step == 0 && global.isLoaded">
     <div *ngIf="total.qty == 0">
       <div class="padding-10"></div>
       <div text-center>
@@ -145,6 +145,18 @@
       <div item-right>
       </div>
 
+    </div>
+  </div>
+
+
+  <div *ngIf="step == 1 && global.isLoaded">
+    <div *ngIf="total.qty > 0">
+      <div class="padding-5"></div>
+      <ion-item-group>
+        <ion-item-divider light>
+          <i class="fa fa-address-book-o padding-right-5"></i> <b>ที่อยู่ในการจัดส่ง</b>
+        </ion-item-divider>
+      </ion-item-group>
     </div>
   </div>
 

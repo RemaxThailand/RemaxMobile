@@ -23,6 +23,8 @@ export class CartPage {
   discountSelectedPrice = 0;
   isUpdate = false;
 
+  step = 0;
+
   constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
     this.global = this.navParams.get('global');
     
@@ -180,6 +182,10 @@ export class CartPage {
         loader.dismiss();
       }
     }, 500);
+
+    this.step++;
+    this.global.isLoaded = true;
+
   }
 
 }
