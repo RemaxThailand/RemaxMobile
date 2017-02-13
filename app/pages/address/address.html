@@ -1,18 +1,72 @@
-<!--
-  Generated template for the AddressPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Address</ion-title>
-  </ion-navbar>
-
+  <ion-toolbar dark>
+    <ion-title>ที่อยู่ในการจัดส่งสินค้า</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+          <span color="primary" showWhen="ios">Cancel</span>
+          <!--ion-icon name="md-close" showWhen="android,windows"></ion-icon-->
+          <ion-icon name="md-close"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
 
+  <div *ngIf="step == 1 && global.isLoaded && provinceList.length > 0">
+    <ion-list>
+      <ion-item>
+        <ion-label>จังหวัด</ion-label>
+        <ion-select [(ngModel)]="province" (ionChange)="setSelectedName('province')">
+          <ion-option *ngFor="let p of provinceList" value="{{p.id}}">{{p.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="step == 2 && global.isLoaded && districtList.length > 0">
+    <ion-list>
+      <ion-item>
+        <ion-label>อำเภอ</ion-label>
+        <ion-select [(ngModel)]="district" (ionChange)="next()">
+          <ion-option *ngFor="let d of districtList" value="{{d.id}}">{{d.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>จังหวัด{{name.province}}</ion-label>>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="step == 3 && global.isLoaded && subDistrictList.length > 0">
+    <ion-list>
+      <ion-item>
+        <ion-label>ตำบล</ion-label>
+        <ion-select [(ngModel)]="subDistrict" (ionChange)="next()">
+          <ion-option *ngFor="let s of subDistrictList" value="{{s.id}}">{{s.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="step == 4 && global.isLoaded">
+    <h3>ที่อยู่</h3>
+  </div>
+
 </ion-content>
+
+<ion-footer>
+  <ion-navbar>
+    <ion-buttons start>
+      <button danger (click)="back()" *ngIf="step > 1 && global.isLoaded">
+        <i class="fa fa-angle-left margin-right-5"></i> <div class="capitalize">ย้อนกลับ</div>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button danger (click)="next()" *ngIf="step < 4 && global.isLoaded">
+        <div class="capitalize">ต่อไป</div> <i class="fa fa-angle-right margin-left-5"></i>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-footer>

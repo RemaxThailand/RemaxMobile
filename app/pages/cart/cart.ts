@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Storage, LocalStorage, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, Storage, LocalStorage, LoadingController, AlertController, ModalController } from 'ionic-angular';
 import { ProductPage } from '../../pages/product/product';
+import { AddressPage } from '../../pages/address/address';
 
 @Component({
   templateUrl: 'build/pages/cart/cart.html',
@@ -25,7 +26,7 @@ export class CartPage {
 
   step = 0;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private modalCtrl: ModalController) {
     this.global = this.navParams.get('global');
     
     this.global.data = {};
@@ -170,7 +171,7 @@ export class CartPage {
   }
 
   cartConfirm(){
-    this.global.isLoaded = false;
+    /*this.global.isLoaded = false;
     let loader = this.loadingCtrl.create({
       content: this.global.message.pleaseWait + "...",
     });
@@ -184,7 +185,14 @@ export class CartPage {
     }, 500);
 
     this.step++;
-    this.global.isLoaded = true;
+    this.global.isLoaded = true;*/
+
+
+    let modal = this.modalCtrl.create(AddressPage, {
+      global: this.global,
+      province: 25
+    });
+    modal.present();
 
   }
 

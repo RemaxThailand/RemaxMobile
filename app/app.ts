@@ -386,6 +386,28 @@ class RemaxApp {
         //global.subData = data.result;
       }
     });
+    
+    global.socket.on('api-system-province', function (data) {
+      global.isLoaded = true;
+      if (data.success) { // ถ้ามีข้อมูล
+        global.subData = data.result;
+      }
+    });
+    
+    global.socket.on('api-system-district', function (data) {
+      global.isLoaded = true;
+      if (data.success) { // ถ้ามีข้อมูล
+        global.subData = data.result;
+      }
+    });
+    
+    global.socket.on('api-system-sub_district', function (data) {
+      global.isLoaded = true;
+      if (data.success) { // ถ้ามีข้อมูล
+        global.subData = data.result;
+        console.log(global.subData);
+      }
+    });
 
   }
 
