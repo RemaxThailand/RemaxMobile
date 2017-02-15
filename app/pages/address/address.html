@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar dark>
-    <ion-title>ที่อยู่ในการจัดส่งสินค้า</ion-title>
+    <ion-title>{{global.message.address}}ในการจัดส่งสินค้า</ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
           <span color="primary" showWhen="ios">Cancel</span>
@@ -17,8 +17,8 @@
   <div *ngIf="step == 1 && global.isLoaded && provinceList.length > 0">
     <ion-list>
       <ion-item>
-        <ion-label>จังหวัด</ion-label>
-        <ion-select [(ngModel)]="province" (ionChange)="setSelectedName('province')">
+        <ion-label>{{global.message.province}}</ion-label>
+        <ion-select [(ngModel)]="province" (ionChange)="setSelectedName('province'); next()" autofocus>
           <ion-option *ngFor="let p of provinceList" value="{{p.id}}">{{p.name}}</ion-option>
         </ion-select>
       </ion-item>
@@ -28,13 +28,15 @@
   <div *ngIf="step == 2 && global.isLoaded && districtList.length > 0">
     <ion-list>
       <ion-item>
-        <ion-label>อำเภอ</ion-label>
-        <ion-select [(ngModel)]="district" (ionChange)="next()">
+        <ion-label *ngIf="province == '1'">{{global.message.area}}</ion-label>
+        <ion-label *ngIf="province != '1'">{{global.message.district}}</ion-label>
+        <ion-select [(ngModel)]="district" (ionChange)="setSelectedName('district'); next()" autofocus>
           <ion-option *ngFor="let d of districtList" value="{{d.id}}">{{d.name}}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label>จังหวัด{{name.province}}</ion-label>>
+        <ion-label *ngIf="province == '1'"><b>{{name.province}}</b></ion-label>
+        <ion-label *ngIf="province != '1'">{{global.message.province}}<b>{{name.province}}</b></ion-label>
       </ion-item>
     </ion-list>
   </div>
@@ -42,16 +44,50 @@
   <div *ngIf="step == 3 && global.isLoaded && subDistrictList.length > 0">
     <ion-list>
       <ion-item>
-        <ion-label>ตำบล</ion-label>
-        <ion-select [(ngModel)]="subDistrict" (ionChange)="next()">
+        <ion-label *ngIf="province == '1'">{{global.message.subArea}}</ion-label>
+        <ion-label *ngIf="province != '1'">{{global.message.subdistrict}}</ion-label>
+        <ion-select [(ngModel)]="subDistrict" (ionChange)="setSelectedName('subDistrict'); next()" autofocus>
           <ion-option *ngFor="let s of subDistrictList" value="{{s.id}}">{{s.name}}</ion-option>
         </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label *ngIf="province == '1'">{{global.message.area}}<b>{{name.district}}</b></ion-label>
+        <ion-label *ngIf="province != '1'">{{global.message.district}}<b>{{name.district}}</b></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label *ngIf="province == '1'"><b>{{name.province}}</b></ion-label>
+        <ion-label *ngIf="province != '1'">{{global.message.province}}<b>{{name.province}}</b></ion-label>
       </ion-item>
     </ion-list>
   </div>
 
   <div *ngIf="step == 4 && global.isLoaded">
-    <h3>ที่อยู่</h3>
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>{{global.message.address}}</ion-label>
+        <ion-input type="text" value="" autofocus></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed></ion-label>
+        <ion-input type="text" value=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label *ngIf="province == '1'">{{global.message.subArea}}<b>{{name.subDistrict}}</b></ion-label>
+        <ion-label *ngIf="province != '1'">{{global.message.subdistrict}}<b>{{name.subDistrict}}</b></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label *ngIf="province == '1'">{{global.message.area}}<b>{{name.district}}</b></ion-label>
+        <ion-label *ngIf="province != '1'">{{global.message.district}}<b>{{name.district}}</b></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label *ngIf="province == '1'"><b>{{name.province}}</b></ion-label>
+        <ion-label *ngIf="province != '1'">{{global.message.province}}<b>{{name.province}}</b></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>{{global.message.zipcode}}</ion-label>
+        <ion-input type="text" value="{{zipcode}}"></ion-input>
+      </ion-item>
+    </ion-list>
   </div>
 
 </ion-content>
@@ -60,12 +96,12 @@
   <ion-navbar>
     <ion-buttons start>
       <button danger (click)="back()" *ngIf="step > 1 && global.isLoaded">
-        <i class="fa fa-angle-left margin-right-5"></i> <div class="capitalize">ย้อนกลับ</div>
+        <i class="fa fa-angle-left margin-right-5"></i> <div class="capitalize">{{global.message.back}}</div>
       </button>
     </ion-buttons>
     <ion-buttons end>
       <button danger (click)="next()" *ngIf="step < 4 && global.isLoaded">
-        <div class="capitalize">ต่อไป</div> <i class="fa fa-angle-right margin-left-5"></i>
+        <div class="capitalize">{{global.message.next}}</div> <i class="fa fa-angle-right margin-left-5"></i>
       </button>
     </ion-buttons>
   </ion-navbar>

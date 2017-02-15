@@ -16,11 +16,12 @@ export class AddressPage {
   provinceList: any;
   province = '1';
   provinceTmp = '0';
-  districtList = {};
+  districtList: any;
   district = '1';
   districtTmp = '0';
-  subDistrictList = {};
+  subDistrictList: any;
   subDistrict = '1';
+  subDistrictTmp = '0';
   zipcode = '';
 
   constructor(private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private loadingCtrl: LoadingController) {
@@ -28,9 +29,12 @@ export class AddressPage {
     this.province = this.navParams.get('province');
 
     this.provinceList = {};
+    this.districtList = {};
+    this.subDistrictList = {};
 
     let storage = new Storage(LocalStorage);
     storage.get('token').then((token) => {
+      this.provinceList = {};
       this.global.socket.emit('api', {
         token: token,
         module: 'system',
@@ -49,6 +53,7 @@ export class AddressPage {
     var timer = setInterval(() => {
       if(this.global.isLoaded) {
         this.provinceList = this.global.subData;
+        this.setSelectedName('province');
         clearInterval(timer);
         //loader.dismiss();
       }
@@ -67,7 +72,20 @@ export class AddressPage {
         this.name[type] = data.name;
       }
     }
-    this.next();
+    else if(type == 'district'){
+      for(let data of this.districtList){
+        if(data.id == this.district)
+        this.name[type] = data.name;
+      }
+    }
+    else if(type == 'subDistrict'){
+      for(let data of this.subDistrictList){
+        if(data.id == this.subDistrict) {
+          this.name[type] = data.name;
+          this.zipcode = data.zipcode;
+        }
+      }
+    }
   }
 
   back() {
@@ -79,7 +97,9 @@ export class AddressPage {
     if( this.step == 2 && this.province != this.provinceTmp){
       this.provinceTmp = this.province;
       let storage = new Storage(LocalStorage);
+      this.setSelectedName('province');
       storage.get('token').then((token) => {
+        this.districtList = {};
         this.global.socket.emit('api', {
           token: token,
           module: 'system',
@@ -101,8 +121,10 @@ export class AddressPage {
     }
     else if( this.step == 3 && this.district != this.districtTmp){
       this.districtTmp = this.district;
+      this.setSelectedName('district');
       let storage = new Storage(LocalStorage);
       storage.get('token').then((token) => {
+        this.subDistrictList = {};
         this.global.socket.emit('api', {
           token: token,
           module: 'system',
@@ -122,6 +144,10 @@ export class AddressPage {
         }, 500);
 
       });
+    }
+    else if( this.step == 4 && this.subDistrict != this.subDistrictTmp){
+      this.subDistrictTmp = this.subDistrict;
+      this.setSelectedName('subDistrict');
     }
   }
 
