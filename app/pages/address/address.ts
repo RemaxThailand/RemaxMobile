@@ -7,7 +7,11 @@ import { NavController, NavParams, ViewController, Storage, LocalStorage, Loadin
 export class AddressPage {
 
   global: any;
-  step = 1;
+  step = 0;
+  firstname = '';
+  lastname = '';
+  mobile = '';
+  shopName = '';
   name = {
     province: 'xxx',
     district: 'yyy',
