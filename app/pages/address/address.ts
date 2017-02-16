@@ -189,6 +189,24 @@ export class AddressPage {
   save() {
     this.global.isLoaded = false;
     this.step++;
+    let storage = new Storage(LocalStorage);
+    storage.get('token').then((token) => {
+      this.subDistrictList = {};
+      this.global.socket.emit('api', {
+        token: token,
+        module: 'member',
+        action: 'update_address',
+        name: this.firstname,
+        mobile: this.mobile,
+        shop: this.shopName,
+        address: this.address,
+        address2: this.address2,
+        subdistrict: this.subDistrict,
+        district: this.district,
+        province: this.province,
+        zipcode: this.zipcode
+      });
+    });
   }
 
 }

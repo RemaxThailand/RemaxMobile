@@ -405,7 +405,15 @@ class RemaxApp {
       global.isLoaded = true;
       if (data.success) { // ถ้ามีข้อมูล
         global.subData = data.result;
-        console.log(global.subData);
+      }
+    });
+    
+    global.socket.on('api-member-update_address', function (data) {
+      global.isLoaded = true;
+      console.log(data);
+      if (data.success) { // ถ้ามีข้อมูล
+        //global.subData = data.result;
+        console.log(data);
       }
     });
 
