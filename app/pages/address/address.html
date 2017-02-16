@@ -18,11 +18,11 @@
     <h3>{{global.message.receiver}}</h3>
     <ion-list>
       <ion-item>
-        <ion-label floating><i class="fa fa-user-circle-o"></i> {{global.message.firstname}} - {{global.message.lastname}}</ion-label>
+        <ion-label floating danger><i class="fa fa-user-circle-o"></i> {{global.message.firstname}} - {{global.message.lastname}}</ion-label>
         <ion-input type="text" autofocus [(ngModel)]="firstname"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating><i class="fa fa-phone-square"></i> {{global.message.mobilePhoneNumber}}</ion-label>
+        <ion-label floating danger><i class="fa fa-phone-square"></i> {{global.message.mobilePhoneNumber}}</ion-label>
         <ion-input type="text" [(ngModel)]="mobile"></ion-input>
       </ion-item>
       <ion-item>
@@ -35,7 +35,7 @@
   <div *ngIf="step == 1 && global.isLoaded && provinceList.length > 0">
     <ion-list>
       <ion-item>
-        <ion-label>{{global.message.province}}</ion-label>
+        <ion-label danger>{{global.message.province}}</ion-label>
         <ion-select [(ngModel)]="province" (ionChange)="setSelectedName('province'); next()" autofocus>
           <ion-option *ngFor="let p of provinceList" value="{{p.id}}">{{p.name}}</ion-option>
         </ion-select>
@@ -46,8 +46,8 @@
   <div *ngIf="step == 2 && global.isLoaded && districtList.length > 0">
     <ion-list>
       <ion-item>
-        <ion-label *ngIf="province == '1'">{{global.message.area}}</ion-label>
-        <ion-label *ngIf="province != '1'">{{global.message.district}}</ion-label>
+        <ion-label danger *ngIf="province == '1'">{{global.message.area}}</ion-label>
+        <ion-label danger *ngIf="province != '1'">{{global.message.district}}</ion-label>
         <ion-select [(ngModel)]="district" (ionChange)="setSelectedName('district'); next()" autofocus>
           <ion-option *ngFor="let d of districtList" value="{{d.id}}">{{d.name}}</ion-option>
         </ion-select>
@@ -62,8 +62,8 @@
   <div *ngIf="step == 3 && global.isLoaded && subDistrictList.length > 0">
     <ion-list>
       <ion-item>
-        <ion-label *ngIf="province == '1'">{{global.message.subArea}}</ion-label>
-        <ion-label *ngIf="province != '1'">{{global.message.subdistrict}}</ion-label>
+        <ion-label danger *ngIf="province == '1'">{{global.message.subArea}}</ion-label>
+        <ion-label danger *ngIf="province != '1'">{{global.message.subdistrict}}</ion-label>
         <ion-select [(ngModel)]="subDistrict" (ionChange)="setSelectedName('subDistrict'); next()" autofocus>
           <ion-option *ngFor="let s of subDistrictList" value="{{s.id}}">{{s.name}}</ion-option>
         </ion-select>
@@ -82,12 +82,12 @@
   <div *ngIf="step == 4 && global.isLoaded">
     <ion-list>
       <ion-item>
-        <ion-label fixed>{{global.message.address}}</ion-label>
-        <ion-input type="text" value="" autofocus></ion-input>
+        <ion-label fixed danger>{{global.message.address}}</ion-label>
+        <ion-input type="text" [(ngModel)]="address" autofocus></ion-input>
       </ion-item>
       <ion-item>
         <ion-label fixed></ion-label>
-        <ion-input type="text" value=""></ion-input>
+        <ion-input type="text" [(ngModel)]="address2"></ion-input>
       </ion-item>
       <ion-item (click)="step = 3">
         <ion-label *ngIf="province == '1'">{{global.message.subArea}}<b>{{name.subDistrict}}</b></ion-label>
@@ -103,7 +103,7 @@
       </ion-item>
       <ion-item>
         <ion-label fixed>{{global.message.zipcode}}</ion-label>
-        <ion-input type="text" value="{{zipcode}}"></ion-input>
+        <ion-input type="text" required value="{{zipcode}}"></ion-input>
       </ion-item>
     </ion-list>
   </div>
@@ -118,7 +118,7 @@
       </button>
     </ion-buttons>
     <ion-buttons end>
-      <button danger (click)="next()" *ngIf="step < 4 && global.isLoaded">
+      <button danger (click)="next()" *ngIf="step < 5 && global.isLoaded">
         <div class="capitalize">{{global.message.next}}</div> <i class="fa fa-angle-right margin-left-5"></i>
       </button>
     </ion-buttons>

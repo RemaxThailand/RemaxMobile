@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, Storage, LocalStorage, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, Storage, LocalStorage, LoadingController, ToastController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'build/pages/address/address.html',
@@ -9,9 +9,10 @@ export class AddressPage {
   global: any;
   step = 0;
   firstname = '';
-  lastname = '';
   mobile = '';
   shopName = '';
+  address = '';
+  address2 = '';
   name = {
     province: 'xxx',
     district: 'yyy',
@@ -28,7 +29,7 @@ export class AddressPage {
   subDistrictTmp = '0';
   zipcode = '';
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private loadingCtrl: LoadingController) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
     this.global = this.navParams.get('global');
     this.province = this.navParams.get('province');
 
@@ -97,8 +98,23 @@ export class AddressPage {
   }
 
   next() {
-    this.step++;
-    if( this.step == 2 && this.province != this.provinceTmp){
+    if(this.step == 0 && (this.firstname.trim() == '' || this.mobile.trim() == '')){
+      if(this.firstname.trim() == ''){
+        let toast = this.toastCtrl.create({
+          message: 'กรุณากรอกข้อมูล ' + this.global.message.firstname + '-' + this.global.message.lastname + ' ด้วยค่ะ',
+          duration: 3000
+        });
+        toast.present();
+      }
+      else if(this.mobile.trim() == ''){
+        let toast = this.toastCtrl.create({
+          message: 'กรุณากรอกข้อมูล ' + this.global.message.mobilePhoneNumber + ' ด้วยค่ะ',
+          duration: 3000
+        });
+        toast.present();
+      }
+    }
+    else if( this.step == 1 && this.province != this.provinceTmp){
       this.provinceTmp = this.province;
       let storage = new Storage(LocalStorage);
       this.setSelectedName('province');
@@ -122,8 +138,9 @@ export class AddressPage {
         }, 500);
 
       });
+      this.step++;
     }
-    else if( this.step == 3 && this.district != this.districtTmp){
+    else if( this.step == 2 && this.district != this.districtTmp){
       this.districtTmp = this.district;
       this.setSelectedName('district');
       let storage = new Storage(LocalStorage);
@@ -148,10 +165,24 @@ export class AddressPage {
         }, 500);
 
       });
+      this.step++;
     }
-    else if( this.step == 4 && this.subDistrict != this.subDistrictTmp){
+    else if( this.step == 3 && this.subDistrict != this.subDistrictTmp){
       this.subDistrictTmp = this.subDistrict;
       this.setSelectedName('subDistrict');
+      this.step++;
+    }
+    else if( this.step == 4 && this.address.trim() == ''){
+      if(this.address.trim() == ''){
+        let toast = this.toastCtrl.create({
+          message: 'กรุณากรอกข้อมูล ' + this.global.message.address + ' ด้วยค่ะ',
+          duration: 3000
+        });
+        toast.present();
+      }
+    }
+    else {
+      this.step++;
     }
   }
 
