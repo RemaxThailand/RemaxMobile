@@ -115,6 +115,7 @@ export class AddressPage {
       }
     }
     else if( this.step == 1 && this.province != this.provinceTmp){
+      this.global.isLoaded = false;
       this.provinceTmp = this.province;
       let storage = new Storage(LocalStorage);
       this.setSelectedName('province');
@@ -128,7 +129,6 @@ export class AddressPage {
           langCode: this.global.langCode
         });
 
-        this.global.isLoaded = false;
         var timer = setInterval(() => {
           if(this.global.isLoaded) {
             this.districtList = this.global.subData;
@@ -141,6 +141,7 @@ export class AddressPage {
       this.step++;
     }
     else if( this.step == 2 && this.district != this.districtTmp){
+      this.global.isLoaded = false;
       this.districtTmp = this.district;
       this.setSelectedName('district');
       let storage = new Storage(LocalStorage);
@@ -155,7 +156,6 @@ export class AddressPage {
           langCode: this.global.langCode
         });
 
-        this.global.isLoaded = false;
         var timer = setInterval(() => {
           if(this.global.isLoaded) {
             this.subDistrictList = this.global.subData;
@@ -184,6 +184,11 @@ export class AddressPage {
     else {
       this.step++;
     }
+  }
+
+  save() {
+    this.global.isLoaded = false;
+    this.step++;
   }
 
 }

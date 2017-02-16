@@ -82,7 +82,7 @@
   <div *ngIf="step == 4 && global.isLoaded">
     <ion-list>
       <ion-item>
-        <ion-label fixed danger>{{global.message.address}}</ion-label>
+        <ion-label fixed danger><i class="fa fa-envelope-o"></i> {{global.message.address}}</ion-label>
         <ion-input type="text" [(ngModel)]="address" autofocus></ion-input>
       </ion-item>
       <ion-item>
@@ -108,6 +108,35 @@
     </ion-list>
   </div>
 
+  <div *ngIf="step == 5 && global.isLoaded">
+    <ion-list>
+      <ion-item>
+        <ion-label><i class="fa fa-user-circle-o"></i> <b primary (click)="step = 0">{{firstname}}</b></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label><i class="fa fa-phone-square"></i> <b primary (click)="step = 0">{{mobile}}</b></ion-label>
+      </ion-item>
+      <ion-item *ngIf="shopName != ''">
+        <ion-label><i class="fa fa-home"></i> {{global.message.shopName}} <b (click)="step = 0">{{shopName}}</b></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label><i class="fa fa-envelope-o"></i> <b (click)="step = 4">{{address}}</b><span *ngIf="address2 != ''" (click)="step = 4"><br />{{address2}}</span></ion-label>
+      </ion-item>
+      <ion-item text-wrap>
+        <ion-label>
+          <span *ngIf="province == '1'">{{global.message.subArea}}</span><span *ngIf="province != '1'">{{global.message.subdistrictShort}}</span><b class="margin-right-10" (click)="step = 3">{{name.subDistrict}}</b>
+          <span *ngIf="province == '1'">{{global.message.area}}</span><span *ngIf="province != '1'">{{global.message.districtShort}}</span><b class="margin-right-10" (click)="step = 2">{{name.district}}</b>
+          <span *ngIf="province != '1'">{{global.message.provinceShort}}</span><b class="margin-right-10" (click)="step = 1">{{name.province}}</b>
+          <b>{{zipcode}}</b>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="step == 6" text-center>
+    <h3>{{this.global.message.pleaseWait}} ...</h3>
+  </div>
+
 </ion-content>
 
 <ion-footer>
@@ -120,6 +149,9 @@
     <ion-buttons end>
       <button danger (click)="next()" *ngIf="step < 5 && global.isLoaded">
         <div class="capitalize">{{global.message.next}}</div> <i class="fa fa-angle-right margin-left-5"></i>
+      </button>
+      <button primary (click)="save()" *ngIf="step == 5 && global.isLoaded">
+        <div class="capitalize">{{global.message.save}}</div> <i class="fa fa-check-square margin-left-5"></i>
       </button>
     </ion-buttons>
   </ion-navbar>
