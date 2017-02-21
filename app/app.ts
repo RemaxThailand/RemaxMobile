@@ -413,7 +413,7 @@ class RemaxApp {
       console.log(data);
       if (data.success) { // ถ้ามีข้อมูล
         //global.subData = data.result;
-        console.log(data);
+        //console.log(data);
       }
     });
 
