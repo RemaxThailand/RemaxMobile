@@ -191,7 +191,6 @@ export class AddressPage {
     this.step++;
     let storage = new Storage(LocalStorage);
     storage.get('token').then((token) => {
-      this.subDistrictList = {};
       this.global.socket.emit('api', {
         token: token,
         module: 'member',
@@ -206,6 +205,15 @@ export class AddressPage {
         province: this.province,
         zipcode: this.zipcode
       });
+
+      var timer = setInterval(() => {
+        if(this.global.isLoaded) {
+          clearInterval(timer);
+          this.step = 7;
+          this.viewCtrl.dismiss();
+        }
+      }, 500);
+
     });
   }
 
